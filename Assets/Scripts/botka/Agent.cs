@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * @Author Jake Botka
+ * 
+ */
 public class Agent : MonoBehaviour
 {
     public AgentState AgentState;
     public AgentBehavior AgentBehavior;
     public GameObject AgentObj;
+    
     
     
     public bool LogEvents;
@@ -23,7 +28,8 @@ public class Agent : MonoBehaviour
     {
         if (_NoRun)
         {
-
+            Debug.LogError("Script halted Due to error. Check error logs");
+            gameObject.SetActive(false);
         }
     }
 
@@ -35,10 +41,9 @@ public class Agent : MonoBehaviour
     void InitAgent(out bool noRun)
     {
         //Out modifier allows you to pass refrence instead of value meaning if refrence or value of local variable is changed then it is also reflected in the global variable. 
-        // This does not occur in java.
+        // This does not occur in java. This is technically not needed as I can refrence _NoRun with the current scope. 
+        //iteHowever I wanted to demostrated hwo to change source object frence if this method was in a seperate class. Variosu unity functions utalize this.
         noRun = false; // this changes the passed variable too which in this case is _NoRun.
-        
-        
         if (AgentObj == null)
         {
             AgentObj = gameObject;

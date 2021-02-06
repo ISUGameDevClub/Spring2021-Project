@@ -2,12 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * @Author Jake Botka
+ * 
+ */
 public class AgentState : MonoBehaviour
 {
+    public enum EntityStatus
+    {
+        None, NotSpawned, Dead, Patrol, Idle, PursuingTarget, Wandering
+    }
     
     public Transform _AgentTransform;
-    public bool _Lock;
-    public bool _PosLock;
+    public bool Lock;
+    public bool PosLock;
+
+    public EntityStatus entityStatus;
+    public  bool canMove; //variable determines if AI is locked in position
+    public bool canAttack;
+    public bool fixedPathing;
+    public bool variablePathing;
+    public bool LogEvents;
 
  /*
     public bool _Lock 
@@ -34,8 +49,8 @@ public class AgentState : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_Lock){
-            _PosLock = _Lock;
+        if (Lock){
+            PosLock = Lock;
         }
     }
 }
