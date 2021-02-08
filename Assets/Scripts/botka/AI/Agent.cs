@@ -58,6 +58,17 @@ public class Agent : MonoBehaviour
         }
     }
 
+    void InitDeath()
+    {
+        UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "AI Agent has died");
+        DestoryAgent();
+    }
+    void DestoryAgent()
+    {
+        Destroy(gameObject);
+        UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "AI Agent Gameobject has been destroyed");
+    }
+
     private void OnCollisionEnter2D(Collision2D other) 
     {
         if (LogEvents)
