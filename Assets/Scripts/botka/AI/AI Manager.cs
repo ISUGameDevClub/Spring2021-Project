@@ -4,23 +4,70 @@ using UnityEngine;
 
 public class AIManager : MonoBehaviour
 {
-    public List<Agent> Agents;
+    public const int DefaultMaxCount = 200;
+    public GameObject Player;
+    public int AgentMaxCount;
+    public GameObject[] AIPrefabs;
+    public Transform[] SpawnLocations;
+
+    [Range(0f,1000f)]public float LoadUnloadRenderDistance;
+    
+    [Header("DEBUG")]
+    public Agent[] AgentsView;
+    private List<Agent> _Agents;
+    void Awake()
+    {
+        _Agents = _Agents != null ? _Agents : new List<Agent>(0);
+        AgentMaxCount = AgentMaxCount > 0 ? AgentMaxCount : DefaultMaxCount;
+    }
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (SpawnLocations != null)
+        {
+            foreach(Transform loca in SpawnLocations)
+            {
+                CreateAgent(null, loca.position);
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate() 
     {
-        
+        HandleRenderLogic();
+    }
+
+    void HandleRenderLogic()
+    {
+        Vector3 PlayerPos = gameObject.transform.position;
+        float distance =  -1f;
+        foreach(Agent agent in _Agents)
+        {
+           distance = Mathf.Abs(Vector3.Distance(agent.transform.position, PlayerPos));
+           if (distance > LoadUnloadRenderDistance)
+           {
+               agent.gameObject.SetActive(true);
+           }
+           else
+           {
+               agent.gameObject.SetActive(true);
+           }
+        }
     }
 
 
-    void CreateAgent(GameObject prefab)
+    void CreateAgent(GameObject prefab, Vector3 position)
     {
-        
+        if (_Agents.Count < AgentMaxCount)
+        {
+            GameObject agentObj = GameObject.Instantiate(prefab, position, Quaternion.identity) as GameObject;
+            Agent agent = agentObj.GetComponentInChildren<Agent>();
+            if (agent != null)
+            {
+                _Agents.Add(agent);
+                OnAgentsListAltered();
+            }
+        }
     }
     void DestroyAgent(Agent agent)
     {
@@ -28,6 +75,25 @@ public class AIManager : MonoBehaviour
         {
 
         }
+    }
+
+    void LoadInAgents(Agent[] agents)
+    {
+        if (agents != null)
+        {
+            foreach(Agent agent in agents)
+            {
+                if (agent != null)
+                {
+                    _Agents.Add(agent);
+                }
+            }
+        }
+    }
+
+    void OnAgentsListAltered()
+    {
+        AgentsView = _Agents.ToArray();
     }
 
     
