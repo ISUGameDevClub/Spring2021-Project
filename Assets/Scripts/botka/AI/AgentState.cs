@@ -12,7 +12,7 @@ public class AgentState : MonoBehaviour
     {
         None, NotSpawned, Dead, Patrol, Idle, PursuingTarget, Wandering
     }
-    
+    [Range(0f,360f)]public float POV;
     public Transform _AgentTransform;
     public bool Lock;
     public bool PosLock;
@@ -22,6 +22,8 @@ public class AgentState : MonoBehaviour
     public bool canAttack;
     public bool fixedPathing;
     public bool variablePathing;
+
+    public GameObject[] ObjectsInView;
     public bool LogEvents;
 
  /*
@@ -49,8 +51,14 @@ public class AgentState : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Lock){
+        if (Lock)
+        {
             PosLock = Lock;
         }
+    }
+
+    public bool TargetInView()
+    {
+        return false;
     }
 }

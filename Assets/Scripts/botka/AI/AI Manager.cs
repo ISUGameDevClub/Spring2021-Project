@@ -56,7 +56,7 @@ public class AIManager : MonoBehaviour
     }
 
 
-    void CreateAgent(GameObject prefab, Vector3 position)
+    public void CreateAgent(GameObject prefab, Vector3 position)
     {
         if (_Agents.Count < AgentMaxCount)
         {
@@ -69,15 +69,15 @@ public class AIManager : MonoBehaviour
             }
         }
     }
-    void DestroyAgent(Agent agent)
+    public void DestroyAgent(Agent agent)
     {
         if (agent != null)
         {
-
+            agent.DestoryAgent();
         }
     }
 
-    void LoadInAgents(Agent[] agents)
+    public void LoadInAgents(Agent[] agents)
     {
         if (agents != null)
         {
@@ -91,7 +91,7 @@ public class AIManager : MonoBehaviour
         }
     }
 
-    void OnAgentsListAltered()
+    private void OnAgentsListAltered()
     {
         AgentsView = _Agents.ToArray();
     }

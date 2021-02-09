@@ -12,7 +12,13 @@ public class AgentBehavior : MonoBehaviour
     
     public const Action DefaultAction = Action.Halt;
     public const BehavioralAggression DefaultAggression = BehavioralAggression.Passive;
+    public Action[] AllActions
+    {  get{return new Action[] {Action.Move, Action.Attack, Action.Halt, Action.Patrol, Action.Persue};}
+        set{}
+    }
     
+    public AutomatedMovement AutomatedMovementScript;
+    public AgentState AgentStateScript;
     public Action StartingAction;
     public BehavioralAggression StartingAggression;
 
@@ -27,29 +33,34 @@ public class AgentBehavior : MonoBehaviour
     [Range(0f, 100f)]public float VelocityY;
     [Range(0f,100f)] public float StopingDistance;
 
-    [HideInInspector]public float DistanceToTarget;
+    
 
-    private Coroutine _MoveCoroutine;
-    private List<WrappedAction> _ActiveActionRoutines;
-    private Coroutine _AttackCoroutine;
-    
-    
 
     public enum Action
     {
-        Null,Patrol, Attack, Persue, Halt, 
+        Null,Patrol, Attack, Persue, Halt, Move
     }
     public enum BehavioralAggression 
     {
         Null,Passive, Moderate, Agressive
     } 
-    public GameObject Target;
+    
     
     [Header("Target Information - DO NOT SET")]
+    public GameObject Target;
     public Transform TargetTransform;
 
     public bool Persue;
     public bool LogEvents;
+    private float _DistanceToTarget;
+
+     private List<int> _PendingRemovals = new List<int>(0);
+   
+    private List<WrappedAction> _ActiveActionRoutines;
+    
+    [Header("DEBUG")]
+    public Action[] ActiveActionsBeingPerformed;
+   
 
     void Awake()
     {
@@ -69,16 +80,26 @@ public class AgentBehavior : MonoBehaviour
         {
             Target = Target.transform.root.gameObject;
         }
+        else
+        {
+            Target = GameObject.FindGameObjectWithTag("Player");
+        }
     }
     // Start is called before the first frame update
     void Start()
     {
         
+        ExecuteAction(StartingAction);
+        ApplyAggression(StartingAggression);
+        AutomatedMovementScript.VelocityX = VelocityX;
+        AutomatedMovementScript.VelocityY = VelocityY;
     }
 
-    private List<int> _PendingRemovals = new List<int>(0);
+   
     void FixedUpdate()
     {
+        
+        //Checks which active coroutine are finished. This is schronized as removal in a cororutine is not possible due to lack of synchronization in list objects.
         int index = 0;
         foreach(WrappedAction wrappedAction in _ActiveActionRoutines)
         {
@@ -93,18 +114,49 @@ public class AgentBehavior : MonoBehaviour
         }
         foreach(int i in _PendingRemovals)
         {
-            UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "Completed action removed");
+            UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "Completed action removed: " + _ActiveActionRoutines[i].ActionProp);
             _ActiveActionRoutines.RemoveAt(i);
+            
         }
-        //Basic checking
-        if ( _AttackCoroutine == null && DistanceToTarget <= DistanceToAttack)
+
+        if (_PendingRemovals.Count > 0)
         {
-            ExecuteAction(Action.Attack, Target);
+            ActiveActionsBeingPerformed = _ActiveActionRoutines.ConvertAll<Action>(e => e.ActionProp).ToArray();
+            _PendingRemovals.Clear();
+        }
+        
+        HandleIfInView();
+        HandleDistanceToTarget();
+    }
+
+    void HandleDistanceToTarget()
+    {
+        if (Target != null)
+        {
+            _DistanceToTarget = Vector3.Distance(Target.transform.position, transform.position);
+            //Basic checking
+            
+            if (!HasActiveCoroutines(Action.Attack) && _DistanceToTarget <= DistanceToAttack)
+            {
+                ExecuteAction(Action.Attack, Target);
+            }
+        }
+        else
+        {
+            _DistanceToTarget = 0f;
         }
     }
 
-    
-
+    void HandleIfInView()
+    {
+        if (AgentStateScript.TargetInView())
+        {
+            if (!HasActiveCoroutines(Action.Persue))
+            {
+                ExecuteAction(Action.Persue, Target);
+            }
+        }
+    }
 
     void ApplyAggression(BehavioralAggression aggression)
     {
@@ -148,37 +200,35 @@ public class AgentBehavior : MonoBehaviour
     }
     
 
-    void ExecuteAction(Action action)
+    public void ExecuteAction(Action action)
     {
-        ExecuteAction(action, Target);
+        if (StartingAction == Action.Attack || StartingAction == Action.Persue)
+        {
+            ExecuteAction(action,Target, false);   
+        }
+        else
+        {
+            ExecuteAction(action, null, false);
+        }
     }
 
-    void ExecuteAction(Action action, GameObject target, bool overrideAction, Action[] overridenActions)
+    public void ExecuteAction(Action action, GameObject target, bool overrideExistingAction)
     {
         if (_ActiveActionRoutines.Count > 0) 
         {
-            if (overrideAction == true)
+            if (overrideExistingAction == true)
             {
-                int index = 0;
-                foreach (WrappedAction wrappedAction in _ActiveActionRoutines)
-                {
-                    if (wrappedAction != null)
-                    {
-                        foreach(Action action1 in  overridenActions)
-                        {
-                            if (wrappedAction.ActionProp == action1)
-                            {
-                                StopActiveAction(wrappedAction);
-                                _ActiveActionRoutines.RemoveAt(index);
-                                break;
-                            }
-                        }
-                    }
-                    index++;
-                }
-                
+               StopActiveAction(action);
             }
-            
+            if (!HasActiveCoroutines(action))
+            {
+                ExecuteAction(action,target);
+            }
+            else
+            {
+                UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.Warning, 
+                "Attemted to start an action that already exists and the ovveride value is set to false. This call is ignored");
+            }
         }
         else
         {
@@ -197,41 +247,67 @@ public class AgentBehavior : MonoBehaviour
                 c = StartCoroutine(ExecuteAttackAction(w,targetOfAction));
                 break;
             case Action.Patrol:
+                if (!HasActiveCoroutines(Action.Patrol))
+                {
+                    if (!HasActiveCoroutines(Action.Move))
+                    {
+                        WrappedAction w1 = _ActiveActionRoutines.Find((e) => e.ActionProp == Action.Move);
+                        if (w1 != null)
+                        {
+                            StopActiveAction(w1);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("Attemting to Start patrol action when already patrolling");
+                    }
+                }
                 c = StartCoroutine(ExecutePatrolAction(w,PatrolPoints));
                 break;
             case Action.Halt:
-                c = StartCoroutine(ExecutePatrolAction(w,PatrolPoints));
+                AutomatedMovementScript.StopMoving();
                 break;
             case Action.Persue:
-                c = StartCoroutine(ExecutePatrolAction(w,PatrolPoints));
+                c = StartCoroutine(ExecutePersueAction(w,Target));
+                break;
+            case Action.Move:
+                c = StartCoroutine(ExecuteMoveAction(w,targetOfAction.transform));
                 break;
             default:
                 break;
         }
 
+        UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "Action initated: " + action.ToString() 
+            + " on target: " + (targetOfAction != null ? targetOfAction.name : "Null"));
         if (w != null)
         {
             w.ActionCoroutineProp = c;
             _ActiveActionRoutines.Add(w);
+            ActiveActionsBeingPerformed = _ActiveActionRoutines.ConvertAll<Action>(e => e.ActionProp).ToArray();
         }
         
     }
 
+    IEnumerator ExecuteAttackAction(WrappedAction wrappedAction, GameObject target)
+    {
+        //TODO
+        yield return new WaitUntil(() => false); // replace condition testing when the attack is finished
+        yield return new WaitForEndOfFrame();
+        wrappedAction.Done = true;
+    }
 
-
-    [ContextMenu("Begin patrol")]
     IEnumerator ExecutePatrolAction(WrappedAction action, Transform[] patrolPoints)
     {
         if (patrolPoints != null )
         {
-           if (HasActiveCoroutines(Action.Patrol) == false)
-           {
-
-           }
-           else
-           {
-                Debug.LogError("Attemting to Start patrol action when already patrolling");
-           }
+            AutomatedMovementScript.VelocityX = VelocityX;
+            AutomatedMovementScript.VelocityY = VelocityY;
+            foreach (Transform transform in patrolPoints)
+            {
+                AutomatedMovementScript.Target = transform.gameObject;
+                
+                yield return new WaitUntil(() => AutomatedMovementScript.IsAtTarget());
+            }
         }
         else
         {
@@ -242,21 +318,18 @@ public class AgentBehavior : MonoBehaviour
         
     }
 
-    
-
-    void CeaseAction(Action ceasedAction)
+    IEnumerator ExecutePersueAction(WrappedAction wrappedAction, GameObject target)
     {
-        UnityLoggingDelegate.LogIfTrue(LogEvents,UnityLoggingDelegate.LogType.General, ceasedAction.ToString() + " has ceased");
-    }
-
-     IEnumerator ExecuteAttackAction(WrappedAction wrappedAction, GameObject target)
-    {
-        //TODO
+        AutomatedMovementScript.Target = target;
+        AutomatedMovementScript.DistanceErrorMargin = StopingDistance;
+        AutomatedMovementScript.VelocityX = VelocityX;
+        AutomatedMovementScript.VelocityY = VelocityY;
+        AutomatedMovementScript.StartMoving();
+        yield return new WaitUntil(() => AutomatedMovementScript.IsAtTarget()); // replace condition testing when the attack is finished
         yield return new WaitForEndOfFrame();
         wrappedAction.Done = true;
     }
 
-    
 
     void ExecuteAgentDeath()
     {
@@ -264,11 +337,22 @@ public class AgentBehavior : MonoBehaviour
         UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "AI Agent: " + gameObject.transform.root.gameObject.name + " has been destroyed in scene");
     }
 
-    void MoveTo(Transform target)
+    public void MoveTo(Transform target, bool overrideExistingAction)
     {
-        if (_MoveCoroutine != null)
+        if (overrideExistingAction)
         {
-            _MoveCoroutine = StartCoroutine(MoveCoroutine(target));
+            if (!HasActiveCoroutines(Action.Move))
+            {
+
+            }
+        }
+        if (!HasActiveCoroutines(Action.Move))
+        {
+            Coroutine c = null;
+            WrappedAction w = w = new WrappedAction(null,Action.Move, target.gameObject, false);
+            c = StartCoroutine(ExecuteMoveAction(w,target));
+            w.ActionCoroutineProp = c;
+            _ActiveActionRoutines.Add(w);
         }
         else
         {
@@ -279,12 +363,24 @@ public class AgentBehavior : MonoBehaviour
 
     
 
-    IEnumerator MoveCoroutine(Transform target)
+    IEnumerator ExecuteMoveAction(WrappedAction wrappedAction, Transform target)
     {
         yield return new WaitForEndOfFrame();
-        _MoveCoroutine = null;
+        wrappedAction.Done = true;
     }
 
+    void StopActiveAction(Action action)
+    {
+        WrappedAction wrappedAction = _ActiveActionRoutines.Find((e) => e.ActionProp == action);
+        if (wrappedAction != null)
+        {
+            wrappedAction.Done = true;
+            if (wrappedAction.ActionCoroutineProp != null)
+            {
+                StopCoroutine(wrappedAction.ActionCoroutineProp);
+            }
+        }
+    }
     void StopActiveAction(WrappedAction wrappedAction)
     {
         wrappedAction.Done = true;
