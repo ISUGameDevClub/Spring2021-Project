@@ -7,6 +7,7 @@ public class Attack : MonoBehaviour
 	private Vector2 attackOrigin;
     private bool meleeReady;
 	private bool gunReady;
+    private PlayerMovement pm;
 	
 	public int rangedSpeed;
 	public GameObject attackZone;
@@ -16,27 +17,25 @@ public class Attack : MonoBehaviour
 	public float meleeAttackWindup;
 	public float rangedReloadSpeed;
 	public float rangedAttackWindup;
-    public bool facingRight;
     // Start is called before the first frame update
     void Start()
     {
         attackZone.SetActive(false);
 		gunReady = true;
         meleeReady = true;
+        pm = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Horizontal") > 0)
+        if (pm.facingRight)
         {
-            facingRight = true;
             if (attackZone != null)
                 attackZone.transform.localPosition = (Vector3.right);
         }
-        if (Input.GetAxis("Horizontal") < 0)
+        else
         {
-            facingRight = false;
             if (attackZone != null)
                 attackZone.transform.localPosition = (Vector3.left);
         }
@@ -63,13 +62,13 @@ public class Attack : MonoBehaviour
 	private IEnumerator RangedAttack() {
 		gunReady = false;
 		yield return new WaitForSeconds(rangedAttackWindup);
-		if(facingRight){
+		if(pm.facingRight){
 		    Bullet bul = Instantiate(bullet,new Vector2(transform.position.x+1,transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
-		    bul.facingRight = facingRight;
+		    bul.facingRight = pm.facingRight;
 		}
 		else{
 		    Bullet bul = Instantiate(bullet,new Vector2(transform.position.x-1,transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
-		    bul.facingRight = facingRight;
+		    bul.facingRight = pm.facingRight;
 		}
 		
 		yield return new WaitForSeconds(rangedReloadSpeed);

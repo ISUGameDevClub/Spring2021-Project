@@ -11,11 +11,11 @@ public class DashAbility : MonoBehaviour
     public float startDashTime;
 
     public float cooldownTimer;
-    public float moveInput;
     private float dashTime;
     private Rigidbody2D rb;
     private int direction;
     private bool canDash;
+    private PlayerMovement pm;
 
     
 
@@ -25,24 +25,23 @@ public class DashAbility : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         dashTime = startDashTime;
         canDash = true;
+        pm = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveInput = Input.GetAxisRaw("Horizontal");
-
         //If the direction is not defined, define direction
         if (direction == 0)
         {
             if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
             {
                 StartCoroutine(DashCooldown());
-                if(moveInput < 0)
+                if(!pm.facingRight)
                 {
                     direction = 1;
                 }
-                else if (moveInput > 0)
+                else
                 {
                     direction = 2;
                 }
