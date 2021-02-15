@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   facingRight: 1
-  speed: 5
+  speed: 25
   despawnTime: 6
 --- !u!58 &1877549074760806170
 CircleCollider2D:
