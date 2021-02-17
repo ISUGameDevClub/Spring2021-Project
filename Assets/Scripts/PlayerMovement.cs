@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float movementSpeed = 6;
-    public float jumpPower;
+    public float movementSpeed = 5;
+    public float jumpPower = 8;
     public bool isGrounded;
     public float gravity;
     public float fallSpeed;
-    
+
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
