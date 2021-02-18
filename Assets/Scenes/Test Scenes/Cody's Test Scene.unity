@@ -478,7 +478,7 @@ MonoBehaviour:
   attackPower: 0
   meleeAttackActiveTime: 1
   meleeAttackWindup: 1
-  rangedReloadSpeed: 2
+  rangedReloadSpeed: 5
   rangedAttackWindup: 0.5
 --- !u!114 &733377164
 MonoBehaviour:
@@ -515,7 +515,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &783248283
 BoxCollider2D:
   m_ObjectHideFlags: 0
