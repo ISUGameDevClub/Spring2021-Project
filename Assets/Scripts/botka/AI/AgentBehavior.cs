@@ -115,8 +115,7 @@ public class AgentBehavior : MonoBehaviour
         foreach(int i in _PendingRemovals)
         {
             UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "Completed action removed: " + _ActiveActionRoutines[i].ActionProp);
-            _ActiveActionRoutines.RemoveAt(i);
-            
+            _ActiveActionRoutines.RemoveAt(i); 
         }
 
         if (_PendingRemovals.Count > 0)
@@ -236,7 +235,8 @@ public class AgentBehavior : MonoBehaviour
         }
         
     }
-    void ExecuteAction(Action action, GameObject targetOfAction)
+
+    public void ExecuteAction(Action action, GameObject targetOfAction)
     {
         Coroutine c = null;
         WrappedAction w = w = new WrappedAction(null,action, targetOfAction, false);
@@ -288,7 +288,7 @@ public class AgentBehavior : MonoBehaviour
         
     }
 
-    IEnumerator ExecuteAttackAction(WrappedAction wrappedAction, GameObject target)
+    private IEnumerator ExecuteAttackAction(WrappedAction wrappedAction, GameObject target)
     {
         //TODO
         yield return new WaitUntil(() => false); // replace condition testing when the attack is finished
@@ -296,7 +296,7 @@ public class AgentBehavior : MonoBehaviour
         wrappedAction.Done = true;
     }
 
-    IEnumerator ExecutePatrolAction(WrappedAction action, Transform[] patrolPoints)
+    private IEnumerator ExecutePatrolAction(WrappedAction action, Transform[] patrolPoints)
     {
         if (patrolPoints != null )
         {
@@ -318,7 +318,7 @@ public class AgentBehavior : MonoBehaviour
         
     }
 
-    IEnumerator ExecutePersueAction(WrappedAction wrappedAction, GameObject target)
+    private IEnumerator ExecutePersueAction(WrappedAction wrappedAction, GameObject target)
     {
         AutomatedMovementScript.Target = target;
         AutomatedMovementScript.DistanceErrorMargin = StopingDistance;
@@ -331,11 +331,7 @@ public class AgentBehavior : MonoBehaviour
     }
 
 
-    void ExecuteAgentDeath()
-    {
-        GameObject.Destroy(gameObject); //Should be last call of this meathod.
-        UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "AI Agent: " + gameObject.transform.root.gameObject.name + " has been destroyed in scene");
-    }
+   
 
     public void MoveTo(Transform target, bool overrideExistingAction)
     {

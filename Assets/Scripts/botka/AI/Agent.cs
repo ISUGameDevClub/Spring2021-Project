@@ -22,9 +22,7 @@ public class Agent : MonoBehaviour
 
     void Awake()
     {
-        
         InitAgent(out _NoRun);
-        
     }
     
     void Start()
@@ -35,7 +33,6 @@ public class Agent : MonoBehaviour
             gameObject.SetActive(false);
         }
         AgentBehavior.AgentStateScript = AgentState;
-        
     }
 
     void FixedUpdate()
@@ -81,7 +78,7 @@ public class Agent : MonoBehaviour
 
     public void InitDeath()
     {
-        UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "AI Agent has died");
+        UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "AI Agent: " + transform.root.gameObject.name + " has been destroyed in scene");
         DestoryAgent();
     }
     public void DestoryAgent()

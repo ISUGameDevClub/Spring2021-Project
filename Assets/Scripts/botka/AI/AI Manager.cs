@@ -17,12 +17,9 @@ public class AIManager : MonoBehaviour
     private List<Agent> _Agents;
     void Awake()
     {
+        
         _Agents = _Agents != null ? _Agents : new List<Agent>(0);
         AgentMaxCount = AgentMaxCount > 0 ? AgentMaxCount : DefaultMaxCount;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
         if (SpawnLocations != null)
         {
             foreach(Transform loca in SpawnLocations)
@@ -30,6 +27,11 @@ public class AIManager : MonoBehaviour
                 CreateAgent(null, loca.position);
             }
         }
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     void FixedUpdate() 
@@ -67,6 +69,14 @@ public class AIManager : MonoBehaviour
                 _Agents.Add(agent);
                 OnAgentsListAltered();
             }
+        }
+    }
+    
+    public void DestroyAgent(GameObject agent)
+    {
+        if (agent != null)
+        {
+            DestroyAgent()
         }
     }
     public void DestroyAgent(Agent agent)
