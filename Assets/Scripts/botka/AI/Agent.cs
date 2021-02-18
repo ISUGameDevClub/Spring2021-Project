@@ -27,12 +27,19 @@ public class Agent : MonoBehaviour
     
     void Start()
     {
+        if (MainTarget == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            //this is redundant i can just assign maintarget to player but i wanted to show how to use this assignment statement as its useful.
+            MainTarget = player != null ? player : null; 
+        }
         if (_NoRun)
         {
             Debug.LogError("Script halted Due to error. Check error logs");
             gameObject.SetActive(false);
         }
         AgentBehavior.AgentStateScript = AgentState;
+        
     }
 
     void FixedUpdate()
