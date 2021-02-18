@@ -18,8 +18,10 @@ public class SceneChange : MonoBehaviour
     {
         transition.SetTrigger("start");
 
+        SceneManager.LoadScene(scene);
+
         yield return new WaitForSeconds(transitionTime);
 
-        SceneManager.LoadScene(scene);
+        
     }
 }
