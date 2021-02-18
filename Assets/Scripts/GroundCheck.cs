@@ -6,6 +6,8 @@ public class GroundCheck : MonoBehaviour
 {
     public PlayerMovement pm;
 
+    private int grounds;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +24,9 @@ public class GroundCheck : MonoBehaviour
     {
         if(collision.gameObject.tag == "Ground")
         {
-            pm.isGrounded = true;
+            grounds++;
+            if(grounds > 0)
+                pm.isGrounded = true;
         }
     }
 
@@ -30,7 +34,9 @@ public class GroundCheck : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ground")
         {
-            pm.isGrounded = false;
+            grounds--;
+            if(grounds <= 0)
+                pm.isGrounded = false;
         }
     }
 }
