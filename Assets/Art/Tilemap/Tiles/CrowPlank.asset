@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: CrowPlank
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 131d90ad16ba2b343bd35343266ae20b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e85c96b113da2e4fbfdc7f36520d744, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

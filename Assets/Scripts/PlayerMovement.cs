@@ -9,11 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded;
     public float gravity;
     public float fallSpeed;
-<<<<<<< HEAD
-=======
     public bool facingRight;
-
->>>>>>> de0fc60a856adb0aee06cfc2c72acec2a5f20bfe
 
     private Rigidbody2D rb;
 
