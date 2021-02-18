@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     public bool facingRight;
 
 
+
+
+
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -19,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     {
         facingRight = true;
         rb = GetComponent<Rigidbody2D>();
+
+
     }
 
     // Update is called once per frame
@@ -65,4 +70,6 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
     }
+
+
 }
