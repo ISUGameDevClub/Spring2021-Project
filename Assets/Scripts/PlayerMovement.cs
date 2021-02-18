@@ -9,21 +9,32 @@ public class PlayerMovement : MonoBehaviour
     public bool isGrounded;
     public float gravity;
     public float fallSpeed;
-    
+    public bool facingRight;
+
+
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
+        facingRight = true;
         rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            facingRight = true;
+        }
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            facingRight = false;
+        }
 
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Jump();
         }
@@ -37,6 +48,11 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = gravity;
         }
 
+    }
+
+    private void FixedUpdate()
+    {
+        Movement();
     }
 
     private void Movement()
