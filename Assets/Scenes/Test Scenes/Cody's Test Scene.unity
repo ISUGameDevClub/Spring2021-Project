@@ -250,7 +250,7 @@ PrefabInstance:
     - target: {fileID: 4010476300702471052, guid: 8b3aba11ae139d54eab2aa59b3a095e9,
         type: 3}
       propertyPath: meleeAttackActiveTime
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b3aba11ae139d54eab2aa59b3a095e9, type: 3}
@@ -318,6 +318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPlayer: 1
   damage: 2
+  AttackedList: []
 --- !u!1 &1228044154
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,7 +1164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
-  curHealth: 10
+  curHealth: 1
   takenDamage: 0
 --- !u!4 &1833471480
 Transform:

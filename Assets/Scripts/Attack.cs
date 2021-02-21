@@ -9,10 +9,7 @@ public class Attack : MonoBehaviour
 	private bool gunReady;
     private PlayerMovement pm;
 	private HurtBox hurt;
-	public bool keyUp1;
-	public bool keyUp2;
-	public bool attacking;
-
+	private Collider2D coll;
 
 
 	public int rangedSpeed;
@@ -32,13 +29,11 @@ public class Attack : MonoBehaviour
 		gunReady = true;
         meleeReady = true;
         pm = GetComponent<PlayerMovement>();
-		keyUp1 = false;
-		keyUp2 = false;
-
+		coll = GetComponent<Collider2D>();
 	}
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (pm.facingRight)
         {
@@ -51,11 +46,11 @@ public class Attack : MonoBehaviour
                 attackZone.transform.localPosition = (Vector3.left);
         }
 
-		if (Input.GetKeyDown(KeyCode.Mouse0) && meleeReady && !attacking)
+		if (Input.GetKeyDown(KeyCode.Mouse0) && meleeReady)
 		{
 			StartCoroutine(MeleeAttack());
 		}		
-		else if(Input.GetKeyDown(KeyCode.Mouse1 ) && gunReady && !attacking)
+		else if(Input.GetKeyDown(KeyCode.Mouse1 ) && gunReady)
 		{
 			StartCoroutine(RangedAttack());
 		}
@@ -63,21 +58,18 @@ public class Attack : MonoBehaviour
 	}
 
 	private IEnumerator MeleeAttack() {
-		
-		attacking = true;
         meleeReady = false;
-		hurt.ListReset();
+		coll.enabled = false;
+		coll.enabled = true;
 		yield return new WaitForSeconds(meleeAttackWindup);
 		attackZone.SetActive(true);
+		attackZone.GetComponent<HurtBox>().ClearArray();
 		yield return new WaitForSeconds(meleeAttackActiveTime);
 		attackZone.SetActive(false);
         meleeReady = true;
-		attacking = false;
-
     }
 
 	private IEnumerator RangedAttack() {
-		attacking = true;
 		gunReady = false;
 		yield return new WaitForSeconds(rangedAttackWindup);
 		if(pm.facingRight){
@@ -93,6 +85,5 @@ public class Attack : MonoBehaviour
 		
 		yield return new WaitForSeconds(rangedReloadSpeed);
 		gunReady = true;
-		attacking = false;
 	}	
 }
