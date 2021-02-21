@@ -4,33 +4,38 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-	
-	public int maxHealth;
-	public int curHealth;
-	
+    public int maxHealth;
+    public int curHealth;
+    public bool takenDamage;
+
     // Start is called before the first frame update
     void Start()
     {
         curHealth = maxHealth;
     }
-	public void TakeDamage(int damage){
-	
-		curHealth-=damage;
-		if (curHealth<=0){
-			Die();
-		}
-	}	
-	public void Die(){
-	
-		Destroy(gameObject);
-	
-	}
-	public void HealDamage(int heal){
-		curHealth+=heal;
-		if(curHealth>maxHealth){
-			curHealth = maxHealth;
-		}
-	}
-	
-	
+
+    public void HealDamage(int heal)
+    {
+        curHealth += heal;
+
+        if(curHealth > maxHealth)
+        {
+            curHealth = maxHealth;
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        curHealth -= damage;
+
+        if(curHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
 }
