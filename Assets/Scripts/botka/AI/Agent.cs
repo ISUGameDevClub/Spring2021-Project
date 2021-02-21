@@ -45,6 +45,7 @@ public class Agent : MonoBehaviour
     void FixedUpdate()
     {
         AgentBehavior.Target = MainTarget;
+        
     }
 
     [ContextMenu("Bind persue to Main Target")]
@@ -88,6 +89,7 @@ public class Agent : MonoBehaviour
         UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "AI Agent: " + transform.root.gameObject.name + " has been destroyed in scene");
         DestoryAgent();
     }
+
     public void DestoryAgent()
     {
         Destroy(gameObject);
@@ -96,26 +98,17 @@ public class Agent : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
-        if (LogEvents)
-        {
-            Debug.Log("Collision entered with: " + other.gameObject.name);
-        }
+        UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General,"Collision entered with: " + other.gameObject.name);
     }
 
     private void OnCollisionStay2D(Collision2D other) 
     {
-        if (LogEvents)
-        {
-            Debug.Log("Collision on stay with: " + other.gameObject.name);
-        }
+        UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "Collision on stay with: " + other.gameObject.name);
     }
 
     private void OnCollisionExit2D(Collision2D other) 
     {
-        if (LogEvents)
-        {
-            Debug.Log("Collision exited with: " + other.gameObject.name);
-        }
+         UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "Collision exited with: " + other.gameObject.name);
     }
 
     

@@ -30,13 +30,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2921087272826752264}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 6750669769118654629}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &8396956120598152682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51,6 +52,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VelocityX: 1
   VelocityY: 1
+  JumpPower: 2
+  FallSpeed: 2
+  Gravity: 0
   DistanceErrorMargin: 0
   RigidBody2d: {fileID: 1654050274911903388}
   Lock: 0
@@ -87,17 +91,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019d4d22c8ca44d4d82b82f766d9601f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  POV: 0
-  _AgentTransform: {fileID: 0}
+  POVForward: 90
+  POVBackward: 0
+  VisionDistance: 6
   Lock: 0
   PosLock: 0
-  entityStatus: 0
-  canMove: 0
-  canAttack: 0
-  fixedPathing: 0
-  variablePathing: 0
+  FixedPathing: 0
+  VariablePathing: 0
+  AgentTransform: {fileID: 0}
+  AgentBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  ForwardDir: {x: 0, y: 0, z: 0}
+  ViewDirection: {fileID: 0}
+  EntityState: 0
   ObjectsInView: []
+  ObjectsSensedBehind: []
   LogEvents: 1
+  _BoxCastSizeFront: {x: 0, y: 0}
 --- !u!114 &7862567664831944175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,12 +125,12 @@ MonoBehaviour:
   AgentStateScript: {fileID: 0}
   StartingAction: 4
   StartingAggression: 2
-  DistanceToAttack: 2
+  DistanceToAttack: 1.25
   SupportedAttacks: []
   PatrolPoints: []
-  VelocityX: 0.1
-  VelocityY: 0.1
-  StopingDistance: 2
+  VelocityX: 3
+  VelocityY: 2
+  StoppingDistance: 1
   Target: {fileID: 0}
   TargetTransform: {fileID: 0}
   Persue: 0
@@ -184,7 +195,7 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2921087272826752264}
   m_BodyType: 0
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
@@ -195,7 +206,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &383482085511968269
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -222,3 +233,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &6936373823570053475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6750669769118654629}
+  m_Layer: 0
+  m_Name: Copy Transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6750669769118654629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6936373823570053475}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2096155729080604}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

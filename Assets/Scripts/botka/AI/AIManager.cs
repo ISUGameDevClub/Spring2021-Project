@@ -91,7 +91,7 @@ public class AIManager : MonoBehaviour
     {
         if (_Agents.Count < AgentMaxCount)
         {
-            GameObject agentObj = GameObject.Instantiate(prefab, position, Quaternion.identity) as GameObject;
+            GameObject agentObj = GameObject.Instantiate(prefab, position, Quaternion.Euler(prefab.transform.eulerAngles.x,prefab.transform.eulerAngles.y,prefab.transform.eulerAngles.z)) as GameObject;
             Agent agent = agentObj.GetComponentInChildren<Agent>();
             if (agent != null)
             {

@@ -29,9 +29,9 @@ public class AgentBehavior : MonoBehaviour
 
     [Header("Patrol options")]
     public Transform[] PatrolPoints;
-    [Range(0f,100f)]public float VelocityX;
-    [Range(0f, 100f)]public float VelocityY;
-    [Range(0f,100f)] public float StopingDistance;
+    [Range(0f,10f)]public float VelocityX;
+    [Range(0f, 10f)]public float VelocityY;
+    [Range(0f,10f)] public float StoppingDistance;
 
     
 
@@ -93,12 +93,14 @@ public class AgentBehavior : MonoBehaviour
         ApplyAggression(StartingAggression);
         AutomatedMovementScript.VelocityX = VelocityX;
         AutomatedMovementScript.VelocityY = VelocityY;
+        AutomatedMovementScript.Lock = true;
+        
     }
 
    
     void FixedUpdate()
     {
-        
+        AutomatedMovementScript.Lock =  AgentStateScript.PosLock == true ? true : AutomatedMovementScript.Lock;
         //Checks which active coroutine are finished. This is schronized as removal in a cororutine is not possible due to lack of synchronization in list objects.
         int index = 0;
         foreach(WrappedAction wrappedAction in _ActiveActionRoutines)
@@ -124,8 +126,9 @@ public class AgentBehavior : MonoBehaviour
             _PendingRemovals.Clear();
         }
         
-        HandleIfInView();
+        
         HandleDistanceToTarget();
+        HandleIfInView();
     }
 
     void HandleDistanceToTarget()
@@ -135,7 +138,7 @@ public class AgentBehavior : MonoBehaviour
             _DistanceToTarget = Vector3.Distance(Target.transform.position, transform.position);
             //Basic checking
             
-            if (!HasActiveCoroutines(Action.Attack) && _DistanceToTarget <= DistanceToAttack)
+            if (!HasActiveCoroutines(Action.Attack) && _DistanceToTarget   <= DistanceToAttack + AgentStateScript.AgentBounds.size.x)
             {
                 ExecuteAction(Action.Attack, Target);
             }
@@ -148,9 +151,9 @@ public class AgentBehavior : MonoBehaviour
 
     void HandleIfInView()
     {
-        if (AgentStateScript.TargetInView())
+        if (AgentStateScript.TargetInView(Target))
         {
-            if (!HasActiveCoroutines(Action.Persue))
+            if (!HasActiveCoroutines(Action.Persue) && !HasActiveCoroutines(Action.Attack))
             {
                 ExecuteAction(Action.Persue, Target);
             }
@@ -244,6 +247,7 @@ public class AgentBehavior : MonoBehaviour
         {
             
             case Action.Attack:
+                
                 c = StartCoroutine(ExecuteAttackAction(w,targetOfAction));
                 break;
             case Action.Patrol:
@@ -266,9 +270,13 @@ public class AgentBehavior : MonoBehaviour
                 break;
             case Action.Halt:
                 AutomatedMovementScript.StopMoving();
+                w = null;
                 break;
             case Action.Persue:
-                c = StartCoroutine(ExecutePersueAction(w,Target));
+                if (!HasActiveCoroutines(Action.Attack))
+                {
+                    c = StartCoroutine(ExecutePersueAction(w,Target));
+                }
                 break;
             case Action.Move:
                 c = StartCoroutine(ExecuteMoveAction(w,targetOfAction.transform));
@@ -306,7 +314,7 @@ public class AgentBehavior : MonoBehaviour
             {
                 AutomatedMovementScript.Target = transform.gameObject;
                 
-                yield return new WaitUntil(() => AutomatedMovementScript.IsAtTarget());
+                yield return new WaitUntil(() => AutomatedMovementScript.IsAtTarget(StoppingDistance));
             }
         }
         else
@@ -321,13 +329,15 @@ public class AgentBehavior : MonoBehaviour
     private IEnumerator ExecutePersueAction(WrappedAction wrappedAction, GameObject target)
     {
         AutomatedMovementScript.Target = target;
-        AutomatedMovementScript.DistanceErrorMargin = StopingDistance;
         AutomatedMovementScript.VelocityX = VelocityX;
         AutomatedMovementScript.VelocityY = VelocityY;
+        AutomatedMovementScript.Lock = false;
         AutomatedMovementScript.StartMoving();
-        yield return new WaitUntil(() => AutomatedMovementScript.IsAtTarget()); // replace condition testing when the attack is finished
+        
+        yield return new WaitUntil(() => AutomatedMovementScript.IsAtTarget(StoppingDistance +  GetComponentInChildren<SpriteRenderer>().bounds.size.x)); // replace condition testing when the attack is finished
         yield return new WaitForEndOfFrame();
         wrappedAction.Done = true;
+        AutomatedMovementScript.Lock = true;
     }
 
 
