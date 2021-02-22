@@ -56,6 +56,7 @@ public class AIManager : MonoBehaviour
            distance = Mathf.Abs(Vector3.Distance(agent.transform.position, PlayerPos));
            if (distance > LoadUnloadRenderDistance)
            {
+               
                UnrenderAgent(agent.gameObject);
            }
            else
@@ -67,20 +68,24 @@ public class AIManager : MonoBehaviour
 
     public void RenderAgent(GameObject gameObject)
     {
+       
         if (gameObject != null)
         {
             if (!gameObject.activeSelf)
             {
+                 UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, gameObject.name + " Was rerendered due to distance");
                 gameObject.SetActive(true);
             }
         }
     }
     public void UnrenderAgent(GameObject gameObject)
     {
+        
         if (gameObject != null)
         {
             if (gameObject.activeSelf)
             {
+                UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, gameObject.name + " Was unrendered due to distance");
                 gameObject.SetActive(false);
             }
         }

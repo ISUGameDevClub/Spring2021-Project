@@ -138,7 +138,7 @@ public class AgentBehavior : MonoBehaviour
             _DistanceToTarget = Vector3.Distance(Target.transform.position, transform.position);
             //Basic checking
             
-            if (!HasActiveCoroutines(Action.Attack) && _DistanceToTarget   <= DistanceToAttack + AgentStateScript.AgentBounds.size.x)
+            if (!HasActiveAction(Action.Attack) && _DistanceToTarget   <= DistanceToAttack + AgentStateScript.AgentBounds.size.x)
             {
                 ExecuteAction(Action.Attack, Target);
             }
@@ -153,7 +153,7 @@ public class AgentBehavior : MonoBehaviour
     {
         if (AgentStateScript.TargetInView(Target))
         {
-            if (!HasActiveCoroutines(Action.Persue) && !HasActiveCoroutines(Action.Attack))
+            if (!HasActiveAction(Action.Persue) && !HasActiveAction(Action.Attack))
             {
                 ExecuteAction(Action.Persue, Target);
             }
@@ -165,7 +165,7 @@ public class AgentBehavior : MonoBehaviour
 
     }
 
-    bool HasActiveCoroutines(Action action)
+    bool HasActiveAction(Action action)
     {
         //If the List has no elements it will skip this loop.
         foreach(WrappedAction wrappedAction in _ActiveActionRoutines)
@@ -222,7 +222,7 @@ public class AgentBehavior : MonoBehaviour
             {
                StopActiveAction(action);
             }
-            if (!HasActiveCoroutines(action))
+            if (!HasActiveAction(action))
             {
                 ExecuteAction(action,target);
             }
@@ -247,13 +247,12 @@ public class AgentBehavior : MonoBehaviour
         {
             
             case Action.Attack:
-                
                 c = StartCoroutine(ExecuteAttackAction(w,targetOfAction));
                 break;
             case Action.Patrol:
-                if (!HasActiveCoroutines(Action.Patrol))
+                if (!HasActiveAction(Action.Patrol))
                 {
-                    if (!HasActiveCoroutines(Action.Move))
+                    if (!HasActiveAction(Action.Move))
                     {
                         WrappedAction w1 = _ActiveActionRoutines.Find((e) => e.ActionProp == Action.Move);
                         if (w1 != null)
@@ -273,7 +272,7 @@ public class AgentBehavior : MonoBehaviour
                 w = null;
                 break;
             case Action.Persue:
-                if (!HasActiveCoroutines(Action.Attack))
+                if (!HasActiveAction(Action.Attack))
                 {
                     c = StartCoroutine(ExecutePersueAction(w,Target));
                 }
@@ -347,12 +346,12 @@ public class AgentBehavior : MonoBehaviour
     {
         if (overrideExistingAction)
         {
-            if (!HasActiveCoroutines(Action.Move))
+            if (!HasActiveAction(Action.Move))
             {
 
             }
         }
-        if (!HasActiveCoroutines(Action.Move))
+        if (!HasActiveAction(Action.Move))
         {
             Coroutine c = null;
             WrappedAction w = w = new WrappedAction(null,Action.Move, target.gameObject, false);

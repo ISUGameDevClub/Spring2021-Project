@@ -17,6 +17,7 @@ public class Agent : MonoBehaviour
     
     
     public bool LogEvents;
+    public bool DeepLogEvents;
 
     private bool _NoRun;
 
@@ -103,7 +104,7 @@ public class Agent : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D other) 
     {
-        UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "Collision on stay with: " + other.gameObject.name);
+        UnityLoggingDelegate.LogIfTrue(DeepLogEvents, UnityLoggingDelegate.LogType.General, "Collision on stay with: " + other.gameObject.name);
     }
 
     private void OnCollisionExit2D(Collision2D other) 

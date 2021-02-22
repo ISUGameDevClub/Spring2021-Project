@@ -192,7 +192,7 @@ public class AgentState : MonoBehaviour
     private RaycastHit2D[] CheckBoxCastHitsForward()
     {
         
-        return Physics2D.BoxCastAll(transform.position, _BoxCastSizeFront , 180f,ForwardDir,1f);
+        return Physics2D.BoxCastAll(transform.position, _BoxCastSizeFront ,transform.rotation.eulerAngles.z,ForwardDir,VisionDistance);
         
         
     }

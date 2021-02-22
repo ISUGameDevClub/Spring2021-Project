@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2077700999431697076}
   - component: {fileID: 1654050274911903388}
   - component: {fileID: 383482085511968269}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AI Agent
   m_TagString: AI-Agent
   m_Icon: {fileID: 0}
@@ -53,15 +53,22 @@ MonoBehaviour:
   VelocityX: 1
   VelocityY: 1
   JumpPower: 2
-  FallSpeed: 2
-  Gravity: 0
+  FallSpeed: 1.5
+  Gravity: 1
+  Jumpable: 1
+  JumpLifOffTime: 1
+  HangTime: 0.5
+  LogEvents: 1
   DistanceErrorMargin: 0
+  PathBlockingDistance: 1
   RigidBody2d: {fileID: 1654050274911903388}
   Lock: 0
   Moving: 0
   Target: {fileID: 0}
+  Blocked: 0
   TargetLocation: {fileID: 0}
   EntityStatus: 0
+  BlockingObjects: []
 --- !u!114 &4372954512623809259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,6 +86,7 @@ MonoBehaviour:
   AgentObj: {fileID: 2921087272826752264}
   MainTarget: {fileID: 0}
   LogEvents: 1
+  DeepLogEvents: 0
 --- !u!114 &1040548941193343150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   POVForward: 90
   POVBackward: 0
-  VisionDistance: 6
+  VisionDistance: 10
   Lock: 0
   PosLock: 0
   FixedPathing: 0
@@ -128,8 +136,8 @@ MonoBehaviour:
   DistanceToAttack: 1.25
   SupportedAttacks: []
   PatrolPoints: []
-  VelocityX: 3
-  VelocityY: 2
+  VelocityX: 1
+  VelocityY: 1
   StoppingDistance: 1
   Target: {fileID: 0}
   TargetTransform: {fileID: 0}
@@ -242,7 +250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6750669769118654629}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Copy Transform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
