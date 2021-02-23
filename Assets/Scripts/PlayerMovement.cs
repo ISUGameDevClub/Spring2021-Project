@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     public float gravity;
     public float fallSpeed;
     public bool facingRight;
-
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
