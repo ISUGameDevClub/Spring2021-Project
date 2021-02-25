@@ -6,9 +6,11 @@ public class PlayerMovement : MonoBehaviour
 {
     public float movementSpeed;
     public float jumpPower;
+    public float bouncePower;
     public float gravity;
     public float fallSpeed;
     public bool isGrounded;
+    public bool bouncePad;
 
     private Rigidbody2D rb;
     
@@ -49,7 +51,12 @@ public class PlayerMovement : MonoBehaviour
         
        rb.velocity = new Vector2(rb.velocity.x, 0);
        rb.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
+    }
 
-        
+    public void Bounce()
+    {
+
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.AddForce(new Vector2(0, bouncePower), ForceMode2D.Impulse);
     }
 }

@@ -25,11 +25,20 @@ public class GroundCheck : MonoBehaviour
         {
             pm.isGrounded = true;
         }
+        if (collision.gameObject.tag == "Bounce")
+        {
+            pm.isGrounded = true;
+            pm.Bounce();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Ground")
+        {
+            pm.isGrounded = false;
+        }
+        if (collision.gameObject.tag == "Bounce")
         {
             pm.isGrounded = false;
         }
