@@ -8,34 +8,50 @@ public class Cannon : MonoBehaviour
     public Vector2 cannonAngle;
     private Rigidbody2D rb;
     private bool isCannon;
+    private PlayerMovement pm;
+    private bool shotPlayer;
 
 
     void Start()
     {
-        rb = FindObjectOfType<PlayerMovement>().GetComponent<Rigidbody2D>();
+        pm = FindObjectOfType<PlayerMovement>();
+        rb = pm.GetComponent<Rigidbody2D>();
     }
+
     void Update()
     {
-       if(isCannon && Input.GetKeyDown(KeyCode.E))
-        {
+       if(isCannon && Input.GetKeyDown(KeyCode.E) && !shotPlayer)
+       {
             StartCoroutine(FireCannon());
-        }
+       }
+
+       if(shotPlayer)
+       {
+            if(rb.velocity.magnitude <=0)
+            {
+                shotPlayer = false;
+                pm.scriptedMovement = false;
+            }
+       }
     }
 
     private IEnumerator FireCannon()
     {
+        pm.scriptedMovement = true;
         yield return new WaitForSeconds(.2f);
         rb.gameObject.transform.position = new Vector2(0, 1);
         rb.velocity = new Vector2(0, 0);
         rb.AddForce(cannonAngle.normalized * cannonSpeed, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(.2f);
+        shotPlayer = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
        if(collision.gameObject.tag == "Player")
-        {
+       {
             isCannon = true;
-        }
+       }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

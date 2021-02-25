@@ -12,6 +12,12 @@ public class PlayerMovement : MonoBehaviour
     public bool facingRight;
     public Vector2 lastGroundedPosition;
 
+    [HideInInspector]
+    public bool scriptedMovement;
+    //[HideInInspector]
+    public bool canMove;
+
+    private float canMoveTimer;
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -19,31 +25,46 @@ public class PlayerMovement : MonoBehaviour
     {
         facingRight = true;
         rb = GetComponent<Rigidbody2D>();
+        canMove = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isGrounded)
+        if (!scriptedMovement && canMoveTimer <= 0)
+            canMove = true;
+        else if (canMoveTimer > 0)
+        {
+            canMoveTimer -= Time.deltaTime;
+            canMove = false;
+        }
+        else
+            canMove = false;
+
+        if (isGrounded)
         {
             lastGroundedPosition = transform.position;
         }
-        if (Input.GetAxis("Horizontal") > 0)
+
+        if (canMove)
         {
-            facingRight = true;
-        }
-        if (Input.GetAxis("Horizontal") < 0)
-        {
-            facingRight = false;
-        }
+            if (Input.GetAxis("Horizontal") > 0)
+            {
+                facingRight = true;
+            }
+            if (Input.GetAxis("Horizontal") < 0)
+            {
+                facingRight = false;
+            }
 
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            Jump();
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            {
+                Jump();
+            }
         }
 
-        if(!isGrounded && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        if(!isGrounded && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && canMove)
         {
             rb.gravityScale = gravity * fallSpeed;
         }
@@ -54,9 +75,16 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public void DisableMovement(float timeDisabled)
+    {
+        if (canMoveTimer < timeDisabled)
+            canMoveTimer = timeDisabled;
+    }
+
     private void FixedUpdate()
     {
-        Movement();
+        if(canMove)
+            Movement();
     }
 
     private void Movement()
