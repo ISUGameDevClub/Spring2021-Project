@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GoldSystem : MonoBehaviour
 {
-    private int totalGold;
+    public int totalGold;
 
     // Start is called before the first frame update
     void Start()
@@ -12,12 +12,12 @@ public class GoldSystem : MonoBehaviour
         totalGold = 0;
     }
 
-    private void AddGold(int amount)
+    public void AddGold(int amount)
     {
         totalGold+= amount;
     }
 
-    private void SubtractGold(int amount)
+    public void SubtractGold(int amount)
     {
         totalGold-= amount;
     }

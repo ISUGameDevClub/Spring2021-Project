@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GoldCoin : MonoBehaviour
 {
+    public int value;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +21,8 @@ public class GoldCoin : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            collision.GetComponent<Rigidbody2D>();
-            //im sorry brad but i dont remember what you said to do
+            collision.GetComponent<GoldSystem>().AddGold(value);
+            Destroy(gameObject);
         }
     }
 }
