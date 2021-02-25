@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float gravity;
     public float fallSpeed;
     public bool facingRight;
-
+    public Vector2 lastGroundedPosition;
 
     private Rigidbody2D rb;
 
@@ -24,6 +24,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(isGrounded)
+        {
+            lastGroundedPosition = transform.position;
+        }
         if (Input.GetAxis("Horizontal") > 0)
         {
             facingRight = true;

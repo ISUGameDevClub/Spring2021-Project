@@ -8,7 +8,10 @@ public class Attack : MonoBehaviour
     private bool meleeReady;
 	private bool gunReady;
     private PlayerMovement pm;
-	
+	private HurtBox hurt;
+	private Collider2D coll;
+
+
 	public int rangedSpeed;
 	public GameObject attackZone;
 	public GameObject bullet;
@@ -17,14 +20,17 @@ public class Attack : MonoBehaviour
 	public float meleeAttackWindup;
 	public float rangedReloadSpeed;
 	public float rangedAttackWindup;
+
     // Start is called before the first frame update
     void Start()
     {
         attackZone.SetActive(false);
+		hurt = attackZone.GetComponent<HurtBox>();
 		gunReady = true;
         meleeReady = true;
         pm = GetComponent<PlayerMovement>();
-    }
+		coll = GetComponent<Collider2D>();
+	}
 
     // Update is called once per frame
     void Update()
@@ -40,22 +46,26 @@ public class Attack : MonoBehaviour
                 attackZone.transform.localPosition = (Vector3.left);
         }
 
-
-        if (Input.GetKeyDown(KeyCode.Mouse0) && meleeReady)
-        {
+		if (Input.GetKeyDown(KeyCode.Mouse0) && meleeReady)
+		{
 			StartCoroutine(MeleeAttack());
 		}		
-		if(Input.GetKeyDown(KeyCode.Mouse1 ) && gunReady){
+		else if(Input.GetKeyDown(KeyCode.Mouse1 ) && gunReady)
+		{
 			StartCoroutine(RangedAttack());
 		}
-    }
+
+	}
 
 	private IEnumerator MeleeAttack() {
         meleeReady = false;
-        yield return new WaitForSeconds(meleeAttackWindup);
-        attackZone.SetActive(true);
+		coll.enabled = false;
+		coll.enabled = true;
+		yield return new WaitForSeconds(meleeAttackWindup);
+		attackZone.SetActive(true);
+		hurt.ClearArray();
 		yield return new WaitForSeconds(meleeAttackActiveTime);
-        attackZone.SetActive(false);
+		attackZone.SetActive(false);
         meleeReady = true;
     }
 
@@ -65,10 +75,12 @@ public class Attack : MonoBehaviour
 		if(pm.facingRight){
 		    Bullet bul = Instantiate(bullet,new Vector2(transform.position.x+1,transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
 		    bul.facingRight = pm.facingRight;
+			bul.GetComponent<HurtBox>().isPlayer = true;
 		}
 		else{
 		    Bullet bul = Instantiate(bullet,new Vector2(transform.position.x-1,transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
 		    bul.facingRight = pm.facingRight;
+			bul.GetComponent<HurtBox>().isPlayer = true;
 		}
 		
 		yield return new WaitForSeconds(rangedReloadSpeed);

@@ -9,11 +9,14 @@ public class Bullet : MonoBehaviour
 	public bool facingRight;
 	public float speed;
 	public float despawnTime;
-    // Start is called before the first frame update
-    void Start()
+
+	private HurtBox hb;
+	// Start is called before the first frame update
+	void Start()
     {
         Destroy(gameObject,despawnTime);
-    }
+		hb = GetComponent<HurtBox>();
+	}
 
     // Update is called once per frame
     void Update()
@@ -26,7 +29,10 @@ public class Bullet : MonoBehaviour
 		}
     }
 	private void OnTriggerEnter2D(Collider2D collision){
-		if(collision.gameObject.tag == "Ground"){
+		if(collision.gameObject.tag == "Ground"||
+			(collision.gameObject.tag == "Enemy" && hb.isPlayer )||
+			(collision.gameObject.tag == "Player" && !hb.isPlayer))
+		{
 			
 			Destroy(gameObject);
 			
