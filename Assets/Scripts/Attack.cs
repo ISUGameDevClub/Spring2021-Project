@@ -63,7 +63,7 @@ public class Attack : MonoBehaviour
 		coll.enabled = true;
 		yield return new WaitForSeconds(meleeAttackWindup);
 		attackZone.SetActive(true);
-		attackZone.GetComponent<HurtBox>().ClearArray();
+		hurt.ClearArray();
 		yield return new WaitForSeconds(meleeAttackActiveTime);
 		attackZone.SetActive(false);
         meleeReady = true;

@@ -10,6 +10,8 @@ public class Health : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(GetComponent<ItemDrop>()!=null)
+            GetComponent<ItemDrop>().isDying = false;
         curHealth = maxHealth;
     }
 
@@ -35,6 +37,8 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
+        if (GetComponent<ItemDrop>() != null)
+            GetComponent<ItemDrop>().CreateItem();
         Destroy(gameObject);
     }
 }
