@@ -6,6 +6,7 @@ using UnityEngine;
  * @Author Jake Botka
  * 
  */
+ [DisallowMultipleComponent]
 public class AgentState : MonoBehaviour
 {
     public enum EntityStatus

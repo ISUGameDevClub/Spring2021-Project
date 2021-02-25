@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class AIManager : MonoBehaviour
 {
     public const string AgentTag = "AI-Agent";
@@ -16,7 +17,9 @@ public class AIManager : MonoBehaviour
     
     [Header("Dynamic Spawning Options")]
     public int AgentMaxCount;
-    public Transform[] SpawnLocations;
+
+    public GameObject SpawnLocationParent;
+    [HideInInspector]public Transform[] SpawnLocations;
     
 
     [Range(0f,1000f)]public float LoadUnloadRenderDistance;
@@ -25,7 +28,8 @@ public class AIManager : MonoBehaviour
     
     
     [Header("DEBUG")]
-    public Agent[] AgentsView;
+    public Agent[] ActiveAgents;
+    
     private List<Agent> _Agents;
     private float _OffsetSpawnDistance;
     void Awake()
@@ -33,6 +37,14 @@ public class AIManager : MonoBehaviour
         _OffsetSpawnDistance = 0.5f;
         _Agents = _Agents != null ? _Agents : new List<Agent>(0);
         AgentMaxCount = AgentMaxCount > 0 ? AgentMaxCount : DefaultMaxCount;
+        if (SpawnLocationParent != null)
+        {
+            SpawnLocations = new Transform[SpawnLocationParent.transform.childCount];
+            for (int i =0; i < SpawnLocations.Length; i++)
+            {
+                SpawnLocations[0] = SpawnLocationParent.transform.GetChild(i);
+            }
+        }
         LoadInAgents();
         
     }
@@ -92,7 +104,7 @@ public class AIManager : MonoBehaviour
     }
 
 
-    public void CreateAgent(GameObject prefab, Vector3 position)
+    public Agent CreateAgent(GameObject prefab, Vector3 position)
     {
         if (_Agents.Count < AgentMaxCount)
         {
@@ -103,7 +115,10 @@ public class AIManager : MonoBehaviour
                 _Agents.Add(agent);
                 OnAgentsListAltered();
             }
+            return agent;
         }
+
+        return null;
     }
     
     public void DestroyAgent(GameObject agent)
@@ -148,7 +163,11 @@ public class AIManager : MonoBehaviour
                 }
                 if (SpawnFlag)
                 {
-                    CreateAgent(AIPrefabs[0], loca.position);
+                    Agent agent = CreateAgent(AIPrefabs[0], loca.position);
+                    if (loca.childCount > 0)
+                    {
+                        agent.AgentBehavior.PatrolPointsParent = loca.GetChild(0).gameObject;
+                    }
                 }
                 else
                 {
@@ -179,7 +198,7 @@ public class AIManager : MonoBehaviour
 
     private void OnAgentsListAltered()
     {
-        AgentsView = _Agents.ToArray();
+        ActiveAgents = _Agents.ToArray();
     }
 
     

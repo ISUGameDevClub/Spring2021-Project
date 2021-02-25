@@ -50,8 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5113e2c9116a97f418ce926a02ae0433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VelocityX: 1
-  VelocityY: 1
+  VelocityX: 2.5
+  VelocityY: 0.1
   JumpPower: 2
   FallSpeed: 1.5
   Gravity: 1
@@ -68,6 +68,7 @@ MonoBehaviour:
   Blocked: 0
   TargetLocation: {fileID: 0}
   EntityStatus: 0
+  DisableJumping: 0
   BlockingObjects: []
 --- !u!114 &4372954512623809259
 MonoBehaviour:
@@ -133,15 +134,17 @@ MonoBehaviour:
   AgentStateScript: {fileID: 0}
   StartingAction: 4
   StartingAggression: 2
+  AttackEnabled: 1
   DistanceToAttack: 1.25
   SupportedAttacks: []
+  PatrolEnabled: 1
+  PauseAtPoint: 1
   PatrolPoints: []
-  VelocityX: 1
-  VelocityY: 1
+  VelocityX: 2.5
+  VelocityY: 0
   StoppingDistance: 1
   Target: {fileID: 0}
   TargetTransform: {fileID: 0}
-  Persue: 0
   LogEvents: 1
   ActiveActionsBeingPerformed: 
 --- !u!212 &2077700999431697076

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+[DisallowMultipleComponent]
 public class AutomatedMovement : MonoBehaviour
 {
     public enum Status
@@ -23,23 +24,21 @@ public class AutomatedMovement : MonoBehaviour
 
     public bool LogEvents;
 
-    
-
-
     [Range(0.2f, 100f)]public float DistanceErrorMargin;
     [Range(0f,10f)]public float PathBlockingDistance;
     public Rigidbody2D RigidBody2d;
 
     public bool Lock;
+    
     public bool Moving;
 
     [Header("DEBUG")]
-    [HideInInspector]public GameObject Target;
+    public GameObject Target;
     public bool Blocked;
     public Transform TargetLocation;
     public Status EntityStatus;
-    private Status EntityState;
     
+    [HideInInspector]public bool DisableJumping;
     
     private Coroutine _PauseTimeout;
     private Coroutine _JumpCoroutine;
@@ -63,7 +62,7 @@ public class AutomatedMovement : MonoBehaviour
             RigidBody2d = GetComponentInChildren<Rigidbody2D>();
             RigidBody2d.gravityScale = Gravity;
         }
-        EntityState = Status.Inactive;
+        EntityStatus = Status.Inactive;
         _EntityBounds = GetComponentInChildren<SpriteRenderer>().bounds;
         
     }
@@ -75,7 +74,7 @@ public class AutomatedMovement : MonoBehaviour
         {
             TargetLocation = Target.transform;
         }
-        EntityStatus = EntityState;
+        
         if (Lock || _LocalLock)
         {
             if (Moving)
@@ -90,7 +89,7 @@ public class AutomatedMovement : MonoBehaviour
                 RigidBody2d.gravityScale = Gravity * FallSpeed;
             }
             
-            switch(EntityState)
+            switch(EntityStatus)
             {
                 case Status.Inactive:
                     break;
@@ -98,50 +97,77 @@ public class AutomatedMovement : MonoBehaviour
                     if (_PauseTimeout == null)
                     {
                         EntityStatus = Status.Stopped;
+                        
                     }
                     break;
                 case Status.Moving:
                     Moving = true;
-                    
-                    
-                    RaycastHit2D hit = CheckBlockingPath(); 
-                    Vector2 point = hit.point;
-                    Vector2 v = point - (Vector2)transform.position;
-                    if (hit.collider != null)
+                    if (Jumpable && !DisableJumping)
                     {
-                        Tilemap tilemap = hit.collider.gameObject.GetComponentInChildren<Tilemap>();
-                        Vector3Int intV = tilemap.LocalToCell(tilemap.WorldToLocal(new Vector3(point.x,point.y,0)));
-                        while (tilemap.HasTile(intV))
+                        RaycastHit2D hit = CheckBlockingPath(); 
+                        Vector2 point = hit.point;
+                        Vector2 v = point - (Vector2)transform.position;
+                        if (hit.collider != null)
                         {
-                            intV.y += tilemap.cellBounds.size.y;
-                        }
-                        if (tilemap != null)
-                        {
-                            Bounds b = tilemap.GetBoundsLocal(intV);
-                            float x = v.x <= 0f ? b.min.x : b.max.x + _EntityBounds.size.x;
-                            float y =  v.x <= 0f ? b.max.y : b.max.y +  _EntityBounds.size.y;
-                            if (b != null)
+                            Tilemap tilemap = hit.collider.gameObject.GetComponentInChildren<Tilemap>();
+                            float nX = point.x - transform.position.x <= 0f ? transform.position.x + (point.x - transform.position.x) - _EntityBounds.size.x / 2
+                            : transform.position.x + (point.x - transform.position.x) + _EntityBounds.size.x / 2;
+                            Debug.Log(nX);
+                            RaycastHit2D nHit = Physics2D.Raycast(
+                                new Vector2(nX, 100f), 
+                                    Vector2.down);
+                            if (nHit.collider != null)
                             {
-                                Debug.Log(b.min +"," + b.max);
-                                Debug.Log(new Vector3(x,y, transform.position.z));
-                                RigidBody2d.MovePosition(new Vector3(x,y, transform.position.z));
-                                Lock = true;
+                                RigidBody2d.MovePosition(new Vector3(nHit.point.x,nHit.point.y + _EntityBounds.size.y / 2, transform.position.z));
                                 break;
+                                
                             }
+                        
+                            /*
+                            Tilemap tilemap = hit.collider.gameObject.GetComponentInChildren<Tilemap>();
+                            Vector3Int intV = tilemap.LocalToCell(tilemap.WorldToLocal(new Vector3(point.x,point.y,0)));
+                            TileBase[] tiles = tilemap.GetTilesBlock(tilemap.cellBounds);
+                            while (tilemap.HasTile(intV))
+                            {
+                                intV.y += tilemap.cellBounds.size.y;
+                            }
+                            if (tilemap != null)
+                            {
+                                Bounds b = tilemap.GetBoundsLocal(intV);
+                                float x = v.x <= 0f ? b.min.x : b.max.x + _EntityBounds.size.x;
+                                float y =  v.x <= 0f ? b.max.y : b.max.y +  _EntityBounds.size.y;
+                                if (b != null)
+                                {
+                                    Debug.Log(b.min +"," + b.max);
+                                    Debug.Log(new Vector3(x,y, transform.position.z));
+                                    RigidBody2d.MovePosition(new Vector3(x,y, transform.position.z));
+                                    Lock = true;
+                                    break;
+                                }
+                            }
+                            */
                         }
                     }
-                       
-                    Vector3 vec = Target.transform.position - transform.position;
-                    vec = vec.normalized;
-                    if (RigidBody2d == null || !RigidBody2d.simulated) // if null then it will not test the second condition
+                    if (Target != null)
                     {
-                        vec = new Vector3(vec.x * VelocityX, vec.y * VelocityY, vec.z);
-                        gameObject.transform.position += vec;
-                    } 
+                        Vector3 vec = Target.transform.position - transform.position;
+                        vec = vec.normalized;
+                        if (RigidBody2d == null || !RigidBody2d.simulated) // if null then it will not test the second condition
+                        {
+                            vec = new Vector3(vec.x * VelocityX, vec.y * VelocityY, vec.z);
+                            gameObject.transform.position += vec;
+                        } 
+                        else
+                        {
+                            transform.Translate(new Vector2(vec.x * -1 * VelocityX * Time.deltaTime,0));
+                            //RigidBody2d.AddForce(new Vector2(vec.x * -1 * VelocityX * Time.deltaTime,0));
+                            //RigidBody2d.MovePosition((Vector2)transform.position +  new Vector2(vec.x * VelocityX, vec.y * VelocityY)  * Time.fixedDeltaTime);
+                        }
+                    }
                     else
                     {
-                        //transform.Translate((Vector2)transform.position +  new Vector2(vec.x, vec.y) * Time.deltaTime);
-                        RigidBody2d.MovePosition((Vector2)transform.position +  new Vector2(vec.x * VelocityX, vec.y * VelocityY)  * Time.fixedDeltaTime);
+                        Moving = false;
+                        EntityStatus = Status.Halted;
                     }
                     break;
                 case Status.Stopped:
@@ -161,11 +187,9 @@ public class AutomatedMovement : MonoBehaviour
     private List<GameObject> _TempList = new List<GameObject>(0);
     private RaycastHit2D CheckBlockingPath()
     {
-        
         //transform.right is alwars facing front as the rotation of the Z axis determiens which way the entity is looking
         return Physics2D.BoxCast(new Vector2(transform.position.x, transform.position.y + (_EntityBounds.size.y * 0.2f)), _EntityBounds.size, 0f, 
             transform.right, PathBlockingDistance, LayerMask.GetMask("Default", "Blockable"));
-        
         
     }
 
@@ -191,17 +215,15 @@ public class AutomatedMovement : MonoBehaviour
     [ContextMenu("Start movement")]
     public void StartMoving()
     {
-        EntityState = Status.Moving;
+        EntityStatus = Status.Moving;
         RigidBody2d.velocity = new Vector2(VelocityX, VelocityY);
-        
     }
 
     [ContextMenu("Stop Movement")]
     public void StopMoving()
     {
-        EntityState = Status.Stopped;
+        EntityStatus = Status.Stopped;
         RigidBody2d.velocity = new Vector2(0f, 0f);
-        
     }
 
     [ContextMenu("Pause Movement")]
@@ -210,12 +232,10 @@ public class AutomatedMovement : MonoBehaviour
         // seconds < 0f means indenfinite pause. Lift the pause by reseting the Lock variable
         UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General,
                  "Movement was paused for: " + (seconds > 0f ? seconds.ToString() : "Indefinite amount of") +  " Seconds.");
-                 
-        
         if (seconds > 0f)
         {
             _LocalLock = true;
-            EntityState = Status.Halted;
+            EntityStatus = Status.Halted;
             
             if (_PauseTimeout != null)
             {
