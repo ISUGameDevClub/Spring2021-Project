@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Cannon : MonoBehaviour
 {
+    static bool inCannon;
+
+    public bool autoFire;
     public float cannonSpeed;
     public Vector2 cannonAngle;
     private Rigidbody2D rb;
@@ -21,14 +24,14 @@ public class Cannon : MonoBehaviour
 
     void Update()
     {
-       if(isCannon && Input.GetKeyDown(KeyCode.E) && !shotPlayer && !loaded)
+       if(isCannon && ((!autoFire && Input.GetKeyDown(KeyCode.E)) || autoFire) && !shotPlayer && !loaded)
        {
             StartCoroutine(FireCannon());
        }
 
        if(shotPlayer)
        {
-            if(rb.velocity.magnitude <=0)
+            if(rb.velocity.magnitude <= .05f && !inCannon)
             {
                 shotPlayer = false;
                 pm.scriptedMovement = false;
@@ -38,13 +41,17 @@ public class Cannon : MonoBehaviour
 
     private IEnumerator FireCannon()
     {
+        inCannon = true;
+        rb.velocity = new Vector2(0, 0);
         loaded = true;
         pm.scriptedMovement = true;
+        pm.myAnim.SetTrigger("Fire Cannon");
         yield return new WaitForSeconds(.2f);
         rb.gameObject.transform.position = transform.position;
         rb.velocity = new Vector2(0, 0);
         rb.AddForce(cannonAngle.normalized * cannonSpeed, ForceMode2D.Impulse);
         yield return new WaitForSeconds(.2f);
+        inCannon = false;
         loaded = false;
         shotPlayer = true;
     }

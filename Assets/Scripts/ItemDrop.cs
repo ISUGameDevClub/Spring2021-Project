@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemDrop : MonoBehaviour
 {
+    public int numberToDrop;
     public GameObject itemToDrop;
 
     // Start is called before the first frame update
@@ -17,8 +18,10 @@ public class ItemDrop : MonoBehaviour
     {
 
     }
+
     public void CreateItem()
     {
-        Instantiate(itemToDrop, transform.position,Quaternion.identity);
+        for(int i = 0; i < numberToDrop; i++)
+            Instantiate(itemToDrop, transform.position,Quaternion.identity);
     }
 }
