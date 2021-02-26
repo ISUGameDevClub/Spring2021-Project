@@ -39,7 +39,7 @@ public class Cannon : MonoBehaviour
     {
         pm.scriptedMovement = true;
         yield return new WaitForSeconds(.2f);
-        rb.gameObject.transform.position = new Vector2(0, 1);
+        rb.gameObject.transform.position = transform.position;
         rb.velocity = new Vector2(0, 0);
         rb.AddForce(cannonAngle.normalized * cannonSpeed, ForceMode2D.Impulse);
         yield return new WaitForSeconds(.2f);

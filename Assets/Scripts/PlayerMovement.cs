@@ -6,15 +6,17 @@ public class PlayerMovement : MonoBehaviour
 {
     public float movementSpeed = 6;
     public float jumpPower;
+    [HideInInspector]
     public bool isGrounded;
     public float gravity;
     public float fallSpeed;
+    [HideInInspector]
     public bool facingRight;
     public Vector2 lastGroundedPosition;
 
     [HideInInspector]
     public bool scriptedMovement;
-    //[HideInInspector]
+    [HideInInspector]
     public bool canMove;
 
     private float canMoveTimer;
