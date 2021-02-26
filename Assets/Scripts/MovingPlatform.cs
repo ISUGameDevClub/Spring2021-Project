@@ -10,6 +10,7 @@ public class MovingPlatform : MonoBehaviour
 
     private bool Returning;
     private PlayerMovement pm;
+    private Rigidbody2D rb;
 
     private void Start()
     {
@@ -46,17 +47,17 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.tag == "Player" && pm.isGrounded)
+        if (collision.GetComponent<GroundCheck>())
         {
-            collision.transform.SetParent(transform);
+            collision.transform.parent.SetParent(transform);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.GetComponent<GroundCheck>())
         {
-            collision.transform.SetParent(null);
+            collision.transform.parent.SetParent(null);
         }
     }
 }

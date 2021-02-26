@@ -10,6 +10,7 @@ public class Cannon : MonoBehaviour
     private bool isCannon;
     private PlayerMovement pm;
     private bool shotPlayer;
+    private bool loaded;
 
 
     void Start()
@@ -20,7 +21,7 @@ public class Cannon : MonoBehaviour
 
     void Update()
     {
-       if(isCannon && Input.GetKeyDown(KeyCode.E) && !shotPlayer)
+       if(isCannon && Input.GetKeyDown(KeyCode.E) && !shotPlayer && !loaded)
        {
             StartCoroutine(FireCannon());
        }
@@ -37,12 +38,14 @@ public class Cannon : MonoBehaviour
 
     private IEnumerator FireCannon()
     {
+        loaded = true;
         pm.scriptedMovement = true;
         yield return new WaitForSeconds(.2f);
         rb.gameObject.transform.position = transform.position;
         rb.velocity = new Vector2(0, 0);
         rb.AddForce(cannonAngle.normalized * cannonSpeed, ForceMode2D.Impulse);
         yield return new WaitForSeconds(.2f);
+        loaded = false;
         shotPlayer = true;
     }
 

@@ -13,11 +13,15 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector]
     public bool facingRight;
     public Vector2 lastGroundedPosition;
+    public SpriteRenderer mySprite;
+    public Animator myAnim;
 
     [HideInInspector]
     public bool scriptedMovement;
     [HideInInspector]
     public bool canMove;
+    [HideInInspector]
+    public bool onLadder;
 
     private float canMoveTimer;
     private Rigidbody2D rb;
@@ -52,10 +56,12 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetAxis("Horizontal") > 0)
             {
+                mySprite.flipX = false;
                 facingRight = true;
             }
             if (Input.GetAxis("Horizontal") < 0)
             {
+                mySprite.flipX = true;
                 facingRight = false;
             }
 
@@ -66,14 +72,23 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if(!isGrounded && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && canMove)
+        if(!isGrounded && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && canMove && !onLadder)
         {
             rb.gravityScale = gravity * fallSpeed;
         }
-        else
+        else if (!onLadder)
         {
             rb.gravityScale = gravity;
         }
+        else
+        {
+            rb.gravityScale = 0;
+        }
+
+        if(Input.GetAxisRaw("Horizontal") != 0)
+            myAnim.SetBool("Walking", true);
+        else
+            myAnim.SetBool("Walking", false);
 
     }
 
