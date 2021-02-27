@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7346ed370eac4b44daa64cd4bd098980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberToDrop: 5
   itemToDrop: {fileID: 1973690571976335222, guid: 2dee734b95030b44a997725d5aa20447,
     type: 3}
 --- !u!212 &5671011267251206012

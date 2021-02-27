@@ -121,6 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7820a809e9678e04796438563d2ec3cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newScene: Vrad's Test Scene
+  newScene: Brad's Test Scene
   transitionTime: 0.25
   transition: {fileID: 0}
