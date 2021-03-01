@@ -35,6 +35,8 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
+        if (GetComponent<ItemDrop>() != null)
+            GetComponent<ItemDrop>().CreateItem();
         Destroy(gameObject);
     }
 }
