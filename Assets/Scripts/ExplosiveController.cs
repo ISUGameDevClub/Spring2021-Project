@@ -14,7 +14,6 @@ public class ExplosiveController : MonoBehaviour
     private void Start()
     {
         coll = GetComponent<Collider2D>();
-        blastZone.transform.localScale = new Vector3(blastRadius, blastRadius / 2, 1);
         hurt = blastZone.GetComponent<HurtBox>();
     }
     void Update()
@@ -29,6 +28,9 @@ public class ExplosiveController : MonoBehaviour
         coll.enabled = false;
         coll.enabled = true;
         yield return new WaitForSeconds(timeBeforeExplosion);
+        blastZone.transform.SetParent(null);
+        blastZone.transform.localScale = new Vector3(blastRadius, blastRadius, 1);
         blastZone.SetActive(true);
+        Destroy(gameObject);
     }
 }

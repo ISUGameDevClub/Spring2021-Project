@@ -58,6 +58,7 @@ public class Attack : MonoBehaviour
 	}
 
 	private IEnumerator MeleeAttack() {
+        pm.DisableMovement(meleeAttackWindup + meleeAttackActiveTime);
         meleeReady = false;
 		coll.enabled = false;
 		coll.enabled = true;

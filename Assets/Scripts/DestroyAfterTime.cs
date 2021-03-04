@@ -6,7 +6,7 @@ public class DestroyAfterTime : MonoBehaviour
 {
     public int timeUntilDestroyed;
 
-    void Start()
+    void OnEnable()
     {
         Destroy(gameObject, timeUntilDestroyed);
     }
