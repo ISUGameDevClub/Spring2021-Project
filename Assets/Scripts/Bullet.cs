@@ -29,7 +29,9 @@ public class Bullet : MonoBehaviour
 		}
     }
 	private void OnTriggerEnter2D(Collider2D collision){
-		if(collision.gameObject.tag == "Ground"|| (collision.gameObject.tag == "Enemy" && hb.isPlayer )|| (collision.gameObject.tag == "Player" && !hb.isPlayer))
+		if(collision.gameObject.tag == "Ground"||
+			(collision.gameObject.tag == "Enemy" && hb.isPlayer )||
+			(collision.gameObject.tag == "Player" && !hb.isPlayer))
 		{
 			
 			Destroy(gameObject);

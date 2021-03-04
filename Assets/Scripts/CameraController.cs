@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     private Vector3 playerPos;
+    private GameObject player;
 
-    public GameObject player;
     public float xMax;
     public float xMin;
     public float yMax;
@@ -14,49 +14,30 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        playerPos = new Vector3(player.transform.position.x, player.transform.position.y, -10);
-        transform.position = playerPos;
+        player = FindObjectOfType<PlayerMovement>().gameObject;
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
     }
+
     void LateUpdate()
     {
-        playerPos = new Vector3(player.transform.position.x, player.transform.position.y, -10);
-        if (playerPos.y >= yMax)
-        { 
-            if (playerPos.x >= xMax)
-                transform.position = new Vector3(xMax, yMax, -10);
-            else if (playerPos.x <= xMin)
-                transform.position = new Vector3(xMin, yMax, -10);
-            else 
-                transform.position = new Vector3(playerPos.x, yMax, -10);
-        }
-        else if (playerPos.y <= yMin)
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
+  
+        if (transform.position.y > yMax)
         {
-            if (playerPos.x >= xMax)
-                transform.position = new Vector3(xMax, yMin, -10);
-            else if (playerPos.x <= xMin)
-                transform.position = new Vector3(xMin, yMin, -10);
-            else
-                transform.position = new Vector3(playerPos.x, yMin, -10);
+            transform.position = new Vector3(transform.position.x, yMax, -10);
         }
-        else if (playerPos.x >= xMax)
+        else if (transform.position.y < yMin)
         {
-            if (playerPos.y >= yMax)
-                transform.position = new Vector3(xMax, yMax, -10);
-            else if (playerPos.y <= yMin)
-                transform.position = new Vector3(xMax, yMin, -10);
-            else
-                transform.position = new Vector3(xMax, playerPos.y, -10);
+            transform.position = new Vector3(transform.position.x, yMin, -10);
         }
-        else if (playerPos.x <= xMin)
+
+        if (transform.position.x > xMax)
         {
-            if (playerPos.y >= yMax)
-                transform.position = new Vector3(playerPos.x, yMax, -10);
-            else if (playerPos.y <= yMin)
-                transform.position = new Vector3(playerPos.x, yMin, -10);
-            else
-                transform.position = new Vector3(xMin, playerPos.y, -10);
+            transform.position = new Vector3(xMax, transform.position.y, -10);
         }
-        else
-            transform.position = playerPos;
+        else if (transform.position.x < xMin)
+        {
+            transform.position = new Vector3(xMin, transform.position.y, -10);
+        }
     }
 }

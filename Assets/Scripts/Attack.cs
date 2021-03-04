@@ -58,12 +58,13 @@ public class Attack : MonoBehaviour
 	}
 
 	private IEnumerator MeleeAttack() {
+        pm.DisableMovement(meleeAttackWindup + meleeAttackActiveTime);
         meleeReady = false;
 		coll.enabled = false;
 		coll.enabled = true;
 		yield return new WaitForSeconds(meleeAttackWindup);
 		attackZone.SetActive(true);
-		attackZone.GetComponent<HurtBox>().ClearArray();
+		hurt.ClearArray();
 		yield return new WaitForSeconds(meleeAttackActiveTime);
 		attackZone.SetActive(false);
         meleeReady = true;
