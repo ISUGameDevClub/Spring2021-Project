@@ -55,10 +55,10 @@ MonoBehaviour:
   JumpPower: 2
   FallSpeed: 1.5
   Gravity: 1
-  Jumpable: 1
+  Jumpable: 0
   JumpLifOffTime: 1
   HangTime: 0.5
-  LogEvents: 1
+  LogEvents: 0
   DistanceErrorMargin: 0
   PathBlockingDistance: 1
   RigidBody2d: {fileID: 1654050274911903388}
@@ -86,7 +86,7 @@ MonoBehaviour:
   AgentBehavior: {fileID: 7862567664831944175}
   AgentObj: {fileID: 2921087272826752264}
   MainTarget: {fileID: 0}
-  LogEvents: 1
+  LogEvents: 0
   DeepLogEvents: 0
 --- !u!114 &1040548941193343150
 MonoBehaviour:
@@ -116,7 +116,7 @@ MonoBehaviour:
   EntityState: 0
   ObjectsInView: []
   ObjectsSensedBehind: []
-  LogEvents: 1
+  LogEvents: 0
   _BoxCastSizeFront: {x: 0, y: 0}
 --- !u!114 &7862567664831944175
 MonoBehaviour:
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutomatedMovementScript: {fileID: 8396956120598152682}
   AgentStateScript: {fileID: 0}
-  StartingAction: 4
+  StartingAction: 1
   StartingAggression: 2
   AttackEnabled: 1
   DistanceToAttack: 1.25
@@ -145,7 +145,7 @@ MonoBehaviour:
   StoppingDistance: 1
   Target: {fileID: 0}
   TargetTransform: {fileID: 0}
-  LogEvents: 1
+  LogEvents: 0
   ActiveActionsBeingPerformed: 
 --- !u!212 &2077700999431697076
 SpriteRenderer:

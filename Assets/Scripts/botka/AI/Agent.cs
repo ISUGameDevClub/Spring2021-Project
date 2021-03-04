@@ -11,7 +11,7 @@ public class Agent : MonoBehaviour
     public AgentState AgentState;
     public AgentBehavior AgentBehavior;
     public GameObject AgentObj;
-
+    
     public GameObject MainTarget;
     
     

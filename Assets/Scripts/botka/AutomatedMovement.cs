@@ -114,7 +114,7 @@ public class AutomatedMovement : MonoBehaviour
                             Tilemap tilemap = hit.collider.gameObject.GetComponentInChildren<Tilemap>();
                             float nX = point.x - transform.position.x <= 0f ? transform.position.x + (point.x - transform.position.x) - _EntityBounds.size.x / 2
                             : transform.position.x + (point.x - transform.position.x) + _EntityBounds.size.x / 2;
-                            Debug.Log(nX);
+                            //Debug.Log(nX);
                             RaycastHit2D nHit = Physics2D.Raycast(
                                 new Vector2(nX, 100f), 
                                     Vector2.down);
