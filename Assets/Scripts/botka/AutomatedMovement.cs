@@ -30,7 +30,7 @@ public class AutomatedMovement : MonoBehaviour
 
     public bool Lock;
     
-    public bool Moving;
+    [HideInInspector]public bool Moving;
 
     [Header("DEBUG")]
     public GameObject Target;
@@ -47,11 +47,13 @@ public class AutomatedMovement : MonoBehaviour
     private bool _LocalLockBindedToLock;
     private bool _Jumping;
     private bool _Grounded;
+    private Coroutine _JumpTimeout;
 
     private GameObject _StandingOn;
     public GameObject[] BlockingObjects;
     void Awake() 
     {
+        _JumpTimeout = null;
         _PauseTimeout = null;
     }
     // Start is called before the first frame update
