@@ -31,7 +31,12 @@ public class Health : MonoBehaviour
 
         if(curHealth <= 0)
         {
-            Die();
+            if(gameObject.GetComponent<ExplosiveController>()!=null)
+            {
+                gameObject.GetComponent<DestroyAfterTime>().enabled = true;
+            }
+            else
+                Die();
         }
     }
 
