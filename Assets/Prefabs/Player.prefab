@@ -159,7 +159,7 @@ MonoBehaviour:
   jumpPower: 8.5
   isGrounded: 0
   gravity: 1
-  fallSpeed: 2
+  fallSpeed: 1
   facingRight: 0
   lastGroundedPosition: {x: 0, y: 0}
   mySprite: {fileID: 610010692}
