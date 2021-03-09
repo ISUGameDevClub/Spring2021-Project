@@ -11,19 +11,22 @@ public class AmmoSystem : MonoBehaviour
     void Start()
     {
         totalAmmo = 0;
-        ammoText.text = "Ammo: " + totalAmmo;
+        if(ammoText != null)
+            ammoText.text = "Ammo: " + totalAmmo;
     }
 
     public void UseAmmo(int amount)
     {
         totalAmmo -= amount;
-        ammoText.text = "Ammo: " + totalAmmo;
+        if (ammoText != null)
+            ammoText.text = "Ammo: " + totalAmmo;
     }
 
     public void PickupAmmo(int amount)
     {
         totalAmmo += amount;
-        ammoText.text = "Ammo: " + totalAmmo;
+        if (ammoText != null)
+            ammoText.text = "Ammo: " + totalAmmo;
     }
     
 }

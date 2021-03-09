@@ -11,7 +11,7 @@ public class PitController : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            col.gameObject.GetComponent<Health>().TakeDamage(pitDamage,0,0);
+            col.gameObject.GetComponent<Health>().TakeDamage(pitDamage, 0, 0, .25f);
             
             if ((transform.position.x > col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x)&&
                 (transform.position.x-col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x)>1)

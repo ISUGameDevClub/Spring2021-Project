@@ -186,8 +186,8 @@ MonoBehaviour:
   bullet: {fileID: 1877549074760806174, guid: 3b78fe414b59d414a9b6afa80151d231, type: 3}
   attackPower: 0
   meleeAttackActiveTime: 0.2
-  meleeAttackWindup: 0.1
-  rangedActiveTime: 0.4
+  meleeAttackWindup: 0.08
+  rangedActiveTime: 0.2
   rangedAttackWindup: 0.25
 --- !u!114 &1879421904527483785
 MonoBehaviour:
@@ -201,8 +201,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4daf350b0f1a93e409abf09cd7d13102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
-  curHealth: 20
+  maxHealth: 5
+  curHealth: 5
+  isPlayer: 0
+  healthText: {fileID: 0}
 --- !u!114 &7605558824544968133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5fd721d248ec1143b32eaf97537bb92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 8
+  dashSpeed: 16
   startDashTime: 0.25
   cooldownTimer: 2
 --- !u!50 &1879421904527483766
@@ -516,8 +518,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 1
-  damage: 2
+  damage: 1
+  canMultiHit: 0
   AttackedArray: []
+  knockbackPower: 2
+  knockbackTime: 0.1
 --- !u!1 &5563991008705673033
 GameObject:
   m_ObjectHideFlags: 0
