@@ -9,9 +9,9 @@ public class Attack : MonoBehaviour
     private PlayerMovement pm;
 	private HurtBox hurt;
 	private Collider2D coll;
+    private AmmoSystem ams;
 
-
-	public int rangedSpeed;
+    public int rangedSpeed;
 	public GameObject attackZone;
 	public GameObject bullet;
 	public int attackPower;
@@ -28,6 +28,7 @@ public class Attack : MonoBehaviour
         attackReady = true;
         pm = GetComponent<PlayerMovement>();
 		coll = GetComponent<Collider2D>();
+        ams = GetComponent<AmmoSystem>();
 	}
 
     // Update is called once per frame
@@ -48,8 +49,9 @@ public class Attack : MonoBehaviour
 		{
 			StartCoroutine(MeleeAttack());
 		}		
-		else if(Input.GetKeyDown(KeyCode.Mouse1 ) && attackReady)
+		else if(Input.GetKeyDown(KeyCode.Mouse1 ) && attackReady && ams.totalAmmo > 0)
 		{
+            ams.UseAmmo(1);
 			StartCoroutine(RangedAttack());
 		}
 

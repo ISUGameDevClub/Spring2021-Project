@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 4099850179306137419}
   - component: {fileID: 1879421904527483785}
   - component: {fileID: 7605558824544968133}
+  - component: {fileID: 8355738080436486976}
   - component: {fileID: 8054635227011511005}
   - component: {fileID: 1879421904527483766}
   - component: {fileID: 5241177491256570716}
@@ -215,6 +216,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalGold: 0
+  goldText: {fileID: 0}
+--- !u!114 &8355738080436486976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879421904527483767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40de1f08db849da478f68a75d2de9ff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalAmmo: 0
+  ammoText: {fileID: 0}
 --- !u!114 &8054635227011511005
 MonoBehaviour:
   m_ObjectHideFlags: 0
