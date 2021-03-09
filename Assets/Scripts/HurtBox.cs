@@ -7,6 +7,7 @@ public class HurtBox : MonoBehaviour
     public bool isPlayer;
     public int damage;
     public GameObject[] AttackedArray;
+    public float knockbackPower;
 
 
     private void Start()
@@ -37,7 +38,7 @@ public class HurtBox : MonoBehaviour
                     }
 
                 }
-                collision.gameObject.GetComponent<Health>().TakeDamage(damage);
+                collision.gameObject.GetComponent<Health>().TakeDamage(damage,collision.transform.position.x,knockbackPower);
             }
         }
     }
