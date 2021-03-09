@@ -906,6 +906,7 @@ GameObject:
   - component: {fileID: 310688398}
   - component: {fileID: 310688397}
   - component: {fileID: 310688396}
+  - component: {fileID: 310688399}
   m_Layer: 0
   m_Name: Parrot
   m_TagString: Untagged
@@ -965,7 +966,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ecabb8f81ec2b1544ad09a699d221b19, type: 3}
+  m_Sprite: {fileID: 7933297803874927483, guid: 7156642a944d99149ac4974ca7ae9574,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -985,11 +987,30 @@ Transform:
   m_GameObject: {fileID: 310688395}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &310688399
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310688395}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3bf7e38a063672c44825ba93e4d2579e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &402280680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6871,6 +6892,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4099850179306137419, guid: 818abb121cdf7e94f90122ac8263ec5b,
+        type: 3}
+      propertyPath: rangedActiveTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4099850179306137419, guid: 818abb121cdf7e94f90122ac8263ec5b,
+        type: 3}
+      propertyPath: meleeAttackWindup
+      value: 0.08
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 818abb121cdf7e94f90122ac8263ec5b, type: 3}

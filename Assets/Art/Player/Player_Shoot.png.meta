@@ -1,13 +1,25 @@
 fileFormatVersion: 2
-guid: 205d0d1d925e24744b96532961732cef
+guid: 28539532a1b2bdb4097a41ba0d569fdb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -467307283419413426
-    second: Player_Idle_0
+      213: -7169371653411447740
+    second: Player_Shoot_0
   - first:
-      213: -5258030014049578038
-    second: Player_Idle_1
+      213: 998706065937494223
+    second: Player_Shoot_1
+  - first:
+      213: 3218591608074427183
+    second: Player_Shoot_2
+  - first:
+      213: 7069005636327514907
+    second: Player_Shoot_3
+  - first:
+      213: 5959281240547110345
+    second: Player_Shoot_4
+  - first:
+      213: -4504545249797230465
+    second: Player_Shoot_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -93,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Idle_0
+      name: Player_Shoot_0
       rect:
         serializedVersion: 2
         x: 0
@@ -107,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e4445da608ac389f0800000000000000
-      internalID: -467307283419413426
+      spriteID: 44cd7a75776418c90800000000000000
+      internalID: -7169371653411447740
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_1
+      name: Player_Shoot_1
       rect:
         serializedVersion: 2
         x: 32
@@ -128,8 +140,92 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac39b3a7f89b707b0800000000000000
-      internalID: -5258030014049578038
+      spriteID: fc07b3720ed1cdd00800000000000000
+      internalID: 998706065937494223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Shoot_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2b5454c30cbaac20800000000000000
+      internalID: 3218591608074427183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Shoot_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b13298c4c272a1260800000000000000
+      internalID: 7069005636327514907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Shoot_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cda573f6be93b250800000000000000
+      internalID: 5959281240547110345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Shoot_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f70b92f16f3ac71c0800000000000000
+      internalID: -4504545249797230465
       vertices: []
       indices: 
       edges: []

@@ -9,9 +9,10 @@ public class SceneTransition : MonoBehaviour
     public float transitionTime = .25f;
     public Animator transition;
 
-    private void OnTriggerEnter2D()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(LoadLevel());
+        if(collision.gameObject.tag == "Player")
+            StartCoroutine(LoadLevel());
     }
 
     IEnumerator LoadLevel()
