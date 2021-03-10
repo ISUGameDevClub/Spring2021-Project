@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerData : MonoBehaviour
+public class PlayerSpawnPoint : MonoBehaviour
 {
-    public static int playerSpawn;
-
+    public int mySpawn;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (PlayerData.playerSpawn == mySpawn)
+            FindObjectOfType<PlayerMovement>().gameObject.transform.position = transform.position;
     }
 
     // Update is called once per frame
