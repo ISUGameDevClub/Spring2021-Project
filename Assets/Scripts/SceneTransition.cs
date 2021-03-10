@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneTransition : MonoBehaviour
 {
     public string newScene;
+    public int spawnPosition;
     public float transitionTime = .25f;
     public Animator transition;
 
@@ -17,6 +18,7 @@ public class SceneTransition : MonoBehaviour
 
     IEnumerator LoadLevel()
     {
+        PlayerData.playerSpawn = spawnPosition;
         transition.SetTrigger("Change Scene");
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(newScene);
