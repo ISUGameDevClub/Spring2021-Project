@@ -8,13 +8,15 @@ public class ParrotFollow : MonoBehaviour
     private PlayerMovement pm;
     private Transform target;
     private Vector2 tar;
-
+    private SpriteRenderer sr;
 
     // Start is called before the first frame update
     void Start()
     {
+        sr = GetComponent<SpriteRenderer>();
         pm = FindObjectOfType<PlayerMovement>();
         target = pm.GetComponent<Transform>();
+        transform.position = pm.transform.position;
     }
 
     // Update is called once per frame
@@ -33,5 +35,12 @@ public class ParrotFollow : MonoBehaviour
             tar[0] = tar[0] + 1.5f;
             transform.position = Vector2.Lerp(transform.position, tar, speed * Time.deltaTime);
         }
+
+        if (tar.x > transform.position.x)
+        {
+            sr.flipX = true;
+        }
+        else
+            sr.flipX = false;
     }
 }

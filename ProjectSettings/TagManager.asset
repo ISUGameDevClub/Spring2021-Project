@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - AI-Agent
+  - Explosive
+  - Enemy
   layers:
   - Default
   - TransparentFX
