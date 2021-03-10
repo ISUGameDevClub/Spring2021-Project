@@ -101,8 +101,8 @@ MonoBehaviour:
   damage: 1
   canMultiHit: 0
   AttackedArray: []
-  knockbackPower: 0
-  knockbackTime: 0
+  knockbackPower: 4
+  knockbackTime: 0.75
 --- !u!114 &1877549074760806175
 MonoBehaviour:
   m_ObjectHideFlags: 0
