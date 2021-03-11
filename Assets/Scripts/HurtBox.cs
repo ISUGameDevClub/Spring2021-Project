@@ -6,8 +6,10 @@ public class HurtBox : MonoBehaviour
 {
     public bool isPlayer;
     public int damage;
+    public bool canMultiHit;
     public GameObject[] AttackedArray;
     public float knockbackPower;
+    public float knockbackTime;
 
 
     private void Start()
@@ -20,26 +22,32 @@ public class HurtBox : MonoBehaviour
         if ((collision.gameObject.tag == "Player" && !isPlayer) || (collision.gameObject.tag == "Enemy" && isPlayer))
         {
             bool onArray = false;
-            for(int i = 0; i < AttackedArray.Length; i++)
-            {
-                if (collision.gameObject == AttackedArray[i])
-                {
-                    onArray = true;
-                }
-            }
-            if (collision.gameObject.GetComponent<Health>() != null && !onArray)
+            if (!canMultiHit)
             {
                 for (int i = 0; i < AttackedArray.Length; i++)
                 {
-                    if (AttackedArray[i] == null)
+                    if (collision.gameObject == AttackedArray[i])
                     {
-                        AttackedArray[i] = collision.gameObject;
-                        break;
+                        onArray = true;
                     }
-
                 }
-                collision.gameObject.GetComponent<Health>().TakeDamage(damage,transform.position.x,knockbackPower);
+
+                if (collision.gameObject.GetComponent<Health>() != null && !onArray)
+                {
+                    for (int i = 0; i < AttackedArray.Length; i++)
+                    {
+                        if (AttackedArray[i] == null)
+                        {
+                            AttackedArray[i] = collision.gameObject;
+                            break;
+                        }
+
+                    }
+                    collision.gameObject.GetComponent<Health>().TakeDamage(damage, transform.position.x, knockbackPower, knockbackTime);
+                }
             }
+            else
+                collision.gameObject.GetComponent<Health>().TakeDamage(damage, transform.position.x, knockbackPower, knockbackTime);
         }
     }
     public void ClearArray()

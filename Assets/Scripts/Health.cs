@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
     public int maxHealth;
     public int curHealth;
     public bool isPlayer;
-    public float knockbackTime;
-    
+    public Text healthText;
+    public Animator transition;
+    public float transitionTime;
 
 
     private Collider2D coll;
@@ -18,7 +21,6 @@ public class Health : MonoBehaviour
     {
         curHealth = maxHealth;
         coll = gameObject.GetComponent<Collider2D>();
-
     }
 
     public void HealDamage(int heal)
@@ -29,9 +31,11 @@ public class Health : MonoBehaviour
         {
             curHealth = maxHealth;
         }
+        if (isPlayer)
+            healthText.text = "Health: " + curHealth;
     }
 
-    public void TakeDamage(int damage,float knockPosition,float knockbackPower)
+    public void TakeDamage(int damage,float knockPosition,float knockbackPower, float knockbackTime)
     {
         curHealth -= damage;
         if (gameObject.tag == "Player")
@@ -39,20 +43,29 @@ public class Health : MonoBehaviour
         if(curHealth <= 0)
         {
             if(gameObject.GetComponent<ExplosiveController>()==null)
-                Die();
-            
+                Die();            
         }
-        Knockback(knockPosition,knockbackPower);
+        else if(isPlayer)
+        {
+            healthText.text = "Health: " + curHealth;
+        }
+        Knockback(knockPosition, knockbackPower, knockbackTime);
     }
 
     public void Die()
     {
         if (GetComponent<ItemDrop>() != null)
             GetComponent<ItemDrop>().CreateItem();
-        Destroy(gameObject);
+        if (isPlayer)
+        {
+            StartCoroutine(ReloadLevel());
+        }
+        else
+            Destroy(gameObject);
+
     }
 
-    public void Knockback(float knockPosition,float knockbackPower)
+    public void Knockback(float knockPosition, float knockbackPower, float knockbackTime)
     {
         if (isPlayer)
         {
@@ -61,12 +74,18 @@ public class Health : MonoBehaviour
         if (gameObject.transform.position.x >= knockPosition)
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce
-                (new Vector2(knockbackPower, knockbackPower/2), ForceMode2D.Impulse);
+                (new Vector2(knockbackPower, knockbackPower * .75f), ForceMode2D.Impulse);
         }
         else if (gameObject.transform.position.x < knockPosition)
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce
-                (new Vector2(-knockbackPower, knockbackPower/2), ForceMode2D.Impulse);
+                (new Vector2(-knockbackPower, knockbackPower * .75f), ForceMode2D.Impulse);
         }
+    }
+    public IEnumerator ReloadLevel()
+    {
+        transition.SetTrigger("Change Scene");
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = 0;
         }
 
-        if(Input.GetAxisRaw("Horizontal") != 0)
+        if(Input.GetAxisRaw("Horizontal") != 0 && canMove)
             myAnim.SetBool("Walking", true);
         else
             myAnim.SetBool("Walking", false);
