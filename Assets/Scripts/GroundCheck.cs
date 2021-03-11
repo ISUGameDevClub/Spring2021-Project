@@ -22,21 +22,27 @@ public class GroundCheck : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if(collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Enemy")
         {
             grounds++;
-            if(grounds > 0)
+            if (grounds > 0)
+            {
                 pm.isGrounded = true;
+                pm.myAnim.SetBool("Grounded", true);
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Enemy")
         {
             grounds--;
-            if(grounds <= 0)
+            if (grounds <= 0)
+            {
                 pm.isGrounded = false;
+                pm.myAnim.SetBool("Grounded", false);
+            }
         }
     }
 }

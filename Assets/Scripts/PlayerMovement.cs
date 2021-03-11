@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float movementSpeed = 5;
-    public float jumpPower = 8;
+    public float movementSpeed = 6;
+    public float jumpPower;
+    [HideInInspector]
     public bool isGrounded;
     public float gravity;
     public float fallSpeed;
+    [HideInInspector]
     public bool facingRight;
+    public Vector2 lastGroundedPosition;
+    public SpriteRenderer mySprite;
+    public Animator myAnim;
 
+    [HideInInspector]
+    public bool scriptedMovement;
+    [HideInInspector]
+    public bool canMove;
+    [HideInInspector]
+    public bool onLadder;
+
+    private float canMoveTimer;
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -18,40 +31,77 @@ public class PlayerMovement : MonoBehaviour
     {
         facingRight = true;
         rb = GetComponent<Rigidbody2D>();
+        canMove = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Horizontal") > 0)
+        if (!scriptedMovement && canMoveTimer <= 0)
+            canMove = true;
+        else if (canMoveTimer > 0)
         {
-            facingRight = true;
+            canMoveTimer -= Time.deltaTime;
+            canMove = false;
         }
-        if (Input.GetAxis("Horizontal") < 0)
+        else
+            canMove = false;
+
+        if (isGrounded)
         {
-            facingRight = false;
+            lastGroundedPosition = transform.position;
         }
 
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (canMove)
         {
-            Jump();
+            if (Input.GetAxis("Horizontal") > 0)
+            {
+                mySprite.flipX = false;
+                facingRight = true;
+            }
+            if (Input.GetAxis("Horizontal") < 0)
+            {
+                mySprite.flipX = true;
+                facingRight = false;
+            }
+
+
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            {
+                Jump();
+            }
         }
 
-        if(!isGrounded && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        if(!isGrounded && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && canMove && !onLadder)
         {
             rb.gravityScale = gravity * fallSpeed;
         }
-        else
+        else if (!onLadder)
         {
             rb.gravityScale = gravity;
         }
+        else
+        {
+            rb.gravityScale = 0;
+        }
 
+        if(Input.GetAxisRaw("Horizontal") != 0)
+            myAnim.SetBool("Walking", true);
+        else
+            myAnim.SetBool("Walking", false);
+
+    }
+
+    public void DisableMovement(float timeDisabled)
+    {
+        if (canMoveTimer < timeDisabled)
+            canMoveTimer = timeDisabled;
     }
 
     private void FixedUpdate()
     {
-        Movement();
+        if(canMove)
+            Movement();
     }
 
     private void Movement()
