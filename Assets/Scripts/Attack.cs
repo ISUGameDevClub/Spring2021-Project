@@ -5,26 +5,31 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
 	private Vector2 attackOrigin;
-    private bool meleeReady;
-	private bool gunReady;
+    private bool attackReady;
     private PlayerMovement pm;
-	
-	public int rangedSpeed;
+	private HurtBox hurt;
+	private Collider2D coll;
+    private AmmoSystem ams;
+
+    public int rangedSpeed;
 	public GameObject attackZone;
 	public GameObject bullet;
 	public int attackPower;
 	public float meleeAttackActiveTime;
 	public float meleeAttackWindup;
-	public float rangedReloadSpeed;
+	public float rangedActiveTime;
 	public float rangedAttackWindup;
+
     // Start is called before the first frame update
     void Start()
     {
         attackZone.SetActive(false);
-		gunReady = true;
-        meleeReady = true;
+		hurt = attackZone.GetComponent<HurtBox>();
+        attackReady = true;
         pm = GetComponent<PlayerMovement>();
-    }
+		coll = GetComponent<Collider2D>();
+        ams = GetComponent<AmmoSystem>();
+	}
 
     // Update is called once per frame
     void Update()
@@ -40,38 +45,50 @@ public class Attack : MonoBehaviour
                 attackZone.transform.localPosition = (Vector3.left);
         }
 
-
-        if (Input.GetKeyDown(KeyCode.Mouse0) && meleeReady)
-        {
+		if (Input.GetKeyDown(KeyCode.Mouse0) && attackReady && pm.canMove)
+		{
 			StartCoroutine(MeleeAttack());
 		}		
-		if(Input.GetKeyDown(KeyCode.Mouse1 ) && gunReady){
+		else if(Input.GetKeyDown(KeyCode.Mouse1 ) && attackReady && ams.totalAmmo > 0 && pm.canMove)
+		{
+            ams.UseAmmo(1);
 			StartCoroutine(RangedAttack());
 		}
-    }
+
+	}
 
 	private IEnumerator MeleeAttack() {
-        meleeReady = false;
-        yield return new WaitForSeconds(meleeAttackWindup);
-        attackZone.SetActive(true);
+        pm.myAnim.SetTrigger("Melee 1");
+        pm.DisableMovement(meleeAttackWindup + meleeAttackActiveTime);
+        attackReady = false;
+		coll.enabled = false;
+		coll.enabled = true;
+		yield return new WaitForSeconds(meleeAttackWindup);
+		attackZone.SetActive(true);
+		hurt.ClearArray();
 		yield return new WaitForSeconds(meleeAttackActiveTime);
-        attackZone.SetActive(false);
-        meleeReady = true;
+		attackZone.SetActive(false);
+        attackReady = true;
     }
 
 	private IEnumerator RangedAttack() {
-		gunReady = false;
-		yield return new WaitForSeconds(rangedAttackWindup);
+        attackReady = false;
+        pm.myAnim.SetTrigger("Shoot");
+        pm.DisableMovement(rangedAttackWindup + rangedActiveTime);
+        yield return new WaitForSeconds(rangedAttackWindup);
 		if(pm.facingRight){
 		    Bullet bul = Instantiate(bullet,new Vector2(transform.position.x+1,transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
 		    bul.facingRight = pm.facingRight;
+			bul.GetComponent<HurtBox>().isPlayer = true;
+            bul.transform.SetParent(null);
 		}
 		else{
 		    Bullet bul = Instantiate(bullet,new Vector2(transform.position.x-1,transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
 		    bul.facingRight = pm.facingRight;
-		}
-		
-		yield return new WaitForSeconds(rangedReloadSpeed);
-		gunReady = true;
+			bul.GetComponent<HurtBox>().isPlayer = true;
+            bul.transform.SetParent(null);
+        }
+        yield return new WaitForSeconds(rangedActiveTime);
+        attackReady = true;
 	}	
 }

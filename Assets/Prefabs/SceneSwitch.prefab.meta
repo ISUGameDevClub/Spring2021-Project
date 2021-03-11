@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Prefabs/SceneSwitch.prefab.meta
 guid: 7c5e1120545de0d438fb16a66d5f470e
 PrefabImporter:
+=======
+guid: 40426f8359e7e0e468c0662c726956e6
+TextScriptImporter:
+>>>>>>> 7fa91328edc1ec2b11725e88c4d83d0a33fe2056:Assets/Scenes/City 2/Placeholder.txt.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
