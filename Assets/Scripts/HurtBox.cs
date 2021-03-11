@@ -38,7 +38,7 @@ public class HurtBox : MonoBehaviour
                     }
 
                 }
-                collision.gameObject.GetComponent<Health>().TakeDamage(damage,collision.transform.position.x,knockbackPower);
+                collision.gameObject.GetComponent<Health>().TakeDamage(damage,transform.position.x,knockbackPower);
             }
         }
     }

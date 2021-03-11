@@ -18,6 +18,7 @@ public class Health : MonoBehaviour
     {
         curHealth = maxHealth;
         coll = gameObject.GetComponent<Collider2D>();
+
     }
 
     public void HealDamage(int heal)
@@ -62,7 +63,7 @@ public class Health : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().AddForce
                 (new Vector2(knockbackPower, knockbackPower/2), ForceMode2D.Impulse);
         }
-        else
+        else if (gameObject.transform.position.x < knockPosition)
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce
                 (new Vector2(-knockbackPower, knockbackPower/2), ForceMode2D.Impulse);
