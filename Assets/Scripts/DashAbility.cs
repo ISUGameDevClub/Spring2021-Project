@@ -34,8 +34,9 @@ public class DashAbility : MonoBehaviour
         //If the direction is not defined, define direction
         if (direction == 0)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && pm.canMove)
             {
+                pm.DisableMovement(startDashTime);
                 StartCoroutine(DashCooldown());
                 if(!pm.facingRight)
                 {
