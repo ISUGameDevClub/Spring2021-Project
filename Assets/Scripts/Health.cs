@@ -21,6 +21,9 @@ public class Health : MonoBehaviour
     {
         curHealth = maxHealth;
         coll = gameObject.GetComponent<Collider2D>();
+
+        if (isPlayer)
+            healthText.text = "Health: " + curHealth;
     }
 
     public void HealDamage(int heal)
@@ -82,6 +85,7 @@ public class Health : MonoBehaviour
                 (new Vector2(-knockbackPower, knockbackPower * .75f), ForceMode2D.Impulse);
         }
     }
+
     public IEnumerator ReloadLevel()
     {
         transition.SetTrigger("Change Scene");

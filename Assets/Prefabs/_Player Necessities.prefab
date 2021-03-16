@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1824126384832432972}
   m_Layer: 0
-  m_Name: Player Necessities
+  m_Name: _Player Necessities
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,6 +244,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3611897019204441910}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1824126383690397451 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3130160602462396477, guid: 0aeae68a78f05644499326eafdb400fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3611897019204441910}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1824126384771035495 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3130160601381791313, guid: 0aeae68a78f05644499326eafdb400fc,
@@ -432,6 +438,16 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 1824126384613227458}
+    - target: {fileID: 1879421904527483785, guid: 818abb121cdf7e94f90122ac8263ec5b,
+        type: 3}
+      propertyPath: transition
+      value: 
+      objectReference: {fileID: 1824126383690397451}
+    - target: {fileID: 1879421904527483785, guid: 818abb121cdf7e94f90122ac8263ec5b,
+        type: 3}
+      propertyPath: transitionTime
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 1879421904527483786, guid: 818abb121cdf7e94f90122ac8263ec5b,
         type: 3}
       propertyPath: fallSpeed
