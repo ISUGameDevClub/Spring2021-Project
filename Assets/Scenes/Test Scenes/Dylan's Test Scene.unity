@@ -2156,22 +2156,22 @@ PrefabInstance:
     - target: {fileID: 235758432404190634, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: maxDefaultGold
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 235758432404190634, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: maxUpgradedGold
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1818400902814968623, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: maxDefaultAmmo
-      value: 15
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1818400902814968623, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: maxUpgradedAmmo
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1824126384832432972, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}

@@ -11,9 +11,12 @@ public class GoldSystem : MonoBehaviour
     public int maxDefaultGold;
     public int maxUpgradedGold;
 
+    private NotificationController nc;
+
     // Start is called before the first frame update
     void Start()
     {
+        nc = FindObjectOfType<NotificationController>();
         upgraded = false;
         totalGold = 0;
         goldText.text = "Coins: " + totalGold;
@@ -21,16 +24,18 @@ public class GoldSystem : MonoBehaviour
 
     public void AddGold(int amount)
     {
-        if (upgraded == false && totalGold < maxDefaultGold)
+        totalGold += amount;
+        if (upgraded == false && totalGold > maxDefaultGold)
         {
-            totalGold += amount;
-            goldText.text = "Coins: " + totalGold;
+            totalGold = maxDefaultGold;
+            nc.ShowNotification("Gold Pouch Full", 1);
         }
-        else if (upgraded == true && totalGold < maxUpgradedGold)
+        else if (upgraded == true && totalGold > maxUpgradedGold)
         {
-            totalGold += amount;
-            goldText.text = "Coins: " + totalGold;
+            totalGold = maxUpgradedGold;
+            nc.ShowNotification("Gold Pouch Full", 1);
         }
+        goldText.text = "Coins: " + totalGold;
     }
 
     public void SubtractGold(int amount)

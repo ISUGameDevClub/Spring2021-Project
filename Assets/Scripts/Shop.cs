@@ -5,6 +5,7 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
     private bool touchingShop;
+    [HideInInspector]
     public GameObject shopUI;
     // Start is called before the first frame update
     void Start()
