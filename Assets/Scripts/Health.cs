@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
 {
     public int maxHealth;
     public int curHealth;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class Health : MonoBehaviour
             curHealth = maxHealth;
         }
     }
+
     public void TakeDamage(int damage)
     {
         curHealth -= damage;
@@ -33,6 +35,8 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
+        if (GetComponent<ItemDrop>() != null)
+            GetComponent<ItemDrop>().CreateItem();
         Destroy(gameObject);
     }
 }

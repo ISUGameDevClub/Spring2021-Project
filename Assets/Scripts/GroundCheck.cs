@@ -6,6 +6,8 @@ public class GroundCheck : MonoBehaviour
 {
     public PlayerMovement pm;
 
+    private int grounds;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,17 +22,27 @@ public class GroundCheck : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if(collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Enemy")
         {
-            pm.isGrounded = true;
+            grounds++;
+            if (grounds > 0)
+            {
+                pm.isGrounded = true;
+                pm.myAnim.SetBool("Grounded", true);
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Enemy")
         {
-            pm.isGrounded = false;
+            grounds--;
+            if (grounds <= 0)
+            {
+                pm.isGrounded = false;
+                pm.myAnim.SetBool("Grounded", false);
+            }
         }
     }
 }
