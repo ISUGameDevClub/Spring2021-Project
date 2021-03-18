@@ -52,18 +52,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VelocityX: 2.5
   VelocityY: 0.1
-  JumpPower: 2
+  MinJumpingPower: 5
+  MaxJumpingPower: 22
+  JumpPower: 20
   FallSpeed: 1.5
   Gravity: 1
-  Jumpable: 0
+  Jumpable: 1
   JumpLifOffTime: 1
   HangTime: 0.5
-  LogEvents: 0
-  DistanceErrorMargin: 0
+  LogEvents: 1
+  DistanceErrorMargin: 0.5
   PathBlockingDistance: 1
   RigidBody2d: {fileID: 1654050274911903388}
   Lock: 0
   Moving: 0
+  Targets: []
   Target: {fileID: 0}
   Blocked: 0
   TargetLocation: {fileID: 0}

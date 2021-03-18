@@ -13,7 +13,9 @@ public class AutomatedMovement : MonoBehaviour
     [Header("General")]
     [Range(0.1f,10f)]public float VelocityX;
     [Range(0.1f,10f)]public float VelocityY;
-    [Range(0.1f,10f)]public float JumpPower;
+    [Range(0.5f, 50f)] public float MinJumpingPower;
+    [Range(0.5f, 50f)] public float MaxJumpingPower;
+    [Range(1f,50f)]public float JumpPower;
     [Range(0.1f,10f)]public float FallSpeed;
     [Range(0.1f,10f)]public float Gravity;
 
@@ -33,6 +35,7 @@ public class AutomatedMovement : MonoBehaviour
     [HideInInspector]public bool Moving;
 
     [Header("DEBUG")]
+    public List<GameObject> Targets;
     public GameObject Target;
     public bool Blocked;
     public Transform TargetLocation;
@@ -55,6 +58,7 @@ public class AutomatedMovement : MonoBehaviour
     {
         _JumpTimeout = null;
         _PauseTimeout = null;
+        Targets = new List<GameObject>();
     }
     // Start is called before the first frame update
     void Start()
@@ -77,6 +81,22 @@ public class AutomatedMovement : MonoBehaviour
             TargetLocation = Target.transform;
         }
         
+        if (_Grounded)
+        {
+            if (RigidBody2d.gravityScale != Gravity)
+            {
+                RigidBody2d.gravityScale = Gravity;
+            }
+        }
+        else
+        {
+            float temp = Gravity * FallSpeed;
+            if (RigidBody2d.gravityScale != temp)
+            {
+                RigidBody2d.gravityScale = temp;
+
+            }
+        }
         if (Lock || _LocalLock)
         {
             if (Moving)
@@ -91,6 +111,11 @@ public class AutomatedMovement : MonoBehaviour
                 RigidBody2d.gravityScale = Gravity * FallSpeed;
             }
             
+            if (Targets.Count > 0 && Targets[0] != null)
+            {
+                Target = Targets[0];
+                EntityStatus = Status.Moving;
+            }
             switch(EntityStatus)
             {
                 case Status.Inactive:
@@ -121,7 +146,24 @@ public class AutomatedMovement : MonoBehaviour
                             if (nHit.collider != null)
                             {
                                 RigidBody2d.MovePosition(new Vector3(nHit.point.x,nHit.point.y + _EntityBounds.size.y / 2, transform.position.z));
-                                break;
+                                break; //remove when jumping  is finished
+                                float modPower = RigidBody2d.velocity.x * Vector3.Distance(transform.position, point) * 3;
+                                
+                                modPower = modPower > MaxJumpingPower || modPower < MinJumpingPower ? 
+                                        (JumpPower > MaxJumpingPower || JumpPower < MinJumpingPower 
+                                            ? MaxJumpingPower : JumpPower) : modPower;
+                                Debug.Log(modPower);
+                                if (!IsStationary())
+                                {
+                                    Jump(modPower,0f);
+                                    break;
+                                }
+                                else
+                                {
+                                    
+                                    Jump(modPower, transform.position.z == 0f ? 10f : -10f);
+                                }
+                                
                                 
                             }
                         
@@ -149,6 +191,14 @@ public class AutomatedMovement : MonoBehaviour
                             }
                             */
                         }
+                    }
+                    if (Targets.Count > 0)
+                    {
+                        Target = Targets[0];
+                    }
+                    else
+                    {
+                        Target = null;
                     }
                     if (Target != null)
                     {
@@ -184,6 +234,12 @@ public class AutomatedMovement : MonoBehaviour
                     break;
             }
         }
+
+        if (IsAtTarget())
+        {
+            Targets.Remove(Target);
+            Target = null;
+        }
     }
 
     private List<GameObject> _TempList = new List<GameObject>(0);
@@ -198,14 +254,25 @@ public class AutomatedMovement : MonoBehaviour
     [ContextMenu("Jump")]
     public void Jump()
     {
+        Jump(JumpPower);
+    }
+
+    public void Jump(float jumpingPower)
+    {
+        Jump(JumpPower, 0f);
+    }
+
+    public void Jump(float jumpingPower, float XVecPowerHanging)
+    {
         if (Jumpable)
         {
             RigidBody2d.velocity = new Vector2(RigidBody2d.velocity.x, 0);
-            RigidBody2d.AddForce(new Vector2(0, 5f), ForceMode2D.Impulse);
-            if (_JumpCoroutine == null)
+            //RigidBody2d.AddForce(new Vector2(0, 5f), ForceMode2D.Impulse);
+            if (_JumpCoroutine == null && _Grounded && !_Jumping)
             {
                 _Jumping = true;
-                _JumpCoroutine = StartCoroutine(JumpCoroutine());
+                _JumpCoroutine = StartCoroutine(JumpCoroutine(jumpingPower, XVecPowerHanging));
+                
             }
         }
         else
@@ -214,6 +281,10 @@ public class AutomatedMovement : MonoBehaviour
         }
     }
 
+    public bool IsStationary()
+    {
+        return RigidBody2d.velocity.x <= 0.1f && RigidBody2d.velocity.x >= -0.1f;
+    }
     [ContextMenu("Start movement")]
     public void StartMoving()
     {
@@ -224,6 +295,7 @@ public class AutomatedMovement : MonoBehaviour
     [ContextMenu("Stop Movement")]
     public void StopMoving()
     {
+        
         EntityStatus = Status.Stopped;
         RigidBody2d.velocity = new Vector2(0f, 0f);
     }
@@ -260,6 +332,11 @@ public class AutomatedMovement : MonoBehaviour
         return Target != null ? isAtLocation(Target.transform, margin) : false;
     }
 
+     public bool IsAtTarget(GameObject target, float margin)
+    {
+        return target != null ? isAtLocation(target.transform, margin) : false;
+    }
+
     public bool isAtLocation(Transform loca)
     {
         return isAtLocation(loca,DistanceErrorMargin);
@@ -281,17 +358,19 @@ public class AutomatedMovement : MonoBehaviour
         
     }
 
-    private IEnumerator JumpCoroutine()
+    private IEnumerator JumpCoroutine(float JumpingPower, float hangingMove)
     {
+        Debug.Log("Jumping)");
         RigidBody2d.velocity = new Vector2(RigidBody2d.velocity.x, 0);
-        RigidBody2d.AddForce(new Vector2(0, 5f), ForceMode2D.Impulse);
+        RigidBody2d.AddForce(new Vector2(0, JumpingPower), ForceMode2D.Impulse);
         yield return new WaitForSecondsRealtime(JumpLifOffTime);
         //enter haning code
         yield return new WaitForSecondsRealtime(HangTime);
-        while (!_Grounded)
+        if (hangingMove > 0f)
         {
-            RigidBody2d.gravityScale = Gravity * FallSpeed;
+            RigidBody2d.AddForce(new Vector2(hangingMove, 0), ForceMode2D.Impulse);
         }
+        RigidBody2d.gravityScale = Gravity * FallSpeed;
         yield return new WaitForEndOfFrame();
         _Jumping = false;
         _JumpCoroutine = null;

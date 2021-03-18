@@ -61,6 +61,7 @@ public class Agent : MonoBehaviour
         if (target != null)
         {
             AgentBehavior.Target = target;
+            
             AgentBehavior.ExecuteAction(AgentBehavior.Action.Persue, MainTarget, true);
         }
     }

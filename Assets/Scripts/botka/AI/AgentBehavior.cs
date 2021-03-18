@@ -163,7 +163,7 @@ public class AgentBehavior : MonoBehaviour
     [ContextMenu("Persue Target")]
     public void StartPersue()
     {
-        ExecuteAction(Action.Persue, Target);
+        ExecuteAction(Action.Persue, Target, true);
     }
 
     [ContextMenu("Halt")]
@@ -254,14 +254,28 @@ public class AgentBehavior : MonoBehaviour
         }
     }
 
-    public void ExecuteAction(Action action, GameObject target, bool overrideExistingAction)
+    public void ExecuteAction(Action action, GameObject target, bool ovverrideAllActions)
+    {
+        ExecuteAction(action,target, ovverrideAllActions, false);
+    }
+
+    public void ExecuteAction(Action action, GameObject target, bool ovverrideAllActions, bool overrideExistingAction)
     {
         if (_ActiveActionRoutines.Count > 0) 
         {
-            if (overrideExistingAction == true)
+            if (ovverrideAllActions)
             {
-               StopActiveAction(action);
+                StopAllActiveActions();
+                Halt();
             }
+            else
+            {
+                if (overrideExistingAction == true)
+                {
+                    StopActiveAction(action);
+                }
+            }
+            
             if (!HasActiveAction(action))
             {
                 ExecuteAction(action,target);
@@ -316,6 +330,7 @@ public class AgentBehavior : MonoBehaviour
             case Action.Persue:
                 if (!HasActiveAction(Action.Attack))
                 {
+                    AutomatedMovementScript.Targets.Clear();
                     c = StartCoroutine(ExecutePersueAction(w,Target));
                 }
                 break;
@@ -359,8 +374,10 @@ public class AgentBehavior : MonoBehaviour
                 AutomatedMovementScript.StartMoving();
                 foreach (Transform transform in patrolPoints)
                 {
-                    AutomatedMovementScript.Target = transform.gameObject;
-                    yield return new WaitUntil(() => AutomatedMovementScript.IsAtTarget(StoppingDistance) || _BreakOfPatrol);
+                    
+                    AutomatedMovementScript.Targets.Add(transform.gameObject);
+                    yield return new WaitUntil(() => AutomatedMovementScript.IsAtTarget(transform.gameObject, StoppingDistance) || _BreakOfPatrol);
+                    AutomatedMovementScript.Targets.Remove(transform.gameObject);
                     if (!_BreakOfPatrol)
                     {
                         yield return new WaitForSeconds(PauseAtPoint);
@@ -381,6 +398,7 @@ public class AgentBehavior : MonoBehaviour
                 break;
             }
         }
+        
         AutomatedMovementScript.StopMoving();
         yield return new WaitForEndOfFrame();
         action.Done = true;
@@ -389,12 +407,15 @@ public class AgentBehavior : MonoBehaviour
 
     private IEnumerator ExecutePersueAction(WrappedAction wrappedAction, GameObject target)
     {
-        AutomatedMovementScript.Target = target;
+        if (AutomatedMovementScript.Targets.Find((e) => e.name == target.name) == null)
+        {
+            AutomatedMovementScript.Targets.Add(target);
+        }
         AutomatedMovementScript.VelocityX = VelocityX;
         AutomatedMovementScript.VelocityY = VelocityY;
         AutomatedMovementScript.StartMoving();
         
-        yield return new WaitUntil(() => AutomatedMovementScript.IsAtTarget(StoppingDistance +  GetComponentInChildren<SpriteRenderer>().bounds.size.x)); // replace condition testing when the attack is finished
+        yield return new WaitUntil(() => AutomatedMovementScript.IsAtTarget(target.gameObject, StoppingDistance +  GetComponentInChildren<SpriteRenderer>().bounds.size.x)); // replace condition testing when the attack is finished
         yield return new WaitForEndOfFrame();
         wrappedAction.Done = true;
         
@@ -476,6 +497,10 @@ public class AgentBehavior : MonoBehaviour
         }
     }
 
+    private void OnBehaviorChanged(bool halt)
+    {
+
+    }
     private class WrappedAction
     {
         private Coroutine _ActionCoroutine;
