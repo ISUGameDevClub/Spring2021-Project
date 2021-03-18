@@ -57,6 +57,10 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
+        if(GetComponent<Switch>() != null)
+        {
+            GetComponent<Switch>().HitSwitch();
+        }
         if (GetComponent<ItemDrop>() != null)
             GetComponent<ItemDrop>().CreateItem();
         if (isPlayer)
