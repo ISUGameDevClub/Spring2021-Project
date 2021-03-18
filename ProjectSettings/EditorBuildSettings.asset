@@ -4,5 +4,23 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/City 1/Park Zone.unity
+    guid: c64f49f4bb562d143b88a876f57f4c68
+  - enabled: 1
+    path: Assets/Scenes/City 1/Rooftop Area.unity
+    guid: 134ee9b662ee11b4f93193ffbe52ef92
+  - enabled: 1
+    path: Assets/Scenes/City 1/Underground Zone.unity
+    guid: 4883bd8abeeb12643842501f709c0058
+  - enabled: 1
+    path: Assets/Scenes/City 1/Upper Construction.unity
+    guid: e8c02508739e39746b9eee6eab8ee3af
+  - enabled: 1
+    path: Assets/Scenes/City 1/City Streets Placeholder.unity
+    guid: 5abf40bc0db921646995a6c9da2bff90
+  - enabled: 1
+    path: Assets/Scenes/City 1/Lower Construction.unity
+    guid: 3a43657f84050fc45afd275b8b6a0667
   m_configObjects: {}

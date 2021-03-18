@@ -122,5 +122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newScene: Brad's Test Scene
+  spawnPosition: 1
   transitionTime: 0.25
   transition: {fileID: 0}

@@ -98,7 +98,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 1
-  damage: 2
+  damage: 1
+  canMultiHit: 0
+  AttackedArray: []
+  knockbackPower: 0
+  knockbackTime: 0
 --- !u!114 &1877549074760806175
 MonoBehaviour:
   m_ObjectHideFlags: 0
