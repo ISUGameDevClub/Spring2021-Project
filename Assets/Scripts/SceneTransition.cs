@@ -16,7 +16,7 @@ public class SceneTransition : MonoBehaviour
             StartCoroutine(LoadLevel());
     }
 
-    IEnumerator LoadLevel()
+    public IEnumerator LoadLevel()
     {
         PlayerData.playerSpawn = spawnPosition;
         transition.SetTrigger("Change Scene");
