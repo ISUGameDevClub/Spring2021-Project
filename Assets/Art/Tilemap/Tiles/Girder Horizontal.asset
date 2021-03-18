@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Cloud
+  m_Name: Girder Horizontal
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: c427050d4f4e49b47bda1ea8db5138e6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b5c87b86505ebb84fa518ea1088c7e06, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

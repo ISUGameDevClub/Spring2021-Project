@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = 0;
         }
 
-        if(Input.GetAxisRaw("Horizontal") != 0)
+        if(Input.GetAxisRaw("Horizontal") != 0 && canMove)
             myAnim.SetBool("Walking", true);
         else
             myAnim.SetBool("Walking", false);
@@ -100,7 +100,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(canMove)
+        if (isGrounded && rb.velocity.y < .01f)
+            rb.velocity = rb.velocity * new Vector2(0, 1);
+        if (canMove)
             Movement();
     }
 
