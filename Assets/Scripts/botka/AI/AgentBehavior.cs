@@ -18,8 +18,10 @@ public class AgentBehavior : MonoBehaviour
         set{}
     }
     
+    public Agent AgentControlDelegate;
     public AutomatedMovement AutomatedMovementScript;
     public AgentState AgentStateScript;
+    
     public Action StartingAction;
     public BehavioralAggression StartingAggression;
 
@@ -109,6 +111,7 @@ public class AgentBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AgentControlDelegate = AgentControlDelegate != null ? AgentControlDelegate : transform.GetComponentInParent<Agent>();
         ExecuteAction(StartingAction);
         ApplyAggression(StartingAggression);
         AutomatedMovementScript.VelocityX = VelocityX;
@@ -355,7 +358,9 @@ public class AgentBehavior : MonoBehaviour
     private IEnumerator ExecuteAttackAction(WrappedAction wrappedAction, GameObject target)
     {
         //TODO
-        yield return new WaitUntil(() => false); // replace condition testing when the attack is finished
+        UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "Attack from ai executed");
+        AgentControlDelegate.AgentAttackDelegate.RangedAttackHelper();
+        yield return new WaitUntil(() => !AgentControlDelegate.AgentAttackDelegate.isAttacking); // replace condition testing when the attack is finished
         yield return new WaitForEndOfFrame();
         wrappedAction.Done = true;
     }

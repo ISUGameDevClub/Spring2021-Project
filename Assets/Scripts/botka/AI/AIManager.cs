@@ -48,6 +48,7 @@ public class AIManager : MonoBehaviour
         LoadInAgents();
         
     }
+    
     // Start is called before the first frame update
     void Start()
     {
