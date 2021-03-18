@@ -68,7 +68,6 @@ public class AIManager : MonoBehaviour
            distance = Mathf.Abs(Vector3.Distance(agent.transform.position, PlayerPos));
            if (distance > LoadUnloadRenderDistance)
            {
-               
                UnrenderAgent(agent.gameObject);
            }
            else
