@@ -21,7 +21,7 @@ public class Attack : MonoBehaviour
 	public float rangedAttackWindup;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         attackZone.SetActive(false);
 		hurt = attackZone.GetComponent<HurtBox>();
@@ -32,7 +32,7 @@ public class Attack : MonoBehaviour
 	}
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (pm.facingRight)
         {
@@ -57,7 +57,17 @@ public class Attack : MonoBehaviour
 
 	}
 
-	private IEnumerator MeleeAttack() {
+    public void MeleeAttackHelper()
+    {
+        StartCoroutine(MeleeAttack());
+    }
+
+    public void RangedAttackHelper()
+    {
+        StartCoroutine(RangedAttack());
+    }
+
+    private IEnumerator MeleeAttack() {
         pm.myAnim.SetTrigger("Melee 1");
         pm.DisableMovement(meleeAttackWindup + meleeAttackActiveTime);
         attackReady = false;
