@@ -45,11 +45,11 @@ public class Attack : MonoBehaviour
                 attackZone.transform.localPosition = (Vector3.left);
         }
 
-		if (Input.GetKeyDown(KeyCode.Mouse0) && attackReady && pm.canMove)
+		if (Input.GetKeyDown(KeyCode.Mouse0) && attackReady && pm.canMove && pm.isGrounded)
 		{
 			StartCoroutine(MeleeAttack());
 		}		
-		else if(Input.GetKeyDown(KeyCode.Mouse1 ) && attackReady && ams.totalAmmo > 0 && pm.canMove)
+		else if(Input.GetKeyDown(KeyCode.Mouse1 ) && attackReady && ams.totalAmmo > 0 && pm.canMove && pm.isGrounded)
 		{
             ams.UseAmmo(1);
 			StartCoroutine(RangedAttack());

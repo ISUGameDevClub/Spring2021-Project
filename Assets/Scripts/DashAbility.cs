@@ -54,22 +54,28 @@ public class DashAbility : MonoBehaviour
             {
                 direction = 0;
                 dashTime = startDashTime;
-                rb.velocity = Vector2.zero;
             }
             else
             {
                 dashTime -= Time.deltaTime;
-                if(direction == 1)
-                {
-                    rb.velocity = Vector2.left * dashSpeed;
-                }
-                else if(direction == 2)
-                {
-                    rb.velocity = Vector2.right * dashSpeed;
-                }
             }
         }
+    }
 
+    private void FixedUpdate()
+    {
+        if (direction != 0 && dashTime > 0)
+        {
+            rb.velocity = Vector2.zero;
+            if (direction == 1)
+            {
+                transform.Translate(Vector2.left * dashSpeed * Time.fixedDeltaTime);
+            }
+            else if (direction == 2)
+            {
+                transform.Translate(Vector2.right * dashSpeed * Time.fixedDeltaTime);
+            }
+        }
     }
 
     private IEnumerator DashCooldown()
