@@ -72,6 +72,7 @@ public class Health : MonoBehaviour
     {
         if (isPlayer)
         {
+            gameObject.GetComponent<PlayerMovement>().myAnim.SetBool("Hurt", true);
             gameObject.GetComponent<PlayerMovement>().DisableMovement(knockbackTime);
         }
 

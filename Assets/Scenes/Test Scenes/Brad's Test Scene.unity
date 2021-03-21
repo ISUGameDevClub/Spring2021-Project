@@ -9552,11 +9552,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 364257686764149426, guid: 95cb44e9632a194408cb6390056ace25,
-        type: 3}
-      propertyPath: cooldownTimer
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1824126384832432972, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_RootOrder
@@ -9616,11 +9611,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: _Player Necessities
-      objectReference: {fileID: 0}
-    - target: {fileID: 6055408870154718673, guid: 95cb44e9632a194408cb6390056ace25,
-        type: 3}
-      propertyPath: yMin
-      value: -2.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
