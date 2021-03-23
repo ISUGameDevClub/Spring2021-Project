@@ -9612,48 +9612,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: _Player Necessities
       objectReference: {fileID: 0}
-    - target: {fileID: 3035599886471048473, guid: 95cb44e9632a194408cb6390056ace25,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 3035599886471048473, guid: 95cb44e9632a194408cb6390056ace25,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 10.125
-      objectReference: {fileID: 0}
-    - target: {fileID: 3035599886471048473, guid: 95cb44e9632a194408cb6390056ace25,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: a158f0cfc65133a4fa26406de46b6da9,
-        type: 3}
-    - target: {fileID: 3035599886471048473, guid: 95cb44e9632a194408cb6390056ace25,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6823606686544307056, guid: 95cb44e9632a194408cb6390056ace25,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 6823606686544307056, guid: 95cb44e9632a194408cb6390056ace25,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 10.125
-      objectReference: {fileID: 0}
-    - target: {fileID: 6823606686544307056, guid: 95cb44e9632a194408cb6390056ace25,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: a158f0cfc65133a4fa26406de46b6da9,
-        type: 3}
-    - target: {fileID: 6823606686544307056, guid: 95cb44e9632a194408cb6390056ace25,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
 --- !u!1001 &2559709009215478788
