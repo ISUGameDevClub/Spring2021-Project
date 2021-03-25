@@ -141,12 +141,12 @@ PrefabInstance:
     - target: {fileID: 5619382742493192961, guid: 4975bd51144191248bbec85fdf97f959,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.6
+      value: -29.9
       objectReference: {fileID: 0}
     - target: {fileID: 5619382742493192961, guid: 4975bd51144191248bbec85fdf97f959,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26.4
+      value: 23.5
       objectReference: {fileID: 0}
     - target: {fileID: 5619382742493192961, guid: 4975bd51144191248bbec85fdf97f959,
         type: 3}
@@ -331,20 +331,40 @@ PrefabInstance:
       propertyPath: m_Name
       value: _Player Necessities
       objectReference: {fileID: 0}
+    - target: {fileID: 3493472010410221171, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493472010410221171, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493472010410221171, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3493472010410221171, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6055408870154718672, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -25.57
+      value: 45.77
       objectReference: {fileID: 0}
     - target: {fileID: 6055408870154718672, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 27.78
+      value: 36.97
       objectReference: {fileID: 0}
     - target: {fileID: 6055408870154718673, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: xMax
-      value: 46
+      value: 45.75
       objectReference: {fileID: 0}
     - target: {fileID: 6055408870154718673, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
@@ -677,7 +697,7 @@ PrefabInstance:
         type: 3}
       propertyPath: transition
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1660460798}
     - target: {fileID: 6673328049284674457, guid: cf93ee60a71ec8443a7d24b5668fdb3f,
         type: 3}
       propertyPath: spawnPosition

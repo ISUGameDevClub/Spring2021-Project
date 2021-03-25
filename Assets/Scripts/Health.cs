@@ -12,7 +12,7 @@ public class Health : MonoBehaviour
     public Text healthText;
     public Animator transition;
     public float transitionTime;
-
+    public Animator playerHurtEffect;
 
     private Collider2D coll;
 
@@ -50,6 +50,7 @@ public class Health : MonoBehaviour
         }
         else if(isPlayer)
         {
+            playerHurtEffect.SetTrigger("Hurt");
             healthText.text = "Health: " + curHealth;
         }
         Knockback(knockPosition, knockbackPower, knockbackTime);
@@ -72,6 +73,7 @@ public class Health : MonoBehaviour
     {
         if (isPlayer)
         {
+            gameObject.GetComponent<PlayerMovement>().myAnim.SetBool("Hurt", true);
             gameObject.GetComponent<PlayerMovement>().DisableMovement(knockbackTime);
         }
 

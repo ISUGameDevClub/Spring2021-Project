@@ -37,7 +37,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Swing Left
+    m_ConditionEvent: Swing1
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6334983802901831127}
@@ -84,13 +84,13 @@ AnimatorController:
   m_Name: Grappling Point
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Swing Left
+  - m_Name: Swing1
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Swing Right
+  - m_Name: Swing2
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -195,7 +195,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Swing Right
+    m_ConditionEvent: Swing2
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3493950336894115322}

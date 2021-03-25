@@ -142,6 +142,16 @@ public class AgentState : MonoBehaviour
 
     }
 
+    public bool IsFacingLeft()
+    {
+        return transform.rotation.z == 180f;
+    }
+
+    public bool IsFacingRight()
+    {
+        return transform.rotation.z == 0f;
+    }
+
     private void DrawVisionCone()
     {
         Vector3 Reset = new Vector3(_CopyTransform.eulerAngles.x,_CopyTransform.eulerAngles.y, _CopyTransform.eulerAngles.z);
@@ -192,10 +202,7 @@ public class AgentState : MonoBehaviour
     }
     private RaycastHit2D[] CheckBoxCastHitsForward()
     {
-        
         return Physics2D.BoxCastAll(transform.position, _BoxCastSizeFront ,transform.rotation.eulerAngles.z,ForwardDir,VisionDistance);
-        
-        
     }
 
     private RaycastHit2D[] CheckBoxCastHitsBackward()

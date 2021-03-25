@@ -44,11 +44,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1538127388600276912, guid: 8b3aba11ae139d54eab2aa59b3a095e9, type: 3}
-  AgentMaxCount: 10
   AIPrefabs:
   - {fileID: 2921087272826752264, guid: f33c5784c27a4fd42bd2e9b08b45bc97, type: 3}
-  SpawnLocations: []
   SpawnMethod: 1
-  LoadUnloadRenderDistance: 20
+  AgentMaxCount: 10
+  SpawnLocationParent: {fileID: 0}
+  SpawnLocations: []
+  LoadUnloadRenderDistance: 30
   LogEvents: 1
-  AgentsView: []
+  ActiveAgents: []

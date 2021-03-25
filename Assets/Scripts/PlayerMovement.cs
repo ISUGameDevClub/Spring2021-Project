@@ -38,7 +38,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (!scriptedMovement && canMoveTimer <= 0)
+        {
+            myAnim.SetBool("Hurt", false);
             canMove = true;
+        }
         else if (canMoveTimer > 0)
         {
             canMoveTimer -= Time.deltaTime;
@@ -90,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
         else
             myAnim.SetBool("Walking", false);
 
+        transform.eulerAngles = Vector3.zero;
     }
 
     public void DisableMovement(float timeDisabled)
