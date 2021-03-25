@@ -9612,6 +9612,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: _Player Necessities
       objectReference: {fileID: 0}
+    - target: {fileID: 7694904088425279019, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -467307283419413426, guid: 205d0d1d925e24744b96532961732cef,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
 --- !u!1001 &2559709009215478788
