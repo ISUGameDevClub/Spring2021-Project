@@ -361,6 +361,7 @@ public class AgentBehavior : MonoBehaviour
         UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "Attack from ai executed");
         AgentControlDelegate.AgentAttackDelegate.RangedAttackHelper();
         yield return new WaitUntil(() => !AgentControlDelegate.AgentAttackDelegate.isAttacking); // replace condition testing when the attack is finished
+        yield return new WaitForSeconds(1f); //firerate
         yield return new WaitForEndOfFrame();
         wrappedAction.Done = true;
     }
@@ -423,6 +424,11 @@ public class AgentBehavior : MonoBehaviour
         yield return new WaitUntil(() => AutomatedMovementScript.IsAtTarget(target.gameObject, StoppingDistance +  GetComponentInChildren<SpriteRenderer>().bounds.size.x)); // replace condition testing when the attack is finished
         yield return new WaitForEndOfFrame();
         wrappedAction.Done = true;
+        if (AutomatedMovementScript.IsAtTarget(target.gameObject, StoppingDistance +  GetComponentInChildren<SpriteRenderer>().bounds.size.x)) 
+        {
+            ExecuteAction(Action.Halt);
+            ExecuteAction(Action.Attack, Target);
+        }
         
     }
 

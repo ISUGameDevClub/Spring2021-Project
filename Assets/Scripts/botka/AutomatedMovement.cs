@@ -148,7 +148,6 @@ public class AutomatedMovement : MonoBehaviour
                                 RigidBody2d.MovePosition(new Vector3(nHit.point.x,nHit.point.y + _EntityBounds.size.y / 2, transform.position.z));
                                 break; //remove when jumping  is finished
                                 float modPower = RigidBody2d.velocity.x * Vector3.Distance(transform.position, point) * 3;
-                                
                                 modPower = modPower > MaxJumpingPower || modPower < MinJumpingPower ? 
                                         (JumpPower > MaxJumpingPower || JumpPower < MinJumpingPower 
                                             ? MaxJumpingPower : JumpPower) : modPower;
@@ -160,38 +159,12 @@ public class AutomatedMovement : MonoBehaviour
                                 }
                                 else
                                 {
-                                    
                                     Jump(modPower, transform.position.z == 0f ? 10f : -10f);
-                                }
-                                
-                                
+                                } 
                             }
-                        
-                            /*
-                            Tilemap tilemap = hit.collider.gameObject.GetComponentInChildren<Tilemap>();
-                            Vector3Int intV = tilemap.LocalToCell(tilemap.WorldToLocal(new Vector3(point.x,point.y,0)));
-                            TileBase[] tiles = tilemap.GetTilesBlock(tilemap.cellBounds);
-                            while (tilemap.HasTile(intV))
-                            {
-                                intV.y += tilemap.cellBounds.size.y;
-                            }
-                            if (tilemap != null)
-                            {
-                                Bounds b = tilemap.GetBoundsLocal(intV);
-                                float x = v.x <= 0f ? b.min.x : b.max.x + _EntityBounds.size.x;
-                                float y =  v.x <= 0f ? b.max.y : b.max.y +  _EntityBounds.size.y;
-                                if (b != null)
-                                {
-                                    Debug.Log(b.min +"," + b.max);
-                                    Debug.Log(new Vector3(x,y, transform.position.z));
-                                    RigidBody2d.MovePosition(new Vector3(x,y, transform.position.z));
-                                    Lock = true;
-                                    break;
-                                }
-                            }
-                            */
                         }
                     }
+
                     if (Targets.Count > 0)
                     {
                         Target = Targets[0];
@@ -200,21 +173,16 @@ public class AutomatedMovement : MonoBehaviour
                     {
                         Target = null;
                     }
+
                     if (Target != null)
                     {
                         Vector3 vec = Target.transform.position - transform.position;
+                        
                         vec = vec.normalized;
-                        if (RigidBody2d == null || !RigidBody2d.simulated) // if null then it will not test the second condition
-                        {
-                            vec = new Vector3(vec.x * VelocityX, vec.y * VelocityY, vec.z);
-                            gameObject.transform.position += vec;
-                        } 
-                        else
-                        {
-                            transform.Translate(new Vector2(vec.x * -1 * VelocityX * Time.deltaTime,0));
-                            //RigidBody2d.AddForce(new Vector2(vec.x * -1 * VelocityX * Time.deltaTime,0));
-                            //RigidBody2d.MovePosition((Vector2)transform.position +  new Vector2(vec.x * VelocityX, vec.y * VelocityY)  * Time.fixedDeltaTime);
-                        }
+                        RotateToTarget(Target.transform);
+                        vec = new Vector3(vec.x * VelocityX * Time.deltaTime, vec.y * VelocityY, vec.z);
+                        gameObject.transform.position += vec;
+                         
                     }
                     else
                     {
@@ -285,9 +253,25 @@ public class AutomatedMovement : MonoBehaviour
     {
         return RigidBody2d.velocity.x <= 0.1f && RigidBody2d.velocity.x >= -0.1f;
     }
+
+    public void Turn(float degrees)
+    {
+        float x = transform.localEulerAngles.z + degrees;
+        float overunOffset = 360f - x;
+        float setDegree = overunOffset >= 0f ? overunOffset * -1 : overunOffset; //if over 360 degres then transform its relatively to zero. 360 degree in euler is the same at 0 degrees euler.
+        transform.localEulerAngles = new Vector3(0,0,setDegree);
+    }
+
+    [ContextMenu("Turn Around")]
+    public void TurnOppositeDir() 
+    {
+        Turn(180f);
+    }
+
     [ContextMenu("Start movement")]
     public void StartMoving()
     {
+        UnityLoggingDelegate.LogIfTrue(LogEvents,UnityLoggingDelegate.LogType.General, ("AI Started to move"));
         EntityStatus = Status.Moving;
         RigidBody2d.velocity = new Vector2(VelocityX, VelocityY);
     }
@@ -295,12 +279,11 @@ public class AutomatedMovement : MonoBehaviour
     [ContextMenu("Stop Movement")]
     public void StopMoving()
     {
-        
+         UnityLoggingDelegate.LogIfTrue(LogEvents,UnityLoggingDelegate.LogType.General, ("AI Stopped to move"));
         EntityStatus = Status.Stopped;
         RigidBody2d.velocity = new Vector2(0f, 0f);
     }
 
-    [ContextMenu("Pause Movement")]
     public void PauseMovement(float seconds)
     {
         // seconds < 0f means indenfinite pause. Lift the pause by reseting the Lock variable
@@ -320,6 +303,32 @@ public class AutomatedMovement : MonoBehaviour
             
         } 
         Moving = false;
+    }
+
+    public void RotateToTarget(Transform target)
+    {
+        Vector3 vec = Target.transform.position - transform.position;
+        vec = vec.normalized;
+        if (vec.x > 0) 
+        {
+            if(transform.localEulerAngles.z >= 180f)
+            {
+                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f);
+            }
+        }
+        else
+        {
+            if(transform.localEulerAngles.z < 180f)
+            {
+                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 180f);
+            }
+        }
+    }
+
+    [ContextMenu("Look at Target")]
+    public void RotateToTarget()
+    {
+        RotateToTarget(Target.transform);
     }
 
     public bool IsAtTarget()
@@ -393,6 +402,7 @@ public class AutomatedMovement : MonoBehaviour
             _Grounded = true;
         }
     }
+    
     private void OnCollisionExit2D(Collision2D other) 
     {
         if (other.gameObject.tag == "Ground")
@@ -404,3 +414,29 @@ public class AutomatedMovement : MonoBehaviour
 
     
 }
+
+
+
+/*
+                            Tilemap tilemap = hit.collider.gameObject.GetComponentInChildren<Tilemap>();
+                            Vector3Int intV = tilemap.LocalToCell(tilemap.WorldToLocal(new Vector3(point.x,point.y,0)));
+                            TileBase[] tiles = tilemap.GetTilesBlock(tilemap.cellBounds);
+                            while (tilemap.HasTile(intV))
+                            {
+                                intV.y += tilemap.cellBounds.size.y;
+                            }
+                            if (tilemap != null)
+                            {
+                                Bounds b = tilemap.GetBoundsLocal(intV);
+                                float x = v.x <= 0f ? b.min.x : b.max.x + _EntityBounds.size.x;
+                                float y =  v.x <= 0f ? b.max.y : b.max.y +  _EntityBounds.size.y;
+                                if (b != null)
+                                {
+                                    Debug.Log(b.min +"," + b.max);
+                                    Debug.Log(new Vector3(x,y, transform.position.z));
+                                    RigidBody2d.MovePosition(new Vector3(x,y, transform.position.z));
+                                    Lock = true;
+                                    break;
+                                }
+                            }
+                            */

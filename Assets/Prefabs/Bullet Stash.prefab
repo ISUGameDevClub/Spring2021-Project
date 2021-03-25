@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6186054060706986241}
   - component: {fileID: 6186054060706986240}
   - component: {fileID: 398920083}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bullet Stash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
