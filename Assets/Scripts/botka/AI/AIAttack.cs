@@ -2,14 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class AIAttack : MonoBehaviour
 {
-	private Vector2 attackOrigin;
+
+    public bool LogEvents;
+
+    [Header("DEBUG")]
+    public GameObject Target;
+    public string[] AttackHistory;
+   
+
+    
+   private Vector2 attackOrigin;
     private bool attackReady;
-    private PlayerMovement pm;
-	private HurtBox hurt;
-	private Collider2D coll;
-    private AmmoSystem ams;
+ 
+	private HurtBox HurtBox;
+	private Collider2D Coll;
+    private AmmoSystem AmmoSys;
 
     public int rangedSpeed;
 	public GameObject attackZone;
@@ -20,21 +29,23 @@ public class Attack : MonoBehaviour
 	public float rangedActiveTime;
 	public float rangedAttackWindup;
 
+    public bool isAttacking;
+    private Agent _AgentControlHub;
     // Start is called before the first frame update
     public void Start()
     {
         attackZone.SetActive(false);
-		hurt = attackZone.GetComponent<HurtBox>();
+		HurtBox = attackZone.GetComponent<HurtBox>();
         attackReady = true;
-        pm = GetComponent<PlayerMovement>();
-		coll = GetComponent<Collider2D>();
-        ams = GetComponent<AmmoSystem>();
+		Coll = GetComponent<Collider2D>();
+        AmmoSys = GetComponent<AmmoSystem>();
+        _AgentControlHub = GetComponentInParent<Agent>();
 	}
 
     // Update is called once per frame
     public void Update()
     {
-        if (pm.facingRight)
+        if (_AgentControlHub.AgentState.ForwardDir == Vector3.right)
         {
             if (attackZone != null)
                 attackZone.transform.localPosition = (Vector3.right);
@@ -45,17 +56,40 @@ public class Attack : MonoBehaviour
                 attackZone.transform.localPosition = (Vector3.left);
         }
 
-		if (Input.GetKeyDown(KeyCode.Mouse0) && attackReady && pm.canMove && pm.isGrounded)
-		{
-			StartCoroutine(MeleeAttack());
-		}		
-		else if(Input.GetKeyDown(KeyCode.Mouse1 ) && attackReady && ams.totalAmmo > 0 && pm.canMove && pm.isGrounded)
-		{
-            ams.UseAmmo(1);
-			StartCoroutine(RangedAttack());
-		}
-
 	}
+
+    public void AIAttackExecute(int attackType = -1) 
+    {
+        switch(attackType)
+        {
+            case -1:
+                break;
+            case 1:
+                 AttackMelee();
+                break;
+            case 2:
+                AttackRanged();
+                break;
+
+            default:
+                Debug.Log("Attemted to send inncorect attack type. was: " + attackType.ToString());
+                break;
+        }
+    }
+
+     private void AttackMelee()
+    {
+        isAttacking = true;
+        UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "AI attacked with melee atack" );
+        MeleeAttackHelper();
+    }
+
+    private void AttackRanged()
+    {
+        isAttacking = true;
+        UnityLoggingDelegate.LogIfTrue(LogEvents, UnityLoggingDelegate.LogType.General, "AI attacked with melee atack" );
+        RangedAttackHelper();
+    }
 
     public void MeleeAttackHelper()
     {
@@ -64,41 +98,48 @@ public class Attack : MonoBehaviour
 
     public void RangedAttackHelper()
     {
+        AmmoSys.UseAmmo(1);
         StartCoroutine(RangedAttack());
     }
 
+    private void OnAttackFinished()
+    {
+        isAttacking = false;
+    }
+
     private IEnumerator MeleeAttack() {
-        pm.myAnim.SetTrigger("Melee 1");
-        pm.DisableMovement(meleeAttackWindup + meleeAttackActiveTime);
         attackReady = false;
-		coll.enabled = false;
-		coll.enabled = true;
+		Coll.enabled = false;
+		Coll.enabled = true;
 		yield return new WaitForSeconds(meleeAttackWindup);
 		attackZone.SetActive(true);
-		hurt.ClearArray();
+		HurtBox.ClearArray();
 		yield return new WaitForSeconds(meleeAttackActiveTime);
 		attackZone.SetActive(false);
         attackReady = true;
+        OnAttackFinished();
     }
 
 	private IEnumerator RangedAttack() {
         attackReady = false;
-        pm.myAnim.SetTrigger("Shoot");
-        pm.DisableMovement(rangedAttackWindup + rangedActiveTime);
         yield return new WaitForSeconds(rangedAttackWindup);
-		if(pm.facingRight){
+		if(_AgentControlHub){
 		    Bullet bul = Instantiate(bullet,new Vector2(transform.position.x+1,transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
-		    bul.facingRight = pm.facingRight;
+		    bul.facingRight = true;
 			bul.GetComponent<HurtBox>().isPlayer = true;
             bul.transform.SetParent(null);
 		}
 		else{
 		    Bullet bul = Instantiate(bullet,new Vector2(transform.position.x-1,transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
-		    bul.facingRight = pm.facingRight;
+		    bul.facingRight = false;
 			bul.GetComponent<HurtBox>().isPlayer = true;
             bul.transform.SetParent(null);
         }
         yield return new WaitForSeconds(rangedActiveTime);
         attackReady = true;
+        OnAttackFinished();
 	}	
+
+    
+   
 }
