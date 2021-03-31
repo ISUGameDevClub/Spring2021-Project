@@ -123,13 +123,15 @@ public class AIAttack : MonoBehaviour
 	private IEnumerator RangedAttack() {
         attackReady = false;
         yield return new WaitForSeconds(rangedAttackWindup);
-		if(_AgentControlHub){
+		if(_AgentControlHub.AgentState.IsFacingRight())
+        {
 		    Bullet bul = Instantiate(bullet,new Vector2(transform.position.x+1,transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
 		    bul.facingRight = true;
 			bul.GetComponent<HurtBox>().isPlayer = true;
             bul.transform.SetParent(null);
 		}
-		else{
+		else
+        {
 		    Bullet bul = Instantiate(bullet,new Vector2(transform.position.x-1,transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
 		    bul.facingRight = false;
 			bul.GetComponent<HurtBox>().isPlayer = true;
