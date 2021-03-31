@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Ammo : MonoBehaviour
 {
+    public GameObject Sparkle;
     public int value;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,7 @@ public class Ammo : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            GameObject s = Instantiate(Sparkle, transform.position, new Quaternion(0, 0, 0, 0));
             collision.GetComponent<AmmoSystem>().PickupAmmo(value);
             Destroy(gameObject);
         }
@@ -31,6 +34,7 @@ public class Ammo : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            GameObject s = Instantiate(Sparkle, transform.position, new Quaternion(0, 0, 0, 0));
             collision.gameObject.GetComponent<AmmoSystem>().PickupAmmo(value);
             Destroy(gameObject);
         }

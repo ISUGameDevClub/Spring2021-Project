@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9401a95e348c7b43832be6daac40914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Sparkle: {fileID: 3999342394592071074, guid: 91a9f67516b98f347ab45b8fa042d105, type: 3}
+  SparkleSpawn: {fileID: 0}
   value: 1
 --- !u!114 &1973690571976335224
 MonoBehaviour:
