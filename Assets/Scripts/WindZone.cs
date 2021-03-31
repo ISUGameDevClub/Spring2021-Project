@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class WindZone : MonoBehaviour
 {
-    public float seconds;
+    public float notActiveSeconds;
+    public float activeSeconds;
     public bool constantWind = true;
     public float windPower;
     private Coroutine timerCoroutine;
     private bool inWindZone;
     private GameObject player;
+    private bool active;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,27 +24,20 @@ public class WindZone : MonoBehaviour
         
     }
     
-    public IEnumerator Timer(float seconds)
+    public IEnumerator Timer()
     {
         while (true)
         {
-            yield return new WaitForSeconds(seconds);
-            
-             for (int i = 0; i < 60; i++)
-                { 
-                    if (inWindZone)
-                    {
-                        player.transform.Translate(new Vector2(windPower / 60, 0));
-                    }
-                yield return new WaitForSeconds(1f / 60f);
-                }
-            
+            yield return new WaitForSeconds(notActiveSeconds);
+            active = true;
+            yield return new WaitForSeconds(activeSeconds);
+            active = false;
         }
     }
 
     private void FixedUpdate()
     {
-        if (constantWind)
+        if (constantWind || active)
         {
             if (inWindZone)
             {
@@ -51,7 +46,7 @@ public class WindZone : MonoBehaviour
         }
         else
         {
-            if(timerCoroutine == null) timerCoroutine = StartCoroutine(Timer(seconds));
+            if(timerCoroutine == null) timerCoroutine = StartCoroutine(Timer());
         }
     }
 
