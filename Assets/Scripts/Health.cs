@@ -15,7 +15,8 @@ public class Health : MonoBehaviour
     public Animator playerHurtEffect;
 
     private Collider2D coll;
-
+    public GameObject Sparkle;
+    public GameObject EnemyDeath;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +37,9 @@ public class Health : MonoBehaviour
         }
         if (isPlayer)
             healthText.text = "Health: " + curHealth;
+        GameObject s = Instantiate(Sparkle, transform.position, new Quaternion(0, 0, 0, 0));
+        s.transform.SetParent(null);
+
     }
 
     public void TakeDamage(int damage,float knockPosition,float knockbackPower, float knockbackTime)
@@ -58,7 +62,9 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
-        if(GetComponent<Switch>() != null)
+        GameObject d = Instantiate(EnemyDeath, transform.position, new Quaternion(0, 0, 0, 0));
+        d.transform.SetParent(null);
+        if (GetComponent<Switch>() != null)
         {
             GetComponent<Switch>().HitSwitch();
         }
@@ -69,7 +75,7 @@ public class Health : MonoBehaviour
             StartCoroutine(ReloadLevel());
         }
         else
-            Destroy(gameObject);
+        Destroy(gameObject);
 
     }
 

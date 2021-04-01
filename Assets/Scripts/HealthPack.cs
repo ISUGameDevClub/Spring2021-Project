@@ -5,6 +5,7 @@ using UnityEngine;
 public class HealthPack : MonoBehaviour
 {
     public int healthHealed;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +18,7 @@ public class HealthPack : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponent<Health>().HealDamage(healthHealed);
-
-            Destroy(gameObject);
+           
         }
     }
 }
