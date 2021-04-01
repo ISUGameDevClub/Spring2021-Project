@@ -38,7 +38,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (!scriptedMovement && canMoveTimer <= 0)
+        {
+            myAnim.SetBool("Hurt", false);
             canMove = true;
+        }
         else if (canMoveTimer > 0)
         {
             canMoveTimer -= Time.deltaTime;
@@ -100,7 +103,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(canMove)
+        if (isGrounded && rb.velocity.y < .01f)
+            rb.velocity = rb.velocity * new Vector2(0, 1);
+        if (canMove)
             Movement();
     }
 

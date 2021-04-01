@@ -19,8 +19,8 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
+  - AI
+  - Bullet
   - 
   - 
   - 
@@ -42,9 +42,30 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Par Background
+    uniqueID: 2750662153
+    locked: 0
+  - name: Background Walls
+    uniqueID: 4068167327
+    locked: 0
+  - name: Environment
+    uniqueID: 1768922915
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Dialog
+    uniqueID: 3353674891
+    locked: 0
+  - name: Fake Walls
+    uniqueID: 1136118333
+    locked: 0
+  - name: Parrot
+    uniqueID: 2376177043
+    locked: 0
   - name: Player
     uniqueID: 556416027
+    locked: 0
+  - name: Particle
+    uniqueID: 2207107801
     locked: 0
