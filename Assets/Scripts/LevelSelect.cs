@@ -7,6 +7,7 @@ public class LevelSelect : MonoBehaviour
 {
     public bool canChange;
     public int currentSceneSelection;
+    public float displayTime;
     public string[] Scenes;
     public GameObject SceneTransition;
     //make sure to enter scenes in editor or this will not work. The size of the array can be changed for adding additional levels
@@ -27,7 +28,7 @@ public class LevelSelect : MonoBehaviour
                     currentSceneSelection = 0;
                 }
                 SceneTransition.GetComponent<SceneTransition>().newScene = Scenes[currentSceneSelection];
-                FindObjectOfType<NotificationController>().ShowNotification("City Set To "+Scenes[currentSceneSelection],2);
+                FindObjectOfType<NotificationController>().ShowNotification("City Set To "+Scenes[currentSceneSelection],displayTime);
                 currentSceneSelection++;
             }
         }

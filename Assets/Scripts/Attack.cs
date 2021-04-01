@@ -10,15 +10,22 @@ public class Attack : MonoBehaviour
 	private HurtBox hurt;
 	private Collider2D coll;
     private AmmoSystem ams;
+    private int currentMeleeAttack;
+    private Coroutine bufferCoroutine;
+    private bool meleeMovement;
 
     public int rangedSpeed;
 	public GameObject attackZone;
 	public GameObject bullet;
-	public int attackPower;
+    public float attackMovementSpeed;
 	public float meleeAttackActiveTime;
 	public float meleeAttackWindup;
-	public float rangedActiveTime;
+    public float meleeAttackEndTime;
+    public float meleeBufferTime;
+    public float rangedActiveTime;
 	public float rangedAttackWindup;
+
+    
 
     // Start is called before the first frame update
     public void Start()
@@ -47,19 +54,43 @@ public class Attack : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Mouse0) && attackReady && pm.canMove && pm.isGrounded)
 		{
-			StartCoroutine(MeleeAttack());
-		}		
+            if(bufferCoroutine != null)
+                StopCoroutine(bufferCoroutine);
+            if (currentMeleeAttack == 0)
+            {
+                StartCoroutine(MeleeAttack(1));
+                currentMeleeAttack++;
+            }
+            else if (currentMeleeAttack == 1)
+            {
+                StartCoroutine(MeleeAttack(2));
+                currentMeleeAttack++;
+            }
+            else if (currentMeleeAttack == 2)
+            {
+                StartCoroutine(MeleeAttack(3));
+                currentMeleeAttack=0;
+            }
+
+        }		
 		else if(Input.GetKeyDown(KeyCode.Mouse1 ) && attackReady && ams.totalAmmo > 0 && pm.canMove && pm.isGrounded)
 		{
             ams.UseAmmo(1);
 			StartCoroutine(RangedAttack());
 		}
+        if(meleeMovement)
+        {
+            if(pm.facingRight)
+                transform.Translate(new Vector2(Time.deltaTime * attackMovementSpeed, 0));
+            else
+                transform.Translate(new Vector2(Time.deltaTime * -attackMovementSpeed, 0));
+        }
 
 	}
 
     public void MeleeAttackHelper()
     {
-        StartCoroutine(MeleeAttack());
+        StartCoroutine(MeleeAttack(1));
     }
 
     public void RangedAttackHelper()
@@ -67,9 +98,11 @@ public class Attack : MonoBehaviour
         StartCoroutine(RangedAttack());
     }
 
-    private IEnumerator MeleeAttack() {
-        pm.myAnim.SetTrigger("Melee 1");
-        pm.DisableMovement(meleeAttackWindup + meleeAttackActiveTime);
+    private IEnumerator MeleeAttack(int curAttack) {
+        meleeMovement = true;
+        bufferCoroutine = StartCoroutine(MeleeBuffer());
+        pm.myAnim.SetTrigger("Melee "+ curAttack);
+        pm.DisableMovement(meleeAttackWindup + meleeAttackActiveTime + meleeAttackEndTime);
         attackReady = false;
 		coll.enabled = false;
 		coll.enabled = true;
@@ -77,8 +110,16 @@ public class Attack : MonoBehaviour
 		attackZone.SetActive(true);
 		hurt.ClearArray();
 		yield return new WaitForSeconds(meleeAttackActiveTime);
-		attackZone.SetActive(false);
+        meleeMovement = false;
+        attackZone.SetActive(false);
+        yield return new WaitForSeconds(meleeAttackEndTime);
         attackReady = true;
+    }
+
+    private IEnumerator MeleeBuffer()
+    { 
+        yield return new WaitForSeconds(meleeAttackWindup + meleeAttackActiveTime + meleeAttackEndTime + meleeBufferTime);
+        currentMeleeAttack = 0;
     }
 
 	private IEnumerator RangedAttack() {
