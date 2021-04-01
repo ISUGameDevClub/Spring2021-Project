@@ -10,6 +10,7 @@ public class Agent : MonoBehaviour
 {
     public AgentState AgentState;
     public AgentBehavior AgentBehavior;
+    public AIAttack AgentAttackDelegate;
     public GameObject AgentObj;
     
     public GameObject MainTarget;
@@ -24,6 +25,10 @@ public class Agent : MonoBehaviour
     void Awake()
     {
         InitAgent(out _NoRun);
+        if (transform.GetComponentInChildren<AIAttack>() == null) 
+        {
+            gameObject.AddComponent<AIAttack>();
+        }
     }
     
     void Start()
@@ -40,6 +45,7 @@ public class Agent : MonoBehaviour
             gameObject.SetActive(false);
         }
         AgentBehavior.AgentStateScript = AgentState;
+        AgentAttackDelegate = AgentAttackDelegate == null ? GetComponentInChildren<AIAttack>() : AgentAttackDelegate;
         
     }
 
@@ -61,6 +67,7 @@ public class Agent : MonoBehaviour
         if (target != null)
         {
             AgentBehavior.Target = target;
+            
             AgentBehavior.ExecuteAction(AgentBehavior.Action.Persue, MainTarget, true);
         }
     }

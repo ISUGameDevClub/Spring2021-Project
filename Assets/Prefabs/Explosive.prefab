@@ -225,8 +225,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 185a07fce0a99a94b8b96f25f6ae2a32, type: 3}
-  m_Color: {r: 0.6886792, g: 0, b: 0.02843182, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 2586bca10050ba84d8e8935448af5ac2, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -267,6 +267,8 @@ MonoBehaviour:
   curHealth: 0
   isPlayer: 0
   healthText: {fileID: 0}
+  transition: {fileID: 0}
+  transitionTime: 0
 --- !u!61 &216604200578144420
 BoxCollider2D:
   m_ObjectHideFlags: 0

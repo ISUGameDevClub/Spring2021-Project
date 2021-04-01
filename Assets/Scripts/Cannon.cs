@@ -14,7 +14,8 @@ public class Cannon : MonoBehaviour
     private PlayerMovement pm;
     private bool shotPlayer;
     private bool loaded;
-
+    public GameObject Smoke;
+    public GameObject SmokeSpawn;
 
     void Start()
     {
@@ -50,10 +51,14 @@ public class Cannon : MonoBehaviour
         rb.gameObject.transform.position = transform.position;
         rb.velocity = new Vector2(0, 0);
         rb.AddForce(cannonAngle.normalized * cannonSpeed, ForceMode2D.Impulse);
+        GameObject s = Instantiate(Smoke, SmokeSpawn.transform.position, new Quaternion(0, 0, 0, 0));
+        s.transform.SetParent(null);
         yield return new WaitForSeconds(.2f);
         inCannon = false;
         loaded = false;
         shotPlayer = true;
+        
+       
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

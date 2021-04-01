@@ -28,6 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1904548328}
+  - {fileID: 5039398359739060333}
   m_Father: {fileID: 3797314158651306782}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45.000004}
@@ -242,6 +243,8 @@ MonoBehaviour:
   autoFire: 0
   cannonSpeed: 30
   cannonAngle: {x: 1, y: 1}
+  Smoke: {fileID: 9028577697116380363, guid: cd72f6d649f174b41874053ce3b1e54c, type: 3}
+  SmokeSpawn: {fileID: 5454780368082290340}
 --- !u!61 &3797314158651306786
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -268,3 +271,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &5454780368082290340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5039398359739060333}
+  m_Layer: 0
+  m_Name: Smoke Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5039398359739060333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454780368082290340}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.2500001, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1181790113}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

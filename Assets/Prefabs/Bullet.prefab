@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1877549074760806175}
   - component: {fileID: 1877549074760806170}
   - component: {fileID: 1877549074760806171}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ecabb8f81ec2b1544ad09a699d221b19, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 57792cafbe234aa44a745c4e2104fb60, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,8 +101,8 @@ MonoBehaviour:
   damage: 1
   canMultiHit: 0
   AttackedArray: []
-  knockbackPower: 0
-  knockbackTime: 0
+  knockbackPower: 2
+  knockbackTime: 0.1
 --- !u!114 &1877549074760806175
 MonoBehaviour:
   m_ObjectHideFlags: 0

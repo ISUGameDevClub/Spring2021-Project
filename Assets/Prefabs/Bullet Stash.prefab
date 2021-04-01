@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6186054060706986241}
   - component: {fileID: 6186054060706986240}
   - component: {fileID: 398920083}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Bullet Stash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5303d9a2957f574fba1708a767045fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Sparkle: {fileID: 3999342394592071074, guid: 91a9f67516b98f347ab45b8fa042d105, type: 3}
   value: 5
 --- !u!114 &6186054060706986240
 MonoBehaviour:

@@ -10,6 +10,7 @@ public class DashAbility : MonoBehaviour
     //The duration of the dash
     public float startDashTime;
 
+    public bool dashAvailable;
     public float cooldownTimer;
     private float dashTime;
     private Rigidbody2D rb;
@@ -34,9 +35,16 @@ public class DashAbility : MonoBehaviour
         //If the direction is not defined, define direction
         if (direction == 0)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && pm.canMove)
+            if (!dashAvailable)
+            {
+                if (pm.isGrounded)
+                    dashAvailable = true;
+            }
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && pm.canMove && direction == 0 && dashAvailable)
             {
                 pm.DisableMovement(startDashTime);
+                pm.myAnim.SetTrigger("Dash");
+                dashAvailable = false;
                 StartCoroutine(DashCooldown());
                 if(!pm.facingRight)
                 {
