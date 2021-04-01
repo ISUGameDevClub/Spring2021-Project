@@ -43,6 +43,7 @@ public class DashAbility : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && pm.canMove && direction == 0 && dashAvailable)
             {
                 pm.DisableMovement(startDashTime);
+                pm.myAnim.SetTrigger("Dash");
                 dashAvailable = false;
                 StartCoroutine(DashCooldown());
                 if(!pm.facingRight)
