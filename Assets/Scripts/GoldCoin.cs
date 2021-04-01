@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GoldCoin : MonoBehaviour
 {
+    public GameObject Sparkle;
+    
+
     public int value;
     // Start is called before the first frame update
     void Start()
@@ -21,6 +24,8 @@ public class GoldCoin : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            GameObject s = Instantiate(Sparkle, transform.position, new Quaternion(0, 0, 0, 0));
+            s.transform.SetParent(null);
             collision.GetComponent<GoldSystem>().AddGold(value);
             Destroy(gameObject);
         }
@@ -31,6 +36,8 @@ public class GoldCoin : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            GameObject s = Instantiate(Sparkle, transform.position, new Quaternion(0, 0, 0, 0));
+            s.transform.SetParent(null);
             collision.gameObject.GetComponent<GoldSystem>().AddGold(value);
             Destroy(gameObject);
         }

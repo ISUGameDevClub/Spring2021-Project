@@ -58,6 +58,10 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
+        if(GetComponent<Switch>() != null)
+        {
+            GetComponent<Switch>().HitSwitch();
+        }
         if (GetComponent<ItemDrop>() != null)
             GetComponent<ItemDrop>().CreateItem();
         if (isPlayer)
@@ -79,15 +83,21 @@ public class Health : MonoBehaviour
 
         if (gameObject.transform.position.x >= knockPosition)
         {
-            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            gameObject.GetComponent<Rigidbody2D>().AddForce
-                (new Vector2(knockbackPower, knockbackPower * .75f), ForceMode2D.Impulse);
+            if (gameObject.GetComponent<Rigidbody2D>() != null)
+            {
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                gameObject.GetComponent<Rigidbody2D>().AddForce
+                    (new Vector2(knockbackPower, knockbackPower * .75f), ForceMode2D.Impulse);
+            }
         }
         else if (gameObject.transform.position.x < knockPosition)
         {
-            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            gameObject.GetComponent<Rigidbody2D>().AddForce
-                (new Vector2(-knockbackPower, knockbackPower * .75f), ForceMode2D.Impulse);
+            if (gameObject.GetComponent<Rigidbody2D>() != null)
+            {
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                gameObject.GetComponent<Rigidbody2D>().AddForce
+                    (new Vector2(-knockbackPower, knockbackPower * .75f), ForceMode2D.Impulse);
+            }
         }
     }
 
