@@ -3292,6 +3292,18 @@ PrefabInstance:
       objectReference: {fileID: 1824126383690397451}
     - target: {fileID: 1879421904527483785, guid: 818abb121cdf7e94f90122ac8263ec5b,
         type: 3}
+      propertyPath: healParticle
+      value: 
+      objectReference: {fileID: 5683534565272200010, guid: 392bc5362f54a59499281862d5009519,
+        type: 3}
+    - target: {fileID: 1879421904527483785, guid: 818abb121cdf7e94f90122ac8263ec5b,
+        type: 3}
+      propertyPath: DeathParticle
+      value: 
+      objectReference: {fileID: 9028577697116380363, guid: 9ede6067c4c954a4ebd96938c5152000,
+        type: 3}
+    - target: {fileID: 1879421904527483785, guid: 818abb121cdf7e94f90122ac8263ec5b,
+        type: 3}
       propertyPath: transitionTime
       value: 0.25
       objectReference: {fileID: 0}
@@ -3339,6 +3351,11 @@ PrefabInstance:
         type: 3}
       propertyPath: cooldownTimer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8329780484539250457, guid: 818abb121cdf7e94f90122ac8263ec5b,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8355738080436486976, guid: 818abb121cdf7e94f90122ac8263ec5b,
         type: 3}
