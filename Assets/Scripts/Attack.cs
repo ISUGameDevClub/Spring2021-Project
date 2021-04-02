@@ -11,6 +11,7 @@ public class Attack : MonoBehaviour
 	private Collider2D coll;
     private AmmoSystem ams;
     private int currentMeleeAttack;
+    private int currentPlannedMeleeAttack;
     private Coroutine bufferCoroutine;
     private bool meleeMovement;
 
@@ -52,28 +53,24 @@ public class Attack : MonoBehaviour
                 attackZone.transform.localPosition = (Vector3.left);
         }
 
-		if (Input.GetKeyDown(KeyCode.Mouse0) && attackReady && pm.canMove && pm.isGrounded)
+		if (Input.GetKeyDown(KeyCode.Mouse0) && pm.isGrounded)
 		{
             if(bufferCoroutine != null)
                 StopCoroutine(bufferCoroutine);
             if (currentMeleeAttack == 0)
             {
-                StartCoroutine(MeleeAttack(1));
-                currentMeleeAttack++;
+                currentPlannedMeleeAttack = 1;
             }
             else if (currentMeleeAttack == 1)
             {
-                StartCoroutine(MeleeAttack(2));
-                currentMeleeAttack++;
+                currentPlannedMeleeAttack = 2;
             }
             else if (currentMeleeAttack == 2)
             {
-                StartCoroutine(MeleeAttack(3));
-                currentMeleeAttack=0;
+                currentPlannedMeleeAttack = 3;
             }
-
         }		
-		else if(Input.GetKeyDown(KeyCode.Mouse1 ) && attackReady && ams.totalAmmo > 0 && pm.canMove && pm.isGrounded)
+		else if(Input.GetKeyDown(KeyCode.Mouse1) && attackReady && ams.totalAmmo > 0 && pm.canMove && pm.isGrounded)
 		{
             ams.UseAmmo(1);
 			StartCoroutine(RangedAttack());
@@ -86,6 +83,10 @@ public class Attack : MonoBehaviour
                 transform.Translate(new Vector2(Time.deltaTime * -attackMovementSpeed, 0));
         }
 
+        if(currentPlannedMeleeAttack != currentMeleeAttack && attackReady && pm.canMove)
+        {
+            StartCoroutine(MeleeAttack(currentPlannedMeleeAttack));
+        }
 	}
 
     public void MeleeAttackHelper()
@@ -99,9 +100,10 @@ public class Attack : MonoBehaviour
     }
 
     private IEnumerator MeleeAttack(int curAttack) {
+        currentMeleeAttack = curAttack;
         meleeMovement = true;
         bufferCoroutine = StartCoroutine(MeleeBuffer());
-        pm.myAnim.SetTrigger("Melee "+ curAttack);
+        pm.myAnim.SetTrigger("Melee "+ (curAttack));
         pm.DisableMovement(meleeAttackWindup + meleeAttackActiveTime + meleeAttackEndTime);
         attackReady = false;
 		coll.enabled = false;
@@ -114,12 +116,18 @@ public class Attack : MonoBehaviour
         attackZone.SetActive(false);
         yield return new WaitForSeconds(meleeAttackEndTime);
         attackReady = true;
+        if(curAttack == 3)
+        {
+            currentMeleeAttack = 0;
+            currentPlannedMeleeAttack = 0;
+        }
     }
 
     private IEnumerator MeleeBuffer()
     { 
         yield return new WaitForSeconds(meleeAttackWindup + meleeAttackActiveTime + meleeAttackEndTime + meleeBufferTime);
         currentMeleeAttack = 0;
+        currentPlannedMeleeAttack = 0;
     }
 
 	private IEnumerator RangedAttack() {

@@ -13,10 +13,12 @@ public class Health : MonoBehaviour
     public Animator transition;
     public float transitionTime;
     public Animator playerHurtEffect;
+    public GameObject hurtBox;
 
     private Collider2D coll;
     public GameObject healParticle;
     public GameObject DeathParticle;
+    private Coroutine hitBoxCoroutine;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,8 +61,22 @@ public class Health : MonoBehaviour
         {
             playerHurtEffect.SetTrigger("Hurt");
             healthText.text = "Health: " + curHealth;
+            GetComponent<DashAbility>().ResetDash();
+        }
+        else if (hurtBox != null)
+        {
+            if (hitBoxCoroutine != null)
+                StopCoroutine(hitBoxCoroutine);
+            hitBoxCoroutine = StartCoroutine(DisableHitbox(knockbackTime));
         }
         Knockback(knockPosition, knockbackPower, knockbackTime);
+    }
+
+    public IEnumerator DisableHitbox(float knockbackTime)
+    {
+        hurtBox.SetActive(false);
+        yield return new WaitForSeconds(knockbackTime);
+        hurtBox.SetActive(true);
     }
 
     public void Die()
@@ -92,6 +108,13 @@ public class Health : MonoBehaviour
         {
             gameObject.GetComponent<PlayerMovement>().myAnim.SetBool("Hurt", true);
             gameObject.GetComponent<PlayerMovement>().DisableMovement(knockbackTime);
+        }
+        else
+        {
+            if(GetComponent<RangedEnemy>() != null)
+            {
+                GetComponent<RangedEnemy>().ResetAttack(knockbackTime);
+            }
         }
 
         if (gameObject.transform.position.x >= knockPosition)

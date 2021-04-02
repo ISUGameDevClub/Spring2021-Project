@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isGrounded && rb.velocity.y < .01f)
+        if ((isGrounded && rb.velocity.y < .01f) || canMove)
             rb.velocity = rb.velocity * new Vector2(0, 1);
         if (canMove)
             Movement();

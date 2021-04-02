@@ -206,6 +206,7 @@ MonoBehaviour:
   transition: {fileID: 0}
   transitionTime: 0
   playerHurtEffect: {fileID: 0}
+  hurtBox: {fileID: 8535332699958943597}
   healParticle: {fileID: 5683534565272200010, guid: 392bc5362f54a59499281862d5009519,
     type: 3}
   DeathParticle: {fileID: 9028577697116380363, guid: 9ede6067c4c954a4ebd96938c5152000,

@@ -14,7 +14,8 @@ public class DashAbility : MonoBehaviour
     public float cooldownTimer;
     private float dashTime;
     private Rigidbody2D rb;
-    private int direction;
+    [HideInInspector]
+    public int direction;
     private bool canDash;
     private PlayerMovement pm;
 
@@ -84,6 +85,12 @@ public class DashAbility : MonoBehaviour
                 transform.Translate(Vector2.right * dashSpeed * Time.fixedDeltaTime);
             }
         }
+    }
+
+    public void ResetDash()
+    {
+        direction = 0;
+        dashTime = startDashTime;
     }
 
     private IEnumerator DashCooldown()
