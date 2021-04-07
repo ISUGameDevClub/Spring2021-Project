@@ -93,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
         else
             myAnim.SetBool("Walking", false);
 
+        transform.eulerAngles = Vector3.zero;
     }
 
     public void DisableMovement(float timeDisabled)

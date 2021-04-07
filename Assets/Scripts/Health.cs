@@ -55,7 +55,7 @@ public class Health : MonoBehaviour
         if(curHealth <= 0)
         {
             if(gameObject.GetComponent<ExplosiveController>()==null)
-                Die();            
+                Die();
         }
         else if(isPlayer)
         {
