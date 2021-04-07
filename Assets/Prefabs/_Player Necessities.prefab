@@ -3317,6 +3317,11 @@ PrefabInstance:
       propertyPath: fallSpeed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4099850178972575070, guid: 818abb121cdf7e94f90122ac8263ec5b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4099850179306137419, guid: 818abb121cdf7e94f90122ac8263ec5b,
         type: 3}
       propertyPath: meleeBufferTime

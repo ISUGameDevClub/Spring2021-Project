@@ -11071,6 +11071,24 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 989048704972628760, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e8f05105477f63d4ea80caf2cec63b8f,
+        type: 3}
+    - target: {fileID: 1230795277811285350, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ba9c740ff001b8e48af55063e540f814,
+        type: 3}
+    - target: {fileID: 1587812535941150126, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 62d65dff5d089e04489481a4ef01a245,
+        type: 3}
     - target: {fileID: 1824126384832432972, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_RootOrder
@@ -11131,6 +11149,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: _Player Necessities
       objectReference: {fileID: 0}
+    - target: {fileID: 2597858129280538037, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e8f05105477f63d4ea80caf2cec63b8f,
+        type: 3}
+    - target: {fileID: 3566249528879239688, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 31156cf1aaf149b4093e1b65e1ca3a52,
+        type: 3}
+    - target: {fileID: 5042543980749732887, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ba9c740ff001b8e48af55063e540f814,
+        type: 3}
+    - target: {fileID: 5189667988626347832, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 31156cf1aaf149b4093e1b65e1ca3a52,
+        type: 3}
     - target: {fileID: 5921198301655011108, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: meleeBufferTime
@@ -11141,11 +11183,27 @@ PrefabInstance:
       propertyPath: meleeAttackEndTime
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 5921198302261234993, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6055408870154718673, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: xMax
       value: 36.75
       objectReference: {fileID: 0}
+    - target: {fileID: 6055408870154718673, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: xMin
+      value: -17.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7156159475827251804, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 62d65dff5d089e04489481a4ef01a245,
+        type: 3}
     - target: {fileID: 7315042654612776378, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: knockbackTime
