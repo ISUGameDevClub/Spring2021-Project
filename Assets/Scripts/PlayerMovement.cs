@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     public bool canMove;
     [HideInInspector]
     public bool onLadder;
+    [HideInInspector]
+    public bool enableGravity;
 
     private float canMoveTimer;
     private Rigidbody2D rb;
@@ -29,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enableGravity = true;
         facingRight = true;
         rb = GetComponent<Rigidbody2D>();
         canMove = true;
@@ -59,13 +62,11 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetAxis("Horizontal") > 0)
             {
-                mySprite.flipX = false;
-                facingRight = true;
+                FaceRight();
             }
             if (Input.GetAxis("Horizontal") < 0)
             {
-                mySprite.flipX = true;
-                facingRight = false;
+                FaceLeft();
             }
 
 
@@ -75,11 +76,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if(!isGrounded && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && canMove && !onLadder)
+        if(!isGrounded && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && canMove && !onLadder && enableGravity)
         {
             rb.gravityScale = gravity * fallSpeed;
         }
-        else if (!onLadder)
+        else if (!onLadder && enableGravity)
         {
             rb.gravityScale = gravity;
         }
@@ -94,6 +95,18 @@ public class PlayerMovement : MonoBehaviour
             myAnim.SetBool("Walking", false);
 
         transform.eulerAngles = Vector3.zero;
+    }
+
+    public void FaceRight()
+    {
+        mySprite.flipX = false;
+        facingRight = true;
+    }
+
+    public void FaceLeft()
+    {
+        mySprite.flipX = true;
+        facingRight = false;
     }
 
     public void DisableMovement(float timeDisabled)

@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 8535332700480779836}
   - component: {fileID: 8535332700480779837}
   - component: {fileID: 1997040436}
+  - component: {fileID: 1997040431}
   m_Layer: 0
   m_Name: Dummy Enemy Melee
   m_TagString: Enemy
@@ -246,3 +247,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 8535332700480779838}
+--- !u!95 &1997040431
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8535332700480779832}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bd28e40c768e03a45b065d2e49ee62e4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

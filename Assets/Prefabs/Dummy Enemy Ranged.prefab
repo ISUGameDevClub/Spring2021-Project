@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 8535332700480779836}
   - component: {fileID: 8535332700480779837}
   - component: {fileID: 4352178285402979419}
+  - component: {fileID: 757602213}
   m_Layer: 0
   m_Name: Dummy Enemy Ranged
   m_TagString: Enemy
@@ -248,3 +249,22 @@ MonoBehaviour:
   sr: {fileID: 8535332700480779838}
   timeBetweenShots: 2
   bullet: {fileID: 1877549074760806174, guid: 9a46fa4e5a9f6654f82b451444edf302, type: 3}
+--- !u!95 &757602213
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8535332700480779832}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2cd751ddf1fd42245989b5ae590be480, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

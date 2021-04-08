@@ -69,3 +69,6 @@ TagManager:
   - name: Particle
     uniqueID: 2207107801
     locked: 0
+  - name: Light
+    uniqueID: 2373792453
+    locked: 0
