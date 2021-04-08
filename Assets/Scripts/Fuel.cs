@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Fuel : MonoBehaviour
 {
     public int myFuelNumber;
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.gameObject.tag == "Player")
+        { 
+            PlayerData.collectedFuel[myFuelNumber] = true;
+            FindObjectOfType<PlayerData>().CollectFuel();
+            Destroy(gameObject);
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        if (PlayerData.collectedFuel[myFuelNumber])
+            Destroy(gameObject);
+            
     }
 }
