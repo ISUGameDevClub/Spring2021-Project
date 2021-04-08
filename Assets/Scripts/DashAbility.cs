@@ -14,7 +14,8 @@ public class DashAbility : MonoBehaviour
     public float cooldownTimer;
     private float dashTime;
     private Rigidbody2D rb;
-    private int direction;
+    [HideInInspector]
+    public int direction;
     private bool canDash;
     private PlayerMovement pm;
 
@@ -32,40 +33,43 @@ public class DashAbility : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //If the direction is not defined, define direction
-        if (direction == 0)
+        if (PlayerData.unlockedDash)
         {
-            if (!dashAvailable)
+            //If the direction is not defined, define direction
+            if (direction == 0)
             {
-                if (pm.isGrounded)
-                    dashAvailable = true;
-            }
-            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && pm.canMove && direction == 0 && dashAvailable)
-            {
-                pm.DisableMovement(startDashTime);
-                pm.myAnim.SetTrigger("Dash");
-                dashAvailable = false;
-                StartCoroutine(DashCooldown());
-                if(!pm.facingRight)
+                if (!dashAvailable)
                 {
-                    direction = 1;
+                    if (pm.isGrounded)
+                        dashAvailable = true;
                 }
-                else
+                if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && pm.canMove && direction == 0 && dashAvailable)
                 {
-                    direction = 2;
+                    pm.DisableMovement(startDashTime);
+                    pm.myAnim.SetTrigger("Dash");
+                    dashAvailable = false;
+                    StartCoroutine(DashCooldown());
+                    if (!pm.facingRight)
+                    {
+                        direction = 1;
+                    }
+                    else
+                    {
+                        direction = 2;
+                    }
                 }
-            }
-        }
-        else
-        {
-            if (dashTime <= 0)
-            {
-                direction = 0;
-                dashTime = startDashTime;
             }
             else
             {
-                dashTime -= Time.deltaTime;
+                if (dashTime <= 0)
+                {
+                    direction = 0;
+                    dashTime = startDashTime;
+                }
+                else
+                {
+                    dashTime -= Time.deltaTime;
+                }
             }
         }
     }
@@ -84,6 +88,12 @@ public class DashAbility : MonoBehaviour
                 transform.Translate(Vector2.right * dashSpeed * Time.fixedDeltaTime);
             }
         }
+    }
+
+    public void ResetDash()
+    {
+        direction = 0;
+        dashTime = startDashTime;
     }
 
     private IEnumerator DashCooldown()

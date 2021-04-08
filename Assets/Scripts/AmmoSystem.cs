@@ -18,7 +18,6 @@ public class AmmoSystem : MonoBehaviour
     {
         nc = FindObjectOfType<NotificationController>();
         upgraded = false;
-        totalAmmo = 0;
         if(ammoText != null)
             ammoText.text = "Ammo: " + totalAmmo;
     }

@@ -1,30 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Fuel : MonoBehaviour
 {
-    public static int fuelCount;
-    public Text fuelText;
-    public float destroyAfter;
-    private void OnTriggerEnter2D(Collider2D collision)
+    public int myFuelNumber;
+
+
+    // Start is called before the first frame update
+    void Start()
     {
-        if(collision.gameObject.name == "Fuel")
-        {
-            fuelCount++;
-            Destroy(collision.gameObject);
-        }
-    }
-    private void Start()
-    {
-        if(fuelText != null)
-            fuelText.text = "Fuel: " + fuelCount;
-    }
-    private void FixedUpdate()
-    {
-        if (fuelText != null)
-            fuelText.text = "Fuel: " + fuelCount;
+        
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }
