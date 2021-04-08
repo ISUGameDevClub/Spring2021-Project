@@ -4203,6 +4203,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 708964144121142347, guid: 36e82aaf43f98874c856a7a41d4d3512,
         type: 3}
+      propertyPath: LoadUnloadRenderDistance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 708964144121142347, guid: 36e82aaf43f98874c856a7a41d4d3512,
+        type: 3}
       propertyPath: SpawnLocations.Array.size
       value: 1
       objectReference: {fileID: 0}

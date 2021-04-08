@@ -18,7 +18,7 @@ public class SceneTransition : MonoBehaviour
 
     public IEnumerator LoadLevel()
     {
-        PlayerData.playerSpawn = spawnPosition;
+        PlayerData.UpdatePlayerData(spawnPosition, FindObjectOfType<GoldSystem>().totalGold, FindObjectOfType<AmmoSystem>().totalAmmo, 0);
         transition.SetTrigger("Change Scene");
         yield return new WaitForSeconds(transitionTime);
         SceneManager.LoadScene(newScene);

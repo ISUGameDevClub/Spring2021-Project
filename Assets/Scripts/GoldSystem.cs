@@ -18,8 +18,8 @@ public class GoldSystem : MonoBehaviour
     {
         nc = FindObjectOfType<NotificationController>();
         upgraded = false;
-        totalGold = 0;
-        goldText.text = "Coins: " + totalGold;
+        if(goldText != null)
+            goldText.text = "Coins: " + totalGold;
     }
 
     public void AddGold(int amount)
@@ -35,13 +35,15 @@ public class GoldSystem : MonoBehaviour
             totalGold = maxUpgradedGold;
             nc.ShowNotification("Gold Pouch Full", 1);
         }
-        goldText.text = "Coins: " + totalGold;
+        if (goldText != null)
+            goldText.text = "Coins: " + totalGold;
     }
 
     public void SubtractGold(int amount)
     {
         totalGold-= amount;
-        goldText.text = "Coins: " + totalGold;
+        if (goldText != null)
+            goldText.text = "Coins: " + totalGold;
     }
 
     public void setUpgradeGold()

@@ -4,28 +4,40 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
-    private float length, startpos;
+    public bool playerIndependent;
+    public float size;
+    public float parallaxSpeed;
+
+    private float startpos;
     private GameObject cam;
-    public float parallaxEffect;
 
     // Start is called before the first frame update
     void Start()
     {
-        startpos = transform.position.x;
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
+        startpos = transform.localPosition.x;
         cam = FindObjectOfType<CameraController>().gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-            float temp = (cam.transform.position.x * (1 - parallaxEffect));
-            float dist = (cam.transform.position.x * parallaxEffect);
+        if (playerIndependent)
+        {
+            transform.Translate(Vector2.left * parallaxSpeed * Time.deltaTime);
+            if (transform.localPosition.x < -size)
+                transform.localPosition = new Vector3(size, transform.localPosition.y, 10);
+            else if (transform.localPosition.x > size)
+                transform.localPosition = new Vector3(-size, transform.localPosition.y, 10);
+        }
+        else
+        {
+            float temp = (cam.transform.position.x * (1 - parallaxSpeed));
+            float dist = (cam.transform.position.x * parallaxSpeed);
 
-            transform.position = new Vector3(startpos + dist, transform.position.y, transform.position.z);
-
-            if (temp > startpos + length) startpos += length;
-            else if (temp < startpos - length) startpos -= length;
-
+            if(dist + startpos > 0)
+                transform.localPosition = new Vector3((-((dist + startpos) % 72) + 36), transform.localPosition.y, 10);
+            else
+                transform.localPosition = new Vector3((-((dist + startpos) % 72) - 36), transform.localPosition.y, 10);
+        }
     }
 }
