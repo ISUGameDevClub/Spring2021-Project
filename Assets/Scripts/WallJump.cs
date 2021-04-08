@@ -24,14 +24,16 @@ public class WallJump : MonoBehaviour
             int wallDirection = checkForWall();
             if (wallDirection==1)
             {
-                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.velocity = new Vector2(rb.velocity.x, wallJumpPower);
                 rb.AddForce(new Vector2(0, wallJumpPower), ForceMode2D.Impulse);
+                transform.Translate(Vector2.left * 5 * Time.fixedDeltaTime);
             }
 
             else if(wallDirection==0)
             {
-                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.velocity = new Vector2(rb.velocity.x, wallJumpPower);
                 rb.AddForce(new Vector2(0, wallJumpPower), ForceMode2D.Impulse);
+                transform.Translate(Vector2.right * 5 * Time.fixedDeltaTime);
             }
         }
     }
