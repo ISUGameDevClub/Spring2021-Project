@@ -24,6 +24,6 @@ EditorBuildSettings:
     path: Assets/Scenes/City 1/Lower Construction.unity
     guid: 3a43657f84050fc45afd275b8b6a0667
   - enabled: 1
-    path: Assets/Scenes/MainHub.unity
-    guid: ad0280bca3b73174bb3d0a55c4e1f989
+    path: Assets/Scenes/City 2/Backalley.unity
+    guid: 82962bc3c0f15ef4983565efb75eb23e
   m_configObjects: {}

@@ -25,7 +25,7 @@ public class Cannon : MonoBehaviour
 
     void Update()
     {
-       if(isCannon && ((!autoFire && Input.GetKeyDown(KeyCode.E)) || autoFire) && !shotPlayer && !loaded)
+       if(isCannon && PlayerData.unlockedCannon && ((!autoFire && Input.GetKeyDown(KeyCode.E)) || autoFire) && !shotPlayer && !loaded)
        {
             StartCoroutine(FireCannon());
        }
@@ -42,6 +42,11 @@ public class Cannon : MonoBehaviour
 
     private IEnumerator FireCannon()
     {
+        if (cannonAngle.x > 0)
+            pm.FaceRight();
+        else
+            pm.FaceLeft();
+
         inCannon = true;
         rb.velocity = new Vector2(0, 0);
         loaded = true;

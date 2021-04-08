@@ -41,11 +41,29 @@ Tilemap:
   m_GameObject: {fileID: 2496698461139457464}
   m_Enabled: 1
   m_Tiles:
+  - first: {x: -2, y: -4, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
   - first: {x: 1, y: -4, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 2
       m_TileSpriteIndex: 2
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
+  - first: {x: -2, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 5
+      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -87,6 +105,10 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 265137a73e040b84189c58ddb64ec306, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 737344e76113b2f4bab8eddb6a824438, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 4f3dd832c3bc0a445ac0029ab84a21b8, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: d89bae3087eff7e47b702559113d8e12, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: abe4d24ef993d934fb38b4c55df58343, type: 3}
@@ -96,8 +118,12 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: dc84e663842d20041a994b4157cc8b42, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 48d2feae16fc08c4ab284c03d0521f12, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: b47594b8ef645eb4e97225743186e779, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 19ab87b602d404f41a6687720dc0f614, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 4
+  - m_RefCount: 6
     m_Data:
       e00: 1
       e01: 0
@@ -116,7 +142,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 4
+  - m_RefCount: 6
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -229,7 +255,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6647683775168106066}
   m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 0}
+  m_CellSize: {x: 0.16, y: 0.16, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
