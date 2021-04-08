@@ -49,7 +49,7 @@ public class AutomatedMovement : MonoBehaviour
     private bool _LocalLock;
     private bool _LocalLockBindedToLock;
     private bool _Jumping;
-    private bool _Grounded;
+    public bool _Grounded;
     private Coroutine _JumpTimeout;
 
     private GameObject _StandingOn;
@@ -59,10 +59,13 @@ public class AutomatedMovement : MonoBehaviour
         _JumpTimeout = null;
         _PauseTimeout = null;
         Targets = new List<GameObject>();
+        RigidBody2d.Sleep();
     }
     // Start is called before the first frame update
     void Start()
     {
+        RigidBody2d.WakeUp();
+        
         if (RigidBody2d == null)
         {
             RigidBody2d = GetComponentInChildren<Rigidbody2D>();
@@ -70,12 +73,21 @@ public class AutomatedMovement : MonoBehaviour
         }
         EntityStatus = Status.Inactive;
         _EntityBounds = GetComponentInChildren<SpriteRenderer>().bounds;
+        _Grounded = RigidBody2d.IsTouching(GameObject.FindGameObjectWithTag("Ground").GetComponentInChildren<Collider2D>());
         
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!_Grounded)
+        {
+            if ( _SimFallCoroutine == null) 
+            {
+                _Timeout = StartCoroutine(ForceDownTimeoutCoroutine());
+                _SimFallCoroutine = StartCoroutine(ForceDownCoroutine());
+            }
+        }
         if (Target != null)
         {
             TargetLocation = Target.transform;
@@ -108,13 +120,17 @@ public class AutomatedMovement : MonoBehaviour
         {
             if (RigidBody2d.velocity.y < 0)
             {
-                RigidBody2d.gravityScale = Gravity * FallSpeed;
+               // RigidBody2d.gravityScale = Gravity * FallSpeed;
             }
             
             if (Targets.Count > 0 && Targets[0] != null)
             {
                 Target = Targets[0];
                 EntityStatus = Status.Moving;
+            }
+            else
+            {
+                Target = null;
             }
             switch(EntityStatus)
             {
@@ -179,9 +195,14 @@ public class AutomatedMovement : MonoBehaviour
                         Vector3 vec = Target.transform.position - transform.position;
                         
                         vec = vec.normalized;
+                        
                         RotateToTarget(Target.transform);
-                        vec = new Vector3(vec.x * VelocityX * Time.deltaTime, vec.y * VelocityY, vec.z);
-                        gameObject.transform.position += vec;
+                        
+                        vec = new Vector3(vec.x * VelocityX * Time.deltaTime, RigidBody2d.velocity.y *  Time.deltaTime, vec.z);
+                        
+                        
+                        //gameObject.transform.position += vec;
+                        RigidBody2d.MovePosition(transform.position + vec);
                          
                     }
                     else
@@ -234,7 +255,7 @@ public class AutomatedMovement : MonoBehaviour
     {
         if (Jumpable)
         {
-            RigidBody2d.velocity = new Vector2(RigidBody2d.velocity.x, 0);
+            //RigidBody2d.velocity = new Vector2(RigidBody2d.velocity.x, 0);
             //RigidBody2d.AddForce(new Vector2(0, 5f), ForceMode2D.Impulse);
             if (_JumpCoroutine == null && _Grounded && !_Jumping)
             {
@@ -273,15 +294,37 @@ public class AutomatedMovement : MonoBehaviour
     {
         UnityLoggingDelegate.LogIfTrue(LogEvents,UnityLoggingDelegate.LogType.General, ("AI Started to move"));
         EntityStatus = Status.Moving;
-        RigidBody2d.velocity = new Vector2(VelocityX, VelocityY);
+        RigidBody2d.velocity = new Vector2(VelocityX, RigidBody2d.velocity.y);
     }
 
+    private Coroutine _DragCoroutine;
     [ContextMenu("Stop Movement")]
     public void StopMoving()
     {
-         UnityLoggingDelegate.LogIfTrue(LogEvents,UnityLoggingDelegate.LogType.General, ("AI Stopped to move"));
-        EntityStatus = Status.Stopped;
-        RigidBody2d.velocity = new Vector2(0f, 0f);
+        if (EntityStatus != Status.Stopped)
+        {
+            UnityLoggingDelegate.LogIfTrue(LogEvents,UnityLoggingDelegate.LogType.General, ("AI Stopped moving"));
+            EntityStatus = Status.Stopped;
+            RigidBody2d.velocity = new Vector2(0f, RigidBody2d.velocity.y);
+            RigidBody2d.angularVelocity = 0;
+            //if (_DragCoroutine == null) _DragCoroutine = StartCoroutine(DragCoroutine());
+        }
+    }
+
+    private IEnumerator DragCoroutine() 
+    {
+        float dragMax = 20f;
+        float animStep = 30f;
+        float perAnimStep = dragMax / animStep;
+        float temp = RigidBody2d.drag;
+        for (var x = 0; x < animStep; VelocityX++)
+        {
+            RigidBody2d.drag = RigidBody2d.drag + perAnimStep;
+            yield return new WaitForSeconds(2f / animStep);
+        }
+        
+        RigidBody2d.drag = temp;
+        _DragCoroutine = null;
     }
 
     public void PauseMovement(float seconds)
@@ -370,7 +413,7 @@ public class AutomatedMovement : MonoBehaviour
     private IEnumerator JumpCoroutine(float JumpingPower, float hangingMove)
     {
         Debug.Log("Jumping)");
-        RigidBody2d.velocity = new Vector2(RigidBody2d.velocity.x, 0);
+        RigidBody2d.velocity = new Vector2(RigidBody2d.velocity.x, RigidBody2d.velocity.y);
         RigidBody2d.AddForce(new Vector2(0, JumpingPower), ForceMode2D.Impulse);
         yield return new WaitForSecondsRealtime(JumpLifOffTime);
         //enter haning code
@@ -391,6 +434,7 @@ public class AutomatedMovement : MonoBehaviour
         {
             _Grounded = true;
             _StandingOn = other.gameObject;
+            RigidBody2d.velocity = new Vector2(RigidBody2d.velocity.x, 0);
         }
         
     }
@@ -400,9 +444,12 @@ public class AutomatedMovement : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             _Grounded = true;
+            
         }
     }
     
+    private Coroutine _SimFallCoroutine;
+    private Coroutine _Timeout;
     private void OnCollisionExit2D(Collision2D other) 
     {
         if (other.gameObject.tag == "Ground")
@@ -411,6 +458,27 @@ public class AutomatedMovement : MonoBehaviour
             
         }
     }
+
+    private IEnumerator ForceDownTimeoutCoroutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _Timeout = null;
+        
+    }
+
+    private IEnumerator ForceDownCoroutine()
+    {
+        while (true && _Grounded == false && _Timeout != null)
+        {
+            Debug.Log("AAA");
+            RigidBody2d.velocity = new Vector2(RigidBody2d.velocity.x, RigidBody2d.velocity.y + -1f);
+            yield return new WaitForSeconds(0.25f);
+        }
+        if (_Timeout != null) StopCoroutine(_Timeout);
+        _SimFallCoroutine = null;
+        yield return new WaitForFixedUpdate();
+    }
+    
 
     
 }
