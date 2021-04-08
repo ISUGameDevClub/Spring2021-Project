@@ -18,7 +18,6 @@ public class GoldSystem : MonoBehaviour
     {
         nc = FindObjectOfType<NotificationController>();
         upgraded = false;
-        totalGold = 0;
         if(goldText != null)
             goldText.text = "Coins: " + totalGold;
     }

@@ -13,9 +13,12 @@ public class Health : MonoBehaviour
     public Animator transition;
     public float transitionTime;
     public Animator playerHurtEffect;
+    public GameObject hurtBox;
 
     private Collider2D coll;
-
+    public GameObject healParticle;
+    public GameObject DeathParticle;
+    private Coroutine hitBoxCoroutine;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,12 @@ public class Health : MonoBehaviour
         }
         if (isPlayer)
             healthText.text = "Health: " + curHealth;
+        if (healParticle != null)
+        {
+            GameObject s = Instantiate(healParticle, transform.position, new Quaternion(0, 0, 0, 0));
+            s.transform.SetParent(null);
+        }
+
     }
 
     public void TakeDamage(int damage,float knockPosition,float knockbackPower, float knockbackTime)
@@ -52,13 +61,33 @@ public class Health : MonoBehaviour
         {
             playerHurtEffect.SetTrigger("Hurt");
             healthText.text = "Health: " + curHealth;
+            GetComponent<DashAbility>().ResetDash();
+        }
+        else if (hurtBox != null)
+        {
+            if (hitBoxCoroutine != null)
+                StopCoroutine(hitBoxCoroutine);
+            hitBoxCoroutine = StartCoroutine(DisableHitbox(knockbackTime));
         }
         Knockback(knockPosition, knockbackPower, knockbackTime);
     }
 
+    public IEnumerator DisableHitbox(float knockbackTime)
+    {
+        hurtBox.SetActive(false);
+        yield return new WaitForSeconds(knockbackTime);
+        hurtBox.SetActive(true);
+    }
+
     public void Die()
     {
-        if(GetComponent<Switch>() != null)
+        if (DeathParticle != null)
+        {
+            GameObject d = Instantiate(DeathParticle, transform.position, new Quaternion(0, 0, 0, 0));
+            d.transform.SetParent(null);
+        }
+
+        if (GetComponent<Switch>() != null)
         {
             GetComponent<Switch>().HitSwitch();
         }
@@ -69,7 +98,7 @@ public class Health : MonoBehaviour
             StartCoroutine(ReloadLevel());
         }
         else
-            Destroy(gameObject);
+        Destroy(gameObject);
 
     }
 
@@ -79,6 +108,13 @@ public class Health : MonoBehaviour
         {
             gameObject.GetComponent<PlayerMovement>().myAnim.SetBool("Hurt", true);
             gameObject.GetComponent<PlayerMovement>().DisableMovement(knockbackTime);
+        }
+        else
+        {
+            if(GetComponent<RangedEnemy>() != null)
+            {
+                GetComponent<RangedEnemy>().ResetAttack(knockbackTime);
+            }
         }
 
         if (gameObject.transform.position.x >= knockPosition)
