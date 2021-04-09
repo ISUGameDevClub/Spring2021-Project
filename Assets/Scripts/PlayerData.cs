@@ -7,6 +7,7 @@ public class PlayerData : MonoBehaviour
     public bool debugCannonUnlock;
     public bool debugDashUnlock;
     public bool debugGrappleUnlock;
+    public bool debugWallJumpUnlock;
     public Text fuelText;
     public static int playerSpawn;
     public static int coins;
@@ -16,6 +17,7 @@ public class PlayerData : MonoBehaviour
     public static bool unlockedDash;
     public static bool unlockedCannon;
     public static bool unlockedGrapple;
+    public static bool unlockedWallJump;
     
 
 
@@ -37,6 +39,11 @@ public class PlayerData : MonoBehaviour
         if (debugGrappleUnlock)
         {
             unlockedGrapple = true;
+        }
+
+        if (debugWallJumpUnlock)
+        {
+            unlockedWallJump = true;
         }
 
         if (fuelText != null)
