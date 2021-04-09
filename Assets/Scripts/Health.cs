@@ -9,7 +9,7 @@ public class Health : MonoBehaviour
     public int maxHealth;
     public int curHealth;
     public bool isPlayer;
-    public Text healthText;
+    public HealthUI healthText;
     public Animator transition;
     public float transitionTime;
     public Animator playerHurtEffect;
@@ -26,7 +26,7 @@ public class Health : MonoBehaviour
         coll = gameObject.GetComponent<Collider2D>();
 
         if (isPlayer)
-            healthText.text = "Health: " + curHealth;
+            healthText.UpdateHealthUI(curHealth);
     }
 
     public void HealDamage(int heal)
@@ -38,7 +38,7 @@ public class Health : MonoBehaviour
             curHealth = maxHealth;
         }
         if (isPlayer)
-            healthText.text = "Health: " + curHealth;
+            healthText.UpdateHealthUI(curHealth);
         if (healParticle != null)
         {
             GameObject s = Instantiate(healParticle, transform.position, new Quaternion(0, 0, 0, 0));
@@ -52,15 +52,17 @@ public class Health : MonoBehaviour
         curHealth -= damage;
         if (gameObject.tag == "Player")
             isPlayer = true;
+
         if(curHealth <= 0)
         {
             if(gameObject.GetComponent<ExplosiveController>()==null)
                 Die();
         }
-        else if(isPlayer)
+
+        if(isPlayer)
         {
             playerHurtEffect.SetTrigger("Hurt");
-            healthText.text = "Health: " + curHealth;
+            healthText.UpdateHealthUI(curHealth);
             GetComponent<DashAbility>().ResetDash();
         }
         else if (hurtBox != null)

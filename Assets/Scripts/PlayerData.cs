@@ -11,7 +11,7 @@ public class PlayerData : MonoBehaviour
     public static int playerSpawn;
     public static int coins;
     public static int ammo;
-    public static int fuel;
+    public static int fuel = 0;
     public static bool[] collectedFuel = new bool[30];
     public static bool unlockedDash;
     public static bool unlockedCannon;
@@ -62,6 +62,7 @@ public class PlayerData : MonoBehaviour
         FindObjectOfType<AmmoSystem>().PickupAmmo(ammo);
 
     }
+
     public void CollectFuel()
     {
         fuel++;

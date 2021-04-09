@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthUI : MonoBehaviour
 {
-    public SpriteRenderer[] HealthIcons;
+    public Image[] HealthIcons;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +18,11 @@ public class HealthUI : MonoBehaviour
         
     }
 
-    public void UpdateHealthUI(Health h)
+    public void UpdateHealthUI(int h)
     {
-        for(int i = 0; i < HealthIcons[].length; i++)
+        for(int i = 0; i < HealthIcons.Length; i++)
         {
-            if (HealthIcons[i] > h.curHealth)
+            if (i >= h)
                 HealthIcons[i].enabled = false;
         }
     }
