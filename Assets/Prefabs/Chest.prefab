@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5671011267251206013}
   - component: {fileID: 5671011267251206014}
   m_Layer: 0
-  m_Name: Barrel
+  m_Name: Chest
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4daf350b0f1a93e409abf09cd7d13102, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 1
   curHealth: 0
   isPlayer: 0
   healthText: {fileID: 0}
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7346ed370eac4b44daa64cd4bd098980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberToDrop: 1
+  numberToDrop: 5
   itemToDrop: {fileID: 1973690571976335222, guid: 2dee734b95030b44a997725d5aa20447,
     type: 3}
 --- !u!212 &5671011267251206012
@@ -112,7 +112,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 185a07fce0a99a94b8b96f25f6ae2a32, type: 3}
+  m_Sprite: {fileID: -5281422124547630143, guid: c38a4417693627641a560b63667c5ac4,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -161,12 +162,12 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.75, y: 2}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0

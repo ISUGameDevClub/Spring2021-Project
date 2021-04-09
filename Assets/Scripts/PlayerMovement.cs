@@ -89,10 +89,21 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = 0;
         }
 
-        if(Input.GetAxisRaw("Horizontal") != 0 && canMove)
+        myAnim.speed = 1;
+
+        if (Input.GetAxisRaw("Horizontal") != 0 && canMove)
             myAnim.SetBool("Walking", true);
         else
             myAnim.SetBool("Walking", false);
+
+        if (onLadder)
+        {
+            if (Input.GetAxisRaw("Vertical") == 0)
+                myAnim.speed = 0;
+            myAnim.SetBool("Climbing", true);
+        }
+        else
+            myAnim.SetBool("Climbing", false);
 
         transform.eulerAngles = Vector3.zero;
     }

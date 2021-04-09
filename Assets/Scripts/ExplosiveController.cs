@@ -31,6 +31,7 @@ public class ExplosiveController : MonoBehaviour
         blastZone.transform.SetParent(null);
         blastZone.transform.localScale = new Vector3(blastRadius, blastRadius, 1);
         blastZone.SetActive(true);
+        blastZone.GetComponent<Animator>().SetTrigger("Explode");
         Destroy(gameObject);
     }
 }

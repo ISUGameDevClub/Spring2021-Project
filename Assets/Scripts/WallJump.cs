@@ -46,13 +46,16 @@ public class WallJump : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(wallJumpDirection == 1)
+        if (!pm.isGrounded)
         {
-            transform.Translate(new Vector2(Time.deltaTime * -wallJumpXPower, 0));
-        }
-        else if (wallJumpDirection == 2)
-        {
-            transform.Translate(new Vector2(Time.deltaTime * wallJumpXPower, 0));
+            if (wallJumpDirection == 1)
+            {
+                transform.Translate(new Vector2(Time.deltaTime * -wallJumpXPower, 0));
+            }
+            else if (wallJumpDirection == 2)
+            {
+                transform.Translate(new Vector2(Time.deltaTime * wallJumpXPower, 0));
+            }
         }
     }
 

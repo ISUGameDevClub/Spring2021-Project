@@ -76,9 +76,13 @@ public class Health : MonoBehaviour
 
     public IEnumerator DisableHitbox(float knockbackTime)
     {
+        if (GetComponent<Animator>())
+            GetComponent<Animator>().SetBool("Hurt", true);
         hurtBox.SetActive(false);
         yield return new WaitForSeconds(knockbackTime);
         hurtBox.SetActive(true);
+        if (GetComponent<Animator>())
+            GetComponent<Animator>().SetBool("Hurt", false);
     }
 
     public void Die()
