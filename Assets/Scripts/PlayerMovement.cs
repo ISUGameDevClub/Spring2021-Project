@@ -40,72 +40,75 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!scriptedMovement && canMoveTimer <= 0)
+        if (Time.timeScale != 0)
         {
-            myAnim.SetBool("Hurt", false);
-            canMove = true;
-        }
-        else if (canMoveTimer > 0)
-        {
-            canMoveTimer -= Time.deltaTime;
-            canMove = false;
-        }
-        else
-            canMove = false;
-
-        if (isGrounded)
-        {
-            lastGroundedPosition = transform.position;
-        }
-
-        if (canMove)
-        {
-            if (Input.GetAxis("Horizontal") > 0)
+            if (!scriptedMovement && canMoveTimer <= 0)
             {
-                FaceRight();
+                myAnim.SetBool("Hurt", false);
+                canMove = true;
             }
-            if (Input.GetAxis("Horizontal") < 0)
+            else if (canMoveTimer > 0)
             {
-                FaceLeft();
+                canMoveTimer -= Time.deltaTime;
+                canMove = false;
+            }
+            else
+                canMove = false;
+
+            if (isGrounded)
+            {
+                lastGroundedPosition = transform.position;
             }
 
-
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            if (canMove)
             {
-                Jump();
+                if (Input.GetAxis("Horizontal") > 0)
+                {
+                    FaceRight();
+                }
+                if (Input.GetAxis("Horizontal") < 0)
+                {
+                    FaceLeft();
+                }
+
+
+                if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+                {
+                    Jump();
+                }
             }
-        }
 
-        if(!isGrounded && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && canMove && !onLadder && enableGravity)
-        {
-            rb.gravityScale = gravity * fallSpeed;
-        }
-        else if (!onLadder && enableGravity)
-        {
-            rb.gravityScale = gravity;
-        }
-        else
-        {
-            rb.gravityScale = 0;
-        }
+            if (!isGrounded && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && canMove && !onLadder && enableGravity)
+            {
+                rb.gravityScale = gravity * fallSpeed;
+            }
+            else if (!onLadder && enableGravity)
+            {
+                rb.gravityScale = gravity;
+            }
+            else
+            {
+                rb.gravityScale = 0;
+            }
 
-        myAnim.speed = 1;
+            myAnim.speed = 1;
 
-        if (Input.GetAxisRaw("Horizontal") != 0 && canMove)
-            myAnim.SetBool("Walking", true);
-        else
-            myAnim.SetBool("Walking", false);
+            if ((Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Horizontal") < 0) && canMove)
+                myAnim.SetBool("Walking", true);
+            else
+                myAnim.SetBool("Walking", false);
 
-        if (onLadder)
-        {
-            if (Input.GetAxisRaw("Vertical") == 0)
-                myAnim.speed = 0;
-            myAnim.SetBool("Climbing", true);
+            if (onLadder)
+            {
+                if (Input.GetAxisRaw("Vertical") == 0)
+                    myAnim.speed = 0;
+                myAnim.SetBool("Climbing", true);
+            }
+            else
+                myAnim.SetBool("Climbing", false);
+
+            transform.eulerAngles = Vector3.zero;
         }
-        else
-            myAnim.SetBool("Climbing", false);
-
-        transform.eulerAngles = Vector3.zero;
     }
 
     public void FaceRight()
