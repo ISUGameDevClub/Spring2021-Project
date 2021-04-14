@@ -24,6 +24,8 @@ public class HealthUI : MonoBehaviour
         {
             if (i >= h)
                 HealthIcons[i].enabled = false;
+            else
+                HealthIcons[i].enabled = true;
         }
     }
 }

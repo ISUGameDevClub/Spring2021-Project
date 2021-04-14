@@ -35,12 +35,14 @@ public class AmmoSystem : MonoBehaviour
         if (upgraded == false && totalAmmo > maxDefaultAmmo)
         {
             totalAmmo = maxDefaultAmmo;
-            nc.ShowNotification("Ammo Pouch Full", 1);
+            if(nc)
+                nc.ShowNotification("Ammo Pouch Full", 1);
         }
         else if (upgraded == true && totalAmmo > maxUpgradedAmmo)
         {
             totalAmmo = maxUpgradedAmmo;
-            nc.ShowNotification("Ammo Pouch Full", 1);
+            if (nc)
+                nc.ShowNotification("Ammo Pouch Full", 1);
         }
         ammoText.text = "Ammo: " + totalAmmo;
 

@@ -9,6 +9,7 @@ public class SceneTransition : MonoBehaviour
     public int spawnPosition;
     public float transitionTime = .25f;
     public Animator transition;
+    public AudioClip newSong;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,6 +19,8 @@ public class SceneTransition : MonoBehaviour
 
     public IEnumerator LoadLevel()
     {
+        if (newSong != null)
+            FindObjectOfType<MusicManager>().StartNewSong(newSong);
         if (FindObjectOfType<GoldSystem>() && FindObjectOfType<AmmoSystem>())
             PlayerData.UpdatePlayerData(spawnPosition, FindObjectOfType<GoldSystem>().totalGold, FindObjectOfType<AmmoSystem>().totalAmmo);
         transition.SetTrigger("Change Scene");
