@@ -51,6 +51,13 @@ MonoBehaviour:
   curHealth: 0
   isPlayer: 0
   healthText: {fileID: 0}
+  transition: {fileID: 0}
+  transitionTime: 0
+  playerHurtEffect: {fileID: 0}
+  hurtBox: {fileID: 0}
+  healParticle: {fileID: 0}
+  DeathParticle: {fileID: 9028577697116380363, guid: aa3528a34a4a9034abaf8d0e629bd403,
+    type: 3}
 --- !u!114 &5671011267251206009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7346ed370eac4b44daa64cd4bd098980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberToDrop: 5
+  numberToDrop: 1
   itemToDrop: {fileID: 1973690571976335222, guid: 2dee734b95030b44a997725d5aa20447,
     type: 3}
 --- !u!212 &5671011267251206012
