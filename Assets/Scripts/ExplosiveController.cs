@@ -16,6 +16,7 @@ public class ExplosiveController : MonoBehaviour
         coll = GetComponent<Collider2D>();
         hurt = blastZone.GetComponent<HurtBox>();
     }
+
     void Update()
     {
         if (GetComponent<Health>() != null && GetComponent<Health>().curHealth <= 0)
@@ -23,14 +24,21 @@ public class ExplosiveController : MonoBehaviour
             StartCoroutine(BlastActivate());
         }
     }
+
     private IEnumerator BlastActivate()
     {
         coll.enabled = false;
         coll.enabled = true;
         yield return new WaitForSeconds(timeBeforeExplosion);
+        Explode();
+    }
+
+    public void Explode()
+    {
         blastZone.transform.SetParent(null);
         blastZone.transform.localScale = new Vector3(blastRadius, blastRadius, 1);
         blastZone.SetActive(true);
+        blastZone.GetComponent<Animator>().SetTrigger("Explode");
         Destroy(gameObject);
     }
 }

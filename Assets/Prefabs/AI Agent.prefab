@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &149991094544590680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 847926715631613541}
+  m_Layer: 0
+  m_Name: Attack object (gun)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &847926715631613541
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149991094544590680}
+  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7193384135807609008}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1297530317539081627
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,7 +61,7 @@ Transform:
   m_LocalScale: {x: 1.0253, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7193384135807609008}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &5738276519675696093
 BoxCollider2D:
@@ -159,7 +189,7 @@ Transform:
   m_GameObject: {fileID: 2921087272826752264}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_Children:
   - {fileID: 6750669769118654629}
   - {fileID: 7193384135807609008}
@@ -200,6 +230,7 @@ MonoBehaviour:
   TargetLocation: {fileID: 0}
   EntityStatus: 0
   DisableJumping: 0
+  _Grounded: 0
   BlockingObjects: []
 --- !u!114 &4372954512623809259
 MonoBehaviour:
@@ -262,6 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e801e875940fc92498a01fbad2fd109b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Stationary: 0
   AgentControlDelegate: {fileID: 0}
   AutomatedMovementScript: {fileID: 8396956120598152682}
   AgentStateScript: {fileID: 0}
@@ -348,7 +380,7 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 2
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!61 &383482085511968269
@@ -436,6 +468,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 847926715631613541}
   - {fileID: 200344808977873090}
   m_Father: {fileID: 2096155729080604}
   m_RootOrder: 1
@@ -469,6 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3858fe4f5cf56e14fbb42e8526dd028c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackObject: {fileID: 149991094544590680}
   LogEvents: 1
   Target: {fileID: 0}
   AttackHistory: []

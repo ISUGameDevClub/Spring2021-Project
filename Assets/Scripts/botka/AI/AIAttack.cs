@@ -5,6 +5,7 @@ using UnityEngine;
 public class AIAttack : MonoBehaviour
 {
 
+    public GameObject AttackObject;
     public bool LogEvents;
 
     [Header("DEBUG")]
@@ -30,6 +31,8 @@ public class AIAttack : MonoBehaviour
 	public float rangedAttackWindup;
 
     public bool isAttacking;
+
+    
     private Agent _AgentControlHub;
     // Start is called before the first frame update
     public void Start()
@@ -125,16 +128,16 @@ public class AIAttack : MonoBehaviour
         yield return new WaitForSeconds(rangedAttackWindup);
 		if(_AgentControlHub.AgentState.IsFacingRight())
         {
-		    Bullet bul = Instantiate(bullet,new Vector2(transform.position.x+1,transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
+		    Bullet bul = Instantiate(bullet,new Vector2(AttackObject.transform.position.x+1,AttackObject.transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
 		    bul.facingRight = true;
-			bul.GetComponent<HurtBox>().isPlayer = true;
+			bul.GetComponent<HurtBox>().isPlayer = false;
             bul.transform.SetParent(null);
 		}
 		else
         {
-		    Bullet bul = Instantiate(bullet,new Vector2(transform.position.x-1,transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
+		    Bullet bul = Instantiate(bullet,new Vector2(AttackObject.transform.position.x-1,AttackObject.transform.position.y),new Quaternion (0,0,0,0)).gameObject.GetComponent<Bullet>();
 		    bul.facingRight = false;
-			bul.GetComponent<HurtBox>().isPlayer = true;
+			bul.GetComponent<HurtBox>().isPlayer = false;
             bul.transform.SetParent(null);
         }
         yield return new WaitForSeconds(rangedActiveTime);

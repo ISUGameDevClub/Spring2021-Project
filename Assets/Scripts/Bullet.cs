@@ -25,17 +25,17 @@ public class Bullet : MonoBehaviour
 			transform.Translate(new Vector2(speed*Time.deltaTime,0));
 		}
 		else{
+            GetComponent<SpriteRenderer>().flipX = true;
 			transform.Translate(new Vector2(-speed*Time.deltaTime,0));
 		}
     }
+
 	private void OnTriggerEnter2D(Collider2D collision){
-		if(collision.gameObject.tag == "Ground"||
-			(collision.gameObject.tag == "Enemy" && hb.isPlayer )||
-			(collision.gameObject.tag == "Player" && !hb.isPlayer))
+		if(collision.gameObject.tag == "Ground"||(collision.gameObject.tag == "Enemy" && hb.isPlayer )||(collision.gameObject.tag == "Player" && !hb.isPlayer))
 		{
-			
-			Destroy(gameObject);
-			
+            if(GetComponent<ExplosiveController>() != null)
+                GetComponent<ExplosiveController>().Explode();
+			Destroy(gameObject);		
 		}
 	}
 	

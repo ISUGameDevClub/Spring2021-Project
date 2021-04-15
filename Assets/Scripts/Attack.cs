@@ -18,6 +18,7 @@ public class Attack : MonoBehaviour
     public int rangedSpeed;
 	public GameObject attackZone;
 	public GameObject bullet;
+	public GameObject bomb;
     public float attackMovementSpeed;
 	public float meleeAttackActiveTime;
 	public float meleeAttackWindup;
@@ -25,6 +26,9 @@ public class Attack : MonoBehaviour
     public float meleeBufferTime;
     public float rangedActiveTime;
 	public float rangedAttackWindup;
+    public AudioSource melee1;
+    public AudioSource melee2;
+    public AudioSource melee3;
 
     
 
@@ -42,50 +46,53 @@ public class Attack : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if (pm.facingRight)
+        if (Time.timeScale != 0)
         {
-            if (attackZone != null)
-                attackZone.transform.localPosition = (Vector3.right);
-        }
-        else
-        {
-            if (attackZone != null)
-                attackZone.transform.localPosition = (Vector3.left);
-        }
-
-		if (Input.GetKeyDown(KeyCode.Mouse0) && pm.isGrounded)
-		{
-            if(bufferCoroutine != null)
-                StopCoroutine(bufferCoroutine);
-            if (currentMeleeAttack == 0)
+            if (pm.facingRight)
             {
-                currentPlannedMeleeAttack = 1;
+                if (attackZone != null)
+                    attackZone.transform.localPosition = (Vector3.right);
             }
-            else if (currentMeleeAttack == 1)
-            {
-                currentPlannedMeleeAttack = 2;
-            }
-            else if (currentMeleeAttack == 2)
-            {
-                currentPlannedMeleeAttack = 3;
-            }
-        }		
-		else if(Input.GetKeyDown(KeyCode.Mouse1) && attackReady && ams.totalAmmo > 0 && pm.canMove && pm.isGrounded)
-		{
-            ams.UseAmmo(1);
-			StartCoroutine(RangedAttack());
-		}
-        if(meleeMovement)
-        {
-            if(pm.facingRight)
-                transform.Translate(new Vector2(Time.deltaTime * attackMovementSpeed, 0));
             else
-                transform.Translate(new Vector2(Time.deltaTime * -attackMovementSpeed, 0));
-        }
+            {
+                if (attackZone != null)
+                    attackZone.transform.localPosition = (Vector3.left);
+            }
 
-        if(currentPlannedMeleeAttack != currentMeleeAttack && attackReady && pm.canMove)
-        {
-            StartCoroutine(MeleeAttack(currentPlannedMeleeAttack));
+            if (Input.GetKeyDown(KeyCode.Mouse0) && pm.isGrounded)
+            {
+                if (bufferCoroutine != null)
+                    StopCoroutine(bufferCoroutine);
+                if (currentMeleeAttack == 0)
+                {
+                    currentPlannedMeleeAttack = 1;
+                }
+                else if (currentMeleeAttack == 1)
+                {
+                    currentPlannedMeleeAttack = 2;
+                }
+                else if (currentMeleeAttack == 2)
+                {
+                    currentPlannedMeleeAttack = 3;
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerData.unlockedGun && attackReady && ams.totalAmmo > 0 && pm.canMove && pm.isGrounded)
+            {
+                ams.UseAmmo(1);
+                StartCoroutine(RangedAttack());
+            }
+            if (meleeMovement)
+            {
+                if (pm.facingRight)
+                    transform.Translate(new Vector2(Time.deltaTime * attackMovementSpeed, 0));
+                else
+                    transform.Translate(new Vector2(Time.deltaTime * -attackMovementSpeed, 0));
+            }
+
+            if (currentPlannedMeleeAttack != currentMeleeAttack && attackReady && pm.canMove)
+            {
+                StartCoroutine(MeleeAttack(currentPlannedMeleeAttack));
+            }
         }
 	}
 
@@ -100,6 +107,12 @@ public class Attack : MonoBehaviour
     }
 
     private IEnumerator MeleeAttack(int curAttack) {
+        if(curAttack == 1)
+            melee1.Play();
+        else if(curAttack == 2)
+            melee2.Play();
+        else
+            melee3.Play();
         currentMeleeAttack = curAttack;
         meleeMovement = true;
         bufferCoroutine = StartCoroutine(MeleeBuffer());
@@ -132,6 +145,8 @@ public class Attack : MonoBehaviour
 
 	private IEnumerator RangedAttack() {
         attackReady = false;
+        if (PlayerData.unlockedBombShot)
+            bullet = bomb;
         pm.myAnim.SetTrigger("Shoot");
         pm.DisableMovement(rangedAttackWindup + rangedActiveTime);
         yield return new WaitForSeconds(rangedAttackWindup);

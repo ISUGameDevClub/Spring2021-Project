@@ -28,12 +28,14 @@ public class GoldSystem : MonoBehaviour
         if (upgraded == false && totalGold > maxDefaultGold)
         {
             totalGold = maxDefaultGold;
-            nc.ShowNotification("Gold Pouch Full", 1);
+            if(nc != null)
+                nc.ShowNotification("Gold Pouch Full", 1);
         }
         else if (upgraded == true && totalGold > maxUpgradedGold)
         {
             totalGold = maxUpgradedGold;
-            nc.ShowNotification("Gold Pouch Full", 1);
+            if (nc != null)
+                nc.ShowNotification("Gold Pouch Full", 1);
         }
         if (goldText != null)
             goldText.text = "Coins: " + totalGold;

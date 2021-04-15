@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6054395023979508915}
   - component: {fileID: 216604199501740865}
   - component: {fileID: 323702734}
+  - component: {fileID: 670308416835463052}
   m_Layer: 0
   m_Name: BlastZone
   m_TagString: Explosive
@@ -71,11 +72,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2087859495
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ecabb8f81ec2b1544ad09a699d221b19, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -136,7 +137,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
 --- !u!114 &323702734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +151,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeUntilDestroyed: 0.25
+--- !u!95 &670308416835463052
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216604199501740871}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 15755af4910c81c488000c1d1a7e5523, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &216604200578144426
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blastZone: {fileID: 216604199501740871}
   timeBeforeExplosion: 0.5
-  blastRadius: 5
+  blastRadius: 1
 --- !u!114 &216604200578144423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,6 +289,10 @@ MonoBehaviour:
   healthText: {fileID: 0}
   transition: {fileID: 0}
   transitionTime: 0
+  playerHurtEffect: {fileID: 0}
+  hurtBox: {fileID: 0}
+  healParticle: {fileID: 0}
+  DeathParticle: {fileID: 0}
 --- !u!61 &216604200578144420
 BoxCollider2D:
   m_ObjectHideFlags: 0
