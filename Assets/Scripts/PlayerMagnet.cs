@@ -37,6 +37,7 @@ public class PlayerMagnet : MonoBehaviour
         yield return new WaitForSeconds(timeUntilActive);
         moveTowardsPlayer = true;
         rb.gravityScale = 0;
+        rb.velocity = Vector3.zero;
         circleCollider.isTrigger = true;
     }
 }

@@ -55,7 +55,7 @@ public class Agent : MonoBehaviour
         
     }
 
-    [ContextMenu("Bind persue to Main Target")]
+    [ContextMenu("Persue Target")]
     public void PersueTarget()
     {
         PersueTarget(MainTarget);
