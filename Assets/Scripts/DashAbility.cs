@@ -33,7 +33,7 @@ public class DashAbility : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerData.unlockedDash)
+        if (PlayerData.unlockedDash && Time.timeScale != 0)
         {
             //If the direction is not defined, define direction
             if (direction == 0)

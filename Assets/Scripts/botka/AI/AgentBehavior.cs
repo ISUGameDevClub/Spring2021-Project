@@ -18,6 +18,7 @@ public class AgentBehavior : MonoBehaviour
         set{}
     }
     
+    public bool Stationary;
     public Agent AgentControlDelegate;
     public AutomatedMovement AutomatedMovementScript;
     public AgentState AgentStateScript;
@@ -116,6 +117,10 @@ public class AgentBehavior : MonoBehaviour
         ApplyAggression(StartingAggression);
         AutomatedMovementScript.VelocityX = VelocityX;
         AutomatedMovementScript.VelocityY = VelocityY;
+        if (Stationary)
+        {
+            GetComponentInChildren<AutomatedMovement>().enabled = false;
+        }
     }
 
    
@@ -196,9 +201,12 @@ public class AgentBehavior : MonoBehaviour
     {
         if (AgentStateScript.TargetInView(Target))
         {
-            if (!HasActiveAction(Action.Persue) && !HasActiveAction(Action.Attack))
+            if (!Stationary)
             {
-                ExecuteAction(Action.Persue, Target);
+                if (!HasActiveAction(Action.Persue) && !HasActiveAction(Action.Attack))
+                {
+                    ExecuteAction(Action.Persue, Target);
+                }
             }
         }
     }
@@ -308,7 +316,7 @@ public class AgentBehavior : MonoBehaviour
                 c = StartCoroutine(ExecuteAttackAction(w,targetOfAction));
                 break;
             case Action.Patrol:
-                if (!HasActiveAction(Action.Patrol))
+                if (!HasActiveAction(Action.Patrol) && !Stationary)
                 {
                     if (!HasActiveAction(Action.Move))
                     {
@@ -322,11 +330,18 @@ public class AgentBehavior : MonoBehaviour
                     {
                         Debug.LogError("Attemting to Start patrol action when already patrolling");
                     }
+                    c = StartCoroutine(ExecutePatrolAction(w,PatrolPoints));
                 }
-                c = StartCoroutine(ExecutePatrolAction(w,PatrolPoints));
+                else
+                {
+                    w = null;
+                }
+                
                 break;
             case Action.Halt:
                 AutomatedMovementScript.StopMoving();
+                AutomatedMovementScript.Targets.Clear();
+            
                 StopAllActiveActions();
                 w = null;
                 break;
@@ -375,7 +390,6 @@ public class AgentBehavior : MonoBehaviour
             if (patrolPoints != null )
             {
                 AutomatedMovementScript.VelocityX = VelocityX;
-                AutomatedMovementScript.VelocityY = VelocityY;
                 AutomatedMovementScript.DisableJumping = true;
                 AutomatedMovementScript.StartMoving();
                 foreach (Transform transform in patrolPoints)
@@ -418,7 +432,7 @@ public class AgentBehavior : MonoBehaviour
             AutomatedMovementScript.Targets.Add(target);
         }
         AutomatedMovementScript.VelocityX = VelocityX;
-        AutomatedMovementScript.VelocityY = VelocityY;
+
         AutomatedMovementScript.StartMoving();
         
         yield return new WaitUntil(() => AutomatedMovementScript.IsAtTarget(target.gameObject, StoppingDistance +  GetComponentInChildren<SpriteRenderer>().bounds.size.x)); // replace condition testing when the attack is finished

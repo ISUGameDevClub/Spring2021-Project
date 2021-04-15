@@ -16,11 +16,13 @@ public class Cannon : MonoBehaviour
     private bool loaded;
     public GameObject Smoke;
     public GameObject SmokeSpawn;
+    private AudioSource fireSound;
 
     void Start()
     {
         pm = FindObjectOfType<PlayerMovement>();
         rb = pm.GetComponent<Rigidbody2D>();
+        fireSound = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -53,6 +55,7 @@ public class Cannon : MonoBehaviour
         pm.scriptedMovement = true;
         pm.myAnim.SetTrigger("Fire Cannon");
         yield return new WaitForSeconds(.2f);
+        fireSound.Play();
         rb.gameObject.transform.position = transform.position;
         rb.velocity = new Vector2(0, 0);
         rb.AddForce(cannonAngle.normalized * cannonSpeed, ForceMode2D.Impulse);

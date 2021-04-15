@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isClimbing: 0
   touchingLadder: 0
-  climbSpeed: 3
+  climbSpeed: 5
 --- !u!61 &4184609532754925450
 BoxCollider2D:
   m_ObjectHideFlags: 0

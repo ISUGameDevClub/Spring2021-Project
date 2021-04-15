@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class NotificationController : MonoBehaviour
 {
     private Text myText;
+    private Coroutine sn;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,9 @@ public class NotificationController : MonoBehaviour
 
     public void ShowNotification(string text, float timeShown)
     {
-        StartCoroutine(NotificationTime(text, timeShown));
+        if (sn != null)
+            StopCoroutine(sn);
+        sn = StartCoroutine(NotificationTime(text, timeShown));
     }
 
     private IEnumerator NotificationTime(string shownText, float timeShown)
