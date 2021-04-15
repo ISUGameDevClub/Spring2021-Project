@@ -19,7 +19,7 @@ public class SceneTransition : MonoBehaviour
 
     public IEnumerator LoadLevel()
     {
-        if (newSong != null)
+        if (newSong != null && FindObjectOfType<MusicManager>())
             FindObjectOfType<MusicManager>().StartNewSong(newSong);
         if (FindObjectOfType<GoldSystem>() && FindObjectOfType<AmmoSystem>())
             PlayerData.UpdatePlayerData(spawnPosition, FindObjectOfType<GoldSystem>().totalGold, FindObjectOfType<AmmoSystem>().totalAmmo);

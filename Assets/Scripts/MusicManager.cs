@@ -6,7 +6,7 @@ public class MusicManager : MonoBehaviour
 {
     private static MusicManager instance;
 
-    private AudioSource currentSong;
+    public AudioSource currentSong;
     private AudioClip nextSong;
     private bool loadingNewSong;
     public float musicVolume;
