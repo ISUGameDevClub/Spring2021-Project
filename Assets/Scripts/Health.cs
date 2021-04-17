@@ -9,6 +9,7 @@ public class Health : MonoBehaviour
     public int maxHealth;
     public int curHealth;
     public bool isPlayer;
+    public bool invincible;
     public HealthUI healthText;
     public Animator transition;
     public float transitionTime;
@@ -49,29 +50,33 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damage,float knockPosition,float knockbackPower, float knockbackTime)
     {
-        curHealth -= damage;
-        if (gameObject.tag == "Player")
-            isPlayer = true;
+        if (!invincible)
+        {
+            curHealth -= damage;
+            if (gameObject.tag == "Player")
+                isPlayer = true;
 
-        if(curHealth <= 0)
-        {
-            if(gameObject.GetComponent<ExplosiveController>()==null)
-                Die();
-        }
+            if (curHealth <= 0)
+            {
+                if (gameObject.GetComponent<ExplosiveController>() == null)
+                    Die();
+            }
 
-        if(isPlayer)
-        {
-            playerHurtEffect.SetTrigger("Hurt");
-            healthText.UpdateHealthUI(curHealth);
-            GetComponent<DashAbility>().ResetDash();
+            if (isPlayer)
+            {
+                playerHurtEffect.SetTrigger("Hurt");
+                healthText.UpdateHealthUI(curHealth);
+                GetComponent<DashAbility>().ResetDash();
+                invincible = true;
+            }
+            else if (hurtBox != null)
+            {
+                if (hitBoxCoroutine != null)
+                    StopCoroutine(hitBoxCoroutine);
+                hitBoxCoroutine = StartCoroutine(DisableHitbox(knockbackTime));
+            }
+            Knockback(knockPosition, knockbackPower, knockbackTime);
         }
-        else if (hurtBox != null)
-        {
-            if (hitBoxCoroutine != null)
-                StopCoroutine(hitBoxCoroutine);
-            hitBoxCoroutine = StartCoroutine(DisableHitbox(knockbackTime));
-        }
-        Knockback(knockPosition, knockbackPower, knockbackTime);
     }
 
     public IEnumerator DisableHitbox(float knockbackTime)

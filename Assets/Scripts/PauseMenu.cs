@@ -61,7 +61,10 @@ public class PauseMenu : MonoBehaviour
     public void MusicVolumeSlider(float music)
     {
         musicVolume = music;
-        FindObjectOfType<MusicManager>().musicVolume = musicVolume;
-        FindObjectOfType<MusicManager>().currentSong.volume = musicVolume;
+        if (FindObjectOfType<MusicManager>())
+        {
+            FindObjectOfType<MusicManager>().musicVolume = musicVolume;
+            FindObjectOfType<MusicManager>().currentSong.volume = musicVolume;
+        }
     }
 }

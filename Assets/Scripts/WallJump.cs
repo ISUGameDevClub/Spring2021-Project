@@ -22,7 +22,7 @@ public class WallJump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && !pm.isGrounded && PlayerData.unlockedWallJump)
+        if(Input.GetKeyDown(KeyCode.Space) && !pm.isGrounded && PlayerData.unlockedWallJump && Time.timeScale != 0)
         {
             int wallDirection = checkForWall();
             if (wallDirection==1)

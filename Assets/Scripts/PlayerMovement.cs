@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 myAnim.SetBool("Hurt", false);
                 canMove = true;
+                GetComponent<Health>().invincible = false;
             }
             else if (canMoveTimer > 0)
             {

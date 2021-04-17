@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class NotificationController : MonoBehaviour
 {
-    private Text myText;
+    private TextMeshProUGUI myText;
     private Coroutine sn;
     // Start is called before the first frame update
     void Start()
     {
-        myText = GetComponent<Text>();
+        myText = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
