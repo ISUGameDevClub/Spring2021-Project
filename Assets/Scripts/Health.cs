@@ -15,6 +15,7 @@ public class Health : MonoBehaviour
     public float transitionTime;
     public Animator playerHurtEffect;
     public GameObject hurtBox;
+    public GameObject soundEffect;
 
     private Collider2D coll;
     public GameObject healParticle;
@@ -28,6 +29,8 @@ public class Health : MonoBehaviour
 
         if (isPlayer)
             healthText.UpdateHealthUI(curHealth);
+        if(soundEffect)
+            soundEffect.transform.SetParent(null);
     }
 
     public void HealDamage(int heal)
@@ -52,6 +55,8 @@ public class Health : MonoBehaviour
     {
         if (!invincible)
         {
+            if (soundEffect)
+                soundEffect.GetComponent<AudioSource>().Play();
             curHealth -= damage;
             if (gameObject.tag == "Player")
                 isPlayer = true;
