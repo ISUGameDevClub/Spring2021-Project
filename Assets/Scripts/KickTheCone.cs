@@ -17,6 +17,7 @@ public class KickTheCone : MonoBehaviour
             if (collision.gameObject.transform.position.x > transform.position.x)
                 transform.eulerAngles = new Vector2(0, 180);
             myAnim.SetTrigger("Kick");
+            GetComponent<AudioSource>().Play();
             kicked = true;
         }
     }

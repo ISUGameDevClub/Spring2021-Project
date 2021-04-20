@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 lastGroundedPosition;
     public SpriteRenderer mySprite;
     public Animator myAnim;
+    public AudioSource jumpSound;
 
     [HideInInspector]
     public bool scriptedMovement;
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 myAnim.SetBool("Hurt", false);
                 canMove = true;
+                GetComponent<Health>().invincible = false;
             }
             else if (canMoveTimer > 0)
             {
@@ -144,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        jumpSound.Play();
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
     }

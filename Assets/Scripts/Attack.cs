@@ -17,6 +17,7 @@ public class Attack : MonoBehaviour
 
     public int rangedSpeed;
 	public GameObject attackZone;
+	public SpriteRenderer attackSprite;
 	public GameObject bullet;
 	public GameObject bomb;
     public float attackMovementSpeed;
@@ -51,12 +52,17 @@ public class Attack : MonoBehaviour
             if (pm.facingRight)
             {
                 if (attackZone != null)
+                {
                     attackZone.transform.localPosition = (Vector3.right);
+                    attackSprite.flipX = false;
+                }
             }
             else
             {
-                if (attackZone != null)
+                {
                     attackZone.transform.localPosition = (Vector3.left);
+                    attackSprite.flipX = true;
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Mouse0) && pm.isGrounded)
@@ -107,9 +113,10 @@ public class Attack : MonoBehaviour
     }
 
     private IEnumerator MeleeAttack(int curAttack) {
-        if(curAttack == 1)
+        if (curAttack == 1)
             melee1.Play();
-        else if(curAttack == 2)
+
+        else if (curAttack == 2)
             melee2.Play();
         else
             melee3.Play();
@@ -123,7 +130,14 @@ public class Attack : MonoBehaviour
 		coll.enabled = true;
 		yield return new WaitForSeconds(meleeAttackWindup);
 		attackZone.SetActive(true);
-		hurt.ClearArray();
+        if (curAttack == 1)
+            attackZone.GetComponent<Animator>().SetTrigger("Attack 1");
+
+        else if (curAttack == 2)
+            attackZone.GetComponent<Animator>().SetTrigger("Attack 2");
+        else
+            attackZone.GetComponent<Animator>().SetTrigger("Attack 3");
+        hurt.ClearArray();
 		yield return new WaitForSeconds(meleeAttackActiveTime);
         meleeMovement = false;
         attackZone.SetActive(false);
