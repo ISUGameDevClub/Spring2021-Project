@@ -7,7 +7,7 @@ public class ExplosiveController : MonoBehaviour
     public GameObject blastZone;
     public float timeBeforeExplosion;
     public float blastRadius;
-
+    public GameObject soundEffect;
 
     private HurtBox hurt;
     private Collider2D coll;
@@ -15,6 +15,7 @@ public class ExplosiveController : MonoBehaviour
     {
         coll = GetComponent<Collider2D>();
         hurt = blastZone.GetComponent<HurtBox>();
+        soundEffect.transform.SetParent(null);
     }
 
     void Update()
@@ -35,6 +36,7 @@ public class ExplosiveController : MonoBehaviour
 
     public void Explode()
     {
+        soundEffect.GetComponent<AudioSource>().Play();
         blastZone.transform.SetParent(null);
         blastZone.transform.localScale = new Vector3(blastRadius, blastRadius, 1);
         blastZone.SetActive(true);

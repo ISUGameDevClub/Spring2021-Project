@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ecabb8f81ec2b1544ad09a699d221b19, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 95b8c45a2ed52e543a82f2ddae560826, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +100,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.33
 --- !u!114 &6186054060706986241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sparkle: {fileID: 3999342394592071074, guid: 91a9f67516b98f347ab45b8fa042d105, type: 3}
-  value: 5
+  value: 1
 --- !u!114 &6186054060706986240
 MonoBehaviour:
   m_ObjectHideFlags: 0

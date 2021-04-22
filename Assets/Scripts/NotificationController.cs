@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class NotificationController : MonoBehaviour
 {
-    private Text myText;
+    private AudioSource sound;
+    private TextMeshProUGUI myText;
     private Coroutine sn;
     // Start is called before the first frame update
     void Start()
     {
-        myText = GetComponent<Text>();
+        myText = GetComponent<TextMeshProUGUI>();
+        sound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -24,6 +27,7 @@ public class NotificationController : MonoBehaviour
         if (sn != null)
             StopCoroutine(sn);
         sn = StartCoroutine(NotificationTime(text, timeShown));
+        sound.Play();
     }
 
     private IEnumerator NotificationTime(string shownText, float timeShown)
