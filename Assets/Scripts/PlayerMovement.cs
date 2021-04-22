@@ -26,6 +26,9 @@ public class PlayerMovement : MonoBehaviour
     [HideInInspector]
     public bool enableGravity;
 
+    [HideInInspector]
+    public bool wallSlide;
+
     private float canMoveTimer;
     private Rigidbody2D rb;
 
@@ -80,13 +83,18 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (!isGrounded && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && canMove && !onLadder && enableGravity)
+            if (!isGrounded && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && canMove && !onLadder && enableGravity && !wallSlide)
             {
                 rb.gravityScale = gravity * fallSpeed;
             }
-            else if (!onLadder && enableGravity)
+            else if (!onLadder && enableGravity && !wallSlide)
             {
                 rb.gravityScale = gravity;
+            }
+            else if (wallSlide)
+            {
+                rb.gravityScale = 0;
+                rb.velocity = new Vector3(rb.velocity.x, -2, 0);
             }
             else
             {

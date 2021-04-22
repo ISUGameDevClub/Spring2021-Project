@@ -42,6 +42,28 @@ public class WallJump : MonoBehaviour
                 wj = StartCoroutine(WallJumpEnum());
             }
         }
+
+        if (!pm.isGrounded && PlayerData.unlockedWallJump && Time.timeScale != 0)
+        {
+            int wallDirection = checkForWall();
+            if (wallDirection == 1 && Input.GetKey(KeyCode.D) && rb.velocity.y < -2)
+            {
+                pm.wallSlide = true;
+            }
+            else if (wallDirection == 0 && Input.GetKey(KeyCode.A) && rb.velocity.y < -2)
+            {
+                pm.wallSlide = true;
+            }
+            else
+            {
+                pm.wallSlide = false;
+            }
+        }
+        else
+        {
+            pm.wallSlide = false;
+        }
+
     }
 
     private void FixedUpdate()
