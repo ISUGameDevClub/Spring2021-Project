@@ -17,8 +17,9 @@ public class DashAbility : MonoBehaviour
     private int direction;
     private bool canDash;
     private PlayerMovement pm;
+    public GameObject Smoke;
+    public GameObject SmokeSpawn;
 
-    
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,7 @@ public class DashAbility : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && pm.canMove && direction == 0 && dashAvailable)
             {
+                GameObject s = Instantiate(Smoke, SmokeSpawn.transform);
                 pm.DisableMovement(startDashTime);
                 pm.myAnim.SetTrigger("Dash");
                 dashAvailable = false;
@@ -78,10 +80,14 @@ public class DashAbility : MonoBehaviour
             if (direction == 1)
             {
                 transform.Translate(Vector2.left * dashSpeed * Time.fixedDeltaTime);
+                
+                
             }
             else if (direction == 2)
             {
                 transform.Translate(Vector2.right * dashSpeed * Time.fixedDeltaTime);
+                
+                
             }
         }
     }
