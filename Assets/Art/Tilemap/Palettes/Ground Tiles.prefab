@@ -41,6 +41,15 @@ Tilemap:
   m_GameObject: {fileID: 5564943405986321486}
   m_Enabled: 1
   m_Tiles:
+  - first: {x: 24, y: -30, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 60
+      m_TileSpriteIndex: 60
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
   - first: {x: 1, y: -6, z: 0}
     second:
       serializedVersion: 2
@@ -730,6 +739,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 6a8debeab357ab04e94275f35f780676, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 4fda21ac5d970af4ab477cb8be751661, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: e902eac748a7e4a40a37d3c6b4441666, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 91080708a9921c74f958b8c3e45ed93b, type: 3}
@@ -851,8 +862,10 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: e7f3e528edd8a8b40a48dcabde6c55b1, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 5184113d31e0e764099d23a878d4f910, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 1c2df57326144de4e915ed9bdeef6c4e, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 63
+  - m_RefCount: 64
     m_Data:
       e00: 1
       e01: 0
@@ -871,15 +884,18 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 62
+  - m_RefCount: 63
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 1
-    m_Data: {r: 0.8500359, g: 0.4563732, b: 0.4957158, a: 1}
+    m_Data: {r: 0.78781766, g: 0.5110212, b: 0.53602886, a: 1}
+  - m_RefCount: 0
+    m_Data: {r: -0.0000000016076314, g: -0.0000000016076314, b: -0.0000000016076314,
+      a: -0.0000000016076314}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -10, y: -6, z: 0}
-  m_Size: {x: 29, y: 15, z: 1}
+  m_Origin: {x: -10, y: -42, z: 0}
+  m_Size: {x: 46, y: 51, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
