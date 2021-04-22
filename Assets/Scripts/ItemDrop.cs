@@ -6,6 +6,7 @@ public class ItemDrop : MonoBehaviour
 {
     public int numberToDrop;
     public GameObject itemToDrop;
+    public GameObject SoundObject;
 
     // Start is called before the first frame update
     void Start()
@@ -23,5 +24,7 @@ public class ItemDrop : MonoBehaviour
     {
         for(int i = 0; i < numberToDrop; i++)
             Instantiate(itemToDrop, transform.position,Quaternion.identity);
+        SoundObject.gameObject.transform.SetParent(null);
+        SoundObject.GetComponent<AudioSource>().Play();
     }
 }
