@@ -32,4 +32,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/City 2/Backalley.unity
     guid: 82962bc3c0f15ef4983565efb75eb23e
+  - enabled: 1
+    path: Assets/Scenes/City 3/Crayola City.unity
+    guid: 8ad6d2497fc2bec49a939b9bb8a57b7c
+  - enabled: 1
+    path: Assets/Scenes/City 3/Rooftops.unity
+    guid: 98ef0e3f2ead12c4d8e86466c145ad21
+  - enabled: 1
+    path: Assets/Scenes/City 3/Streets 1.unity
+    guid: 8ebad448f7c14014383a368f9126012c
   m_configObjects: {}

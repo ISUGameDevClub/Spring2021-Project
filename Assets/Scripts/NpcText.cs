@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 public class NpcText : MonoBehaviour
 {
     public string[] textsShown;
     public float lengthShown;
     private int currentText;
-    public Text myText;
-    public Text myTextBox;
-    public GameObject textBox;
+    public TextMeshProUGUI myText;
     public Coroutine currentCor;
 
     // Start is called before the first frame update
@@ -31,7 +31,6 @@ public class NpcText : MonoBehaviour
             currentText++;
             if (currentText >= textsShown.Length)
                 currentText = 0;
-
         }
     }
 
@@ -44,12 +43,8 @@ public class NpcText : MonoBehaviour
 
     private IEnumerator TextTime(string shownText, float timeShown)
     {
-        myTextBox.text = shownText;
         myText.text = shownText;
-        textBox.SetActive(true);
         yield return new WaitForSeconds(timeShown);
-        textBox.SetActive(false);
         myText.text = "";
-        myTextBox.text = "";
     }
 }

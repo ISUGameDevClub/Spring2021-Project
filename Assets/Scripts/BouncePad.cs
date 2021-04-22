@@ -22,6 +22,7 @@ public class BouncePad : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            GetComponent<Animator>().SetTrigger("Bounce");
             Bounce(collision.GetComponent<Rigidbody2D>());
         }
     }
