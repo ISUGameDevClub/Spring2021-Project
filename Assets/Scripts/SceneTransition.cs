@@ -56,6 +56,16 @@ public class SceneTransition : MonoBehaviour
     {
             StartCoroutine(LoadLevel());
     }
+    public void StartCredits()
+    {
+        newScene = "Credits";
+        StartCoroutine(LoadLevel());
+    }
+    public void ReturnToTitle()
+    {
+        newScene = "Title";
+        StartCoroutine(LoadLevel());
+    }
 
     public void QuitGame()
     {
