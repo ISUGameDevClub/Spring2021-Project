@@ -1708,6 +1708,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fuel
       objectReference: {fileID: 0}
+    - target: {fileID: 7421643299584219977, guid: 10d158b3a0b566746ae9b97db7eeef59,
+        type: 3}
+      propertyPath: myFuelNumber
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7421643299584219982, guid: 10d158b3a0b566746ae9b97db7eeef59,
         type: 3}
       propertyPath: m_RootOrder
@@ -3145,7 +3150,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 15
-      m_TileSpriteIndex: 15
+      m_TileSpriteIndex: 4294967295
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3154,7 +3159,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 15
-      m_TileSpriteIndex: 15
+      m_TileSpriteIndex: 4294967295
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3640,7 +3645,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 15
-      m_TileSpriteIndex: 15
+      m_TileSpriteIndex: 4294967295
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3649,7 +3654,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 15
-      m_TileSpriteIndex: 15
+      m_TileSpriteIndex: 4294967295
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -5693,8 +5698,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 4
-    m_Data: {fileID: 21300000, guid: b47594b8ef645eb4e97225743186e779, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 6
     m_Data: {fileID: 21300000, guid: 19ab87b602d404f41a6687720dc0f614, type: 3}
   - m_RefCount: 10

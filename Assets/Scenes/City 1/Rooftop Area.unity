@@ -4276,7 +4276,7 @@ PrefabInstance:
     - target: {fileID: 7421643299584219977, guid: 10d158b3a0b566746ae9b97db7eeef59,
         type: 3}
       propertyPath: myFuelNumber
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7421643299584219982, guid: 10d158b3a0b566746ae9b97db7eeef59,
         type: 3}
