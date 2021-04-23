@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c5a44d55fef4c40a0f6f16529661f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pitDamage: 2
-  placementRange: 1
+  pitDamage: 1
+  placementRange: 0.5
 --- !u!61 &6251741453434498424
 BoxCollider2D:
   m_ObjectHideFlags: 0

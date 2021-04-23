@@ -1674,7 +1674,7 @@ PrefabInstance:
     - target: {fileID: 8535332700480779839, guid: b0f5dc54e7c9ed94082afef20494a449,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.5
+      value: 11.1
       objectReference: {fileID: 0}
     - target: {fileID: 8535332700480779839, guid: b0f5dc54e7c9ed94082afef20494a449,
         type: 3}
@@ -16337,7 +16337,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!483693784 &7368117278345733060
 TilemapRenderer:
   m_ObjectHideFlags: 0

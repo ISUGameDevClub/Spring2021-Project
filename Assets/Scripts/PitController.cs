@@ -13,27 +13,21 @@ public class PitController : MonoBehaviour
         {
             col.gameObject.GetComponent<Health>().TakeDamage(pitDamage, 0, 0, .25f);
             
-            if ((transform.position.x > col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x)&&
-                (transform.position.x-col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x)>1)
+            if ((transform.position.x > col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x) && (transform.position.x-col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x)>1)
             {
-                col.gameObject.transform.position = new Vector2(col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x,
-                    col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.y);
+                col.gameObject.transform.position = new Vector2(col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x - placementRange, col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.y);
             }
             else if(transform.position.x > col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x)
             {
-                col.gameObject.transform.position = new Vector2(col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x - placementRange,
-                    col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.y);
+                col.gameObject.transform.position = new Vector2(col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x - placementRange, col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.y);
             }
-            else if ((transform.position.x <= col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x) &&
-                (col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x-transform.position.x) > 1)
+            else if ((transform.position.x <= col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x) && (col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x-transform.position.x) > 1)
             {
-                col.gameObject.transform.position = new Vector2(col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x,
-                    col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.y);
+                col.gameObject.transform.position = new Vector2(col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x + placementRange, col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.y);
             }
             else if (transform.position.x <= col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x)
             {
-                col.gameObject.transform.position = new Vector2(col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x + placementRange,
-                    col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.y);
+                col.gameObject.transform.position = new Vector2(col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.x + placementRange, col.gameObject.GetComponent<PlayerMovement>().lastGroundedPosition.y);
             }
 
         }

@@ -11,7 +11,8 @@ public class GroundCheck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        pm.isGrounded = false;
+        pm.myAnim.SetBool("Grounded", false);
     }
 
     // Update is called once per frame

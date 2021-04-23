@@ -16,10 +16,12 @@ public class Shop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(touchingShop && Input.GetKeyDown(KeyCode.E))
+        if (touchingShop && Input.GetKeyDown(KeyCode.E) && Time.timeScale != 0)
         {
             shopUI.SetActive(true);
             shopUI.GetComponent<ShopManager>().ActivateShop();
+            FindObjectOfType<PauseMenu>().cantPause = true;
+            FindObjectOfType<NotificationController>().ShowNotification("", .1f);
         }
     }
 

@@ -77,6 +77,7 @@ public class ShopManager : MonoBehaviour
     public void DeactivateShop()
     {
         Time.timeScale = 1;
+        FindObjectOfType<PauseMenu>().cantPause = false;
         gameObject.SetActive(false);
     }
 
