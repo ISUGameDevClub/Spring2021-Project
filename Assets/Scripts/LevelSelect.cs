@@ -10,12 +10,14 @@ public class LevelSelect : MonoBehaviour
     public float displayTime;
     public string[] Scenes;
     public GameObject SceneTransition;
+    public int fuelToUnlockWaterway = 3;
+    public int fuelToUnlockCrayolaCity = 6;
     //make sure to enter scenes in editor or this will not work. The size of the array can be changed for adding additional levels
     void Start()
     {
         canChange = false;
         SceneTransition.GetComponent<SceneTransition>().newScene = Scenes[0];
-        currentSceneSelection = 1;
+        currentSceneSelection = 0;
     }
     void Update()
     {
@@ -24,11 +26,20 @@ public class LevelSelect : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if(currentSceneSelection == Scenes.Length)
-                {
                     currentSceneSelection = 0;
+                if (currentSceneSelection == 1 && PlayerData.fuel < fuelToUnlockWaterway)
+                {
+                    FindObjectOfType<NotificationController>().ShowNotification("Need " + fuelToUnlockWaterway + " fuel to unlock " + Scenes[currentSceneSelection], displayTime);
                 }
-                SceneTransition.GetComponent<SceneTransition>().newScene = Scenes[currentSceneSelection];
-                FindObjectOfType<NotificationController>().ShowNotification("City Set To "+Scenes[currentSceneSelection],displayTime);
+                else if (currentSceneSelection == 2 && PlayerData.fuel < fuelToUnlockCrayolaCity)
+                {
+                    FindObjectOfType<NotificationController>().ShowNotification("Need " + fuelToUnlockCrayolaCity + " fuel to unlock " + Scenes[currentSceneSelection], displayTime);
+                }
+                else
+                {
+                    SceneTransition.GetComponent<SceneTransition>().newScene = Scenes[currentSceneSelection];
+                    FindObjectOfType<NotificationController>().ShowNotification("City Set To " + Scenes[currentSceneSelection], displayTime);
+                }
                 currentSceneSelection++;
             }
         }

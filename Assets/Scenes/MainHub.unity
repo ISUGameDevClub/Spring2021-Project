@@ -353,8 +353,18 @@ PrefabInstance:
       objectReference: {fileID: 818564175}
     - target: {fileID: 49493031462829539, guid: 766d7084a51384543bd46d02688c4e38,
         type: 3}
+      propertyPath: Scenes.Array.data[0]
+      value: Wendy City
+      objectReference: {fileID: 0}
+    - target: {fileID: 49493031462829539, guid: 766d7084a51384543bd46d02688c4e38,
+        type: 3}
+      propertyPath: Scenes.Array.data[1]
+      value: Waterway
+      objectReference: {fileID: 0}
+    - target: {fileID: 49493031462829539, guid: 766d7084a51384543bd46d02688c4e38,
+        type: 3}
       propertyPath: Scenes.Array.data[2]
-      value: DDay
+      value: Crayola City
       objectReference: {fileID: 0}
     - target: {fileID: 49493031462829540, guid: 766d7084a51384543bd46d02688c4e38,
         type: 3}

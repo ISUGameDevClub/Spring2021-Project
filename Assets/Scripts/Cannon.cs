@@ -74,7 +74,9 @@ public class Cannon : MonoBehaviour
        if(collision.gameObject.tag == "Player")
        {
             isCannon = true;
-       }
+            if (!PlayerData.unlockedCannon)
+                FindObjectOfType<NotificationController>().ShowNotification("I need to come back when I have something to light this with...", 3);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
