@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class ShopManager : MonoBehaviour
 
     public int ammoPouchUpgradeCost;
     public int goldPouchUpgradeCost;
+    public int ExplosiveGunUpgradeCost;
+    public GameObject LGP;
+    public GameObject LAP;
+    public GameObject EGU;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +25,11 @@ public class ShopManager : MonoBehaviour
             shops[i].shopUI = gameObject;
         }
         gameObject.SetActive(false);
+
+        if (gs.upgraded)
+            LGP.GetComponent<Image>().color = new Vector4(.3f, .3f, .3f, 1);
+        if (ammoSys.upgraded)
+            LAP.GetComponent<Image>().color = new Vector4(.3f, .3f, .3f, 1);
     }
 
     // Update is called once per frame
@@ -39,8 +49,9 @@ public class ShopManager : MonoBehaviour
         {
             gs.SubtractGold(ammoPouchUpgradeCost);
             ammoSys.setUpgradeAmmo();
+            ShopUsed();
         }
-        
+
     }
 
     public void BuyGoldPouchUpgrade()
@@ -49,6 +60,17 @@ public class ShopManager : MonoBehaviour
         {
             gs.SubtractGold(goldPouchUpgradeCost);
             gs.setUpgradeGold();
+            ShopUsed();
+        }
+    }
+
+    public void BuyExplosiveGunUpgrade()
+    {
+        if(gs.totalGold >= ExplosiveGunUpgradeCost && PlayerData.unlockedBombShot == false)
+        {
+            gs.SubtractGold(ExplosiveGunUpgradeCost);
+            PlayerData.unlockedBombShot = true;
+            ShopUsed();
         }
     }
 
@@ -56,5 +78,15 @@ public class ShopManager : MonoBehaviour
     {
         Time.timeScale = 1;
         gameObject.SetActive(false);
+    }
+
+    public void ShopUsed()
+    {
+        if (gs.upgraded)
+            LGP.GetComponent<Image>().color = new Vector4(.3f, .3f, .3f, 1);
+        if (ammoSys.upgraded)
+            LAP.GetComponent<Image>().color = new Vector4(.3f, .3f, .3f, 1);
+        if(PlayerData.unlockedBombShot)
+            EGU.GetComponent<Image>().color = new Vector4(.3f, .3f, .3f, 1);
     }
 }

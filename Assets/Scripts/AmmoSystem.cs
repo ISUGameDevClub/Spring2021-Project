@@ -18,15 +18,19 @@ public class AmmoSystem : MonoBehaviour
     {
         nc = FindObjectOfType<NotificationController>();
         upgraded = false;
-        if(ammoText != null)
-            ammoText.text = "Ammo: " + totalAmmo;
+        if (ammoText != null && !upgraded)
+            ammoText.text = "Ammo: " + totalAmmo + "/" + maxDefaultAmmo;
+        else if (ammoText != null && upgraded)
+            ammoText.text = "Ammo: " + totalAmmo + "/" + maxDefaultAmmo;
     }
 
     public void UseAmmo(int amount)
     {
         totalAmmo -= amount;
-        if (ammoText != null)
-            ammoText.text = "Ammo: " + totalAmmo;
+        if (ammoText != null && !upgraded)
+            ammoText.text = "Ammo: " + totalAmmo + "/" + maxDefaultAmmo;
+        else if (ammoText != null && upgraded)
+            ammoText.text = "Ammo: " + totalAmmo + "/" + maxDefaultAmmo;
     }
 
     public void PickupAmmo(int amount)
@@ -44,7 +48,11 @@ public class AmmoSystem : MonoBehaviour
             if (nc)
                 nc.ShowNotification("Ammo Pouch Full", 1);
         }
-        ammoText.text = "Ammo: " + totalAmmo;
+        
+        if (ammoText != null && !upgraded)
+            ammoText.text = "Ammo: " + totalAmmo + "/" + maxDefaultAmmo;
+        else if (ammoText != null && upgraded)
+            ammoText.text = "Ammo: " + totalAmmo + "/" + maxDefaultAmmo;
 
     }
 

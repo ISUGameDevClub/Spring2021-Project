@@ -22,7 +22,7 @@ public class WallJump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && !pm.isGrounded && PlayerData.unlockedWallJump && Time.timeScale != 0)
+        if(Input.GetKeyDown(KeyCode.Space) && !pm.isGrounded && PlayerData.unlockedWallJump && Time.timeScale != 0 && !pm.onLadder)
         {
             int wallDirection = checkForWall();
             if (wallDirection==1)
@@ -43,14 +43,14 @@ public class WallJump : MonoBehaviour
             }
         }
 
-        if (!pm.isGrounded && PlayerData.unlockedWallJump && Time.timeScale != 0)
+        if (!pm.isGrounded && PlayerData.unlockedWallJump && Time.timeScale != 0 && !pm.onLadder)
         {
             int wallDirection = checkForWall();
-            if (wallDirection == 1 && Input.GetKey(KeyCode.D) && rb.velocity.y < -2)
+            if (wallDirection == 1 && Input.GetKey(KeyCode.D) && rb.velocity.y < -1.9f)
             {
                 pm.wallSlide = true;
             }
-            else if (wallDirection == 0 && Input.GetKey(KeyCode.A) && rb.velocity.y < -2)
+            else if (wallDirection == 0 && Input.GetKey(KeyCode.A) && rb.velocity.y < -1.9f)
             {
                 pm.wallSlide = true;
             }

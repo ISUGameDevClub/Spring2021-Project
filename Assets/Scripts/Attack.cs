@@ -87,6 +87,11 @@ public class Attack : MonoBehaviour
                 ams.UseAmmo(1);
                 StartCoroutine(RangedAttack());
             }
+            else if(Input.GetKeyDown(KeyCode.Mouse1) && PlayerData.unlockedGun && attackReady && ams.totalAmmo <= 0 && pm.canMove && pm.isGrounded)
+            {
+                FindObjectOfType<NotificationController>().ShowNotification("Out of ammo", 1);
+            }
+
             if (meleeMovement)
             {
                 if (pm.facingRight)
@@ -113,9 +118,9 @@ public class Attack : MonoBehaviour
     }
 
     private IEnumerator MeleeAttack(int curAttack) {
+        GetComponent<Health>().invincible = true;
         if (curAttack == 1)
             melee1.Play();
-
         else if (curAttack == 2)
             melee2.Play();
         else
@@ -130,6 +135,7 @@ public class Attack : MonoBehaviour
 		coll.enabled = true;
 		yield return new WaitForSeconds(meleeAttackWindup);
 		attackZone.SetActive(true);
+        GetComponent<Health>().invincible = false;
         if (curAttack == 1)
             attackZone.GetComponent<Animator>().SetTrigger("Attack 1");
 

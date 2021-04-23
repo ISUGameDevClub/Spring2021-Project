@@ -85,19 +85,23 @@ public class PlayerMovement : MonoBehaviour
 
             if (!isGrounded && rb.velocity.y > 0 && !Input.GetKey(KeyCode.Space) && canMove && !onLadder && enableGravity && !wallSlide)
             {
+                myAnim.SetBool("Wall Sliding", false);
                 rb.gravityScale = gravity * fallSpeed;
             }
             else if (!onLadder && enableGravity && !wallSlide)
             {
+                myAnim.SetBool("Wall Sliding", false);
                 rb.gravityScale = gravity;
             }
-            else if (wallSlide)
+            else if (wallSlide && !onLadder)
             {
+                myAnim.SetBool("Wall Sliding", true);
                 rb.gravityScale = 0;
                 rb.velocity = new Vector3(rb.velocity.x, -2, 0);
             }
             else
             {
+                myAnim.SetBool("Wall Sliding", false);
                 rb.gravityScale = 0;
             }
 

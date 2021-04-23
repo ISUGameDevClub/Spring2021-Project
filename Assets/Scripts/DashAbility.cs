@@ -19,6 +19,7 @@ public class DashAbility : MonoBehaviour
     private PlayerMovement pm;
     public GameObject Smoke;
     public GameObject SmokeSpawn;
+    private Coroutine dashCorutine;
 
 
     // Start is called before the first frame update
@@ -41,13 +42,17 @@ public class DashAbility : MonoBehaviour
                 if (pm.isGrounded)
                     dashAvailable = true;
             }
-            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && pm.canMove && direction == 0 && dashAvailable)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && PlayerData.unlockedDash && canDash && pm.canMove && direction == 0 && dashAvailable && Time.timeScale != 0)
             {
                 GameObject s = Instantiate(Smoke, SmokeSpawn.transform);
+                if(pm.facingRight)
+                {
+                    s.transform.eulerAngles = new Vector3(0,0, 180);
+                }
                 pm.DisableMovement(startDashTime);
                 pm.myAnim.SetTrigger("Dash");
                 dashAvailable = false;
-                StartCoroutine(DashCooldown());
+                dashCorutine = StartCoroutine(DashCooldown());
                 if(!pm.facingRight)
                 {
                     direction = 1;
@@ -96,6 +101,15 @@ public class DashAbility : MonoBehaviour
     {
         canDash = false;
         yield return new WaitForSeconds(cooldownTimer);
+        canDash = true;
+    }
+
+    public void ResetDash()
+    {
+        if (dashCorutine != null)
+            StopCoroutine(dashCorutine);
+        direction = 0;
+        dashTime = startDashTime;
         canDash = true;
     }
 }

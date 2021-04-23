@@ -9,7 +9,8 @@ public class PauseMenu : MonoBehaviour
     public static float musicVolume;
 
     private bool paused;
-    private bool cantPause;
+    [HideInInspector]
+    public bool cantPause;
 
     void Start()
     {
@@ -17,7 +18,7 @@ public class PauseMenu : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P)&&!cantPause)
+        if (Input.GetKeyDown(KeyCode.P) && !cantPause)
         {
             if (paused)
                 Unpause();

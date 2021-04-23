@@ -36,11 +36,17 @@ public class LevelSelect : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
+        {
+            FindObjectOfType<NotificationController>().ShowNotification("Press E to select city", 3);
             canChange = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
+        {
             canChange = false;
+            FindObjectOfType<NotificationController>().ShowNotification("Jump off the boat to enter the city", 3);
+        }
     }
 }
