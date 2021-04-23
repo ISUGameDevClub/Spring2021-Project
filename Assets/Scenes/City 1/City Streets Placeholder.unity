@@ -1345,6 +1345,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: _Player Necessities
       objectReference: {fileID: 0}
+    - target: {fileID: 1906639353029827216, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1906639353029827216, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053104882514363956, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053104882514363956, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625351989922714838, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625351989922714838, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3625351989922714838, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6055408870154718672, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1374,6 +1409,21 @@ PrefabInstance:
         type: 3}
       propertyPath: yMin
       value: -11.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132137451009141760, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132137451009141760, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132137451009141760, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8132592989691497243, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
@@ -1414,6 +1464,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bounce Pad (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 822028129712551090, guid: c3734ccc788e1a84e848b0db8545fca6,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 822028129712551100, guid: c3734ccc788e1a84e848b0db8545fca6,
         type: 3}

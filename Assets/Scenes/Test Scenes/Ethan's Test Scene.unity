@@ -32500,15 +32500,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1652336661, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
       propertyPath: debugDashUnlock
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1652336661, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
       propertyPath: debugCannonUnlock
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1652336661, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
       propertyPath: debugGrappleUnlock
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1652336661, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
       propertyPath: debugStartWithAmmo
