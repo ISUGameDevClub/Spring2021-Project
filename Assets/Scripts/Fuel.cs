@@ -16,6 +16,18 @@ public class Fuel : MonoBehaviour
             p.transform.SetParent(null);
             PlayerData.collectedFuel[myFuelNumber] = true;
             FindObjectOfType<PlayerData>().CollectFuel();
+            if (PlayerData.fuel == 3)
+            {
+                FindObjectOfType<NotificationController>().ShowNotification("You have enough fuel to go to the next city!", 5);
+            }
+            if (PlayerData.fuel == 6)
+            {
+                FindObjectOfType<NotificationController>().ShowNotification("You have enough fuel to go to the next city!", 5);
+            }
+            else
+            {
+                FindObjectOfType<NotificationController>().ShowNotification("You found fuel for the ship!", 3);
+            }
             Destroy(gameObject);
         }
     }

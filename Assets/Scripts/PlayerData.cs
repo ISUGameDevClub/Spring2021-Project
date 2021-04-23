@@ -20,6 +20,7 @@ public class PlayerData : MonoBehaviour
     public static int maxAmmo = 10;
     public static int fuel = 0;
     public static bool[] collectedFuel = new bool[30];
+    public static bool[] collectedChest = new bool[30];
     public static bool unlockedGun;
     public static bool unlockedDash;
     public static bool unlockedCannon;
@@ -99,5 +100,13 @@ public class PlayerData : MonoBehaviour
         fuel++;
         if(fuelText != null)
             fuelText.text = "Fuel: " + fuel;
+    }
+
+    public static void ResetChests()
+    {
+        for(int x = 0; x < collectedChest.Length; x++)
+        {
+            collectedChest[x] = false;
+        }
     }
 }

@@ -43,6 +43,7 @@ public class PauseMenu : MonoBehaviour
     {
         Unpause();
         cantPause = true;
+        PlayerData.ResetChests();
         GetComponent<SceneTransition>().newScene = "MainHub";
         GetComponent<SceneTransition>().StartGame();
     }
