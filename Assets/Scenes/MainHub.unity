@@ -565,6 +565,11 @@ PrefabInstance:
       propertyPath: m_Colors.m_DisabledColor.r
       value: 0.4528302
       objectReference: {fileID: 0}
+    - target: {fileID: 5707553547099583846, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: newSong
+      value: 
+      objectReference: {fileID: 8300000, guid: 870464da740934648be7088541f43883, type: 3}
     - target: {fileID: 6132137451009141760, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_AnchorMax.x

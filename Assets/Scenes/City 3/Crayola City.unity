@@ -776,6 +776,11 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5707553547099583846, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: newSong
+      value: 
+      objectReference: {fileID: 8300000, guid: febf998c5a23e6a4ab039848b81e1090, type: 3}
     - target: {fileID: 6055408870154718672, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_LocalPosition.x

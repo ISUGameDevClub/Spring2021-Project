@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject menu;
     public static float masterVolume;
     public static float musicVolume;
+    private PlayerMovement pm;
 
     private bool paused;
     [HideInInspector]
@@ -14,6 +15,7 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
+        pm = FindObjectOfType<PlayerMovement>();
         menu.SetActive(false);
     }
     void Update()
@@ -44,8 +46,7 @@ public class PauseMenu : MonoBehaviour
         Unpause();
         cantPause = true;
         PlayerData.ResetChests();
-        GetComponent<SceneTransition>().newScene = "MainHub";
-        GetComponent<SceneTransition>().StartGame();
+        StartCoroutine(ReturnToHubFun());
     }
     public void ReturnToTitle()
     {
@@ -68,5 +69,17 @@ public class PauseMenu : MonoBehaviour
             FindObjectOfType<MusicManager>().musicVolume = musicVolume;
             FindObjectOfType<MusicManager>().currentSong.volume = musicVolume;
         }
+    }
+
+    public IEnumerator ReturnToHubFun()
+    {
+        pm.GetComponent<CapsuleCollider2D>().enabled = false;
+        pm.scriptedMovement = true;
+        pm.enableGravity = false;
+        pm.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        pm.myAnim.SetTrigger("Hub");
+        yield return new WaitForSeconds(2f);
+        GetComponent<SceneTransition>().newScene = "MainHub";
+        GetComponent<SceneTransition>().StartGame();
     }
 }
