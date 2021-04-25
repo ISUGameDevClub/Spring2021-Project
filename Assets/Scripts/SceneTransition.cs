@@ -36,7 +36,6 @@ public class SceneTransition : MonoBehaviour
     {
         if (touchingPlayer && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("SD");
             StartCoroutine(LoadLevel());
         }
     }
