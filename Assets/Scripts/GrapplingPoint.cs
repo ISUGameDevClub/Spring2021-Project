@@ -19,17 +19,22 @@ public class GrapplingPoint : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
-
-        if(!PlayerData.unlockedGrapple)
-        {
-            srPoint1.enabled = false;
-            srPoint2.enabled = false;
-        }
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q) && !swinging && PlayerData.unlockedGrapple)
+        if (!PlayerData.unlockedGrapple)
+        {
+            srPoint1.enabled = false;
+            srPoint2.enabled = false;
+        }
+        else
+        {
+            srPoint1.enabled = true;
+            srPoint2.enabled = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q) && !swinging && PlayerData.unlockedGrapple)
         {
             if(Vector2.Distance(point1.position,player.transform.position) < startDistance)
             {

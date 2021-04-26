@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 126234064388243580}
   m_Layer: 0
   m_Name: Gondola
-  m_TagString: Ground
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 7061796424230940858}
   m_Layer: 0
   m_Name: Moving Gondola
-  m_TagString: Ground
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 7061796424502205036}
   m_Layer: 0
   m_Name: Position 1
-  m_TagString: Untagged
+  m_TagString: Boat
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 7061796424534029978}
   m_Layer: 0
   m_Name: Position 2
-  m_TagString: Untagged
+  m_TagString: Boat
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 126234063868159549}
   m_Layer: 0
   m_Name: Solid Platform
-  m_TagString: Ground
+  m_TagString: Boat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

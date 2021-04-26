@@ -8,6 +8,7 @@ TagManager:
   - AI-Agent
   - Explosive
   - Enemy
+  - Boat
   layers:
   - Default
   - TransparentFX

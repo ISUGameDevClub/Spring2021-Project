@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     private float canMoveTimer;
     private Rigidbody2D rb;
+    public bool boat;
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
             else
                 canMove = false;
 
-            if (isGrounded)
+            if (isGrounded && !boat)
             {
                 lastGroundedPosition = transform.position;
             }
