@@ -28,7 +28,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1780606077597184789}
   m_Father: {fileID: 1879421904527483764}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -169,10 +170,12 @@ MonoBehaviour:
   lastGroundedPosition: {x: 0, y: 0}
   mySprite: {fileID: 610010692}
   myAnim: {fileID: 610010693}
+  jumpSound: {fileID: 0}
   scriptedMovement: 0
   canMove: 0
   onLadder: 0
   enableGravity: 0
+  wallSlide: 0
 --- !u!114 &4099850179306137419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rangedSpeed: 10
   attackZone: {fileID: 4099850178972575069}
+  attackSprite: {fileID: 0}
   bullet: {fileID: 1877549074760806174, guid: 3b78fe414b59d414a9b6afa80151d231, type: 3}
   bomb: {fileID: 462972031252772237, guid: 00efb0e80078ea94da545bfbc2b3f24d, type: 3}
   attackMovementSpeed: 3.2
@@ -214,11 +218,13 @@ MonoBehaviour:
   maxHealth: 5
   curHealth: 5
   isPlayer: 1
+  invincible: 0
   healthText: {fileID: 0}
   transition: {fileID: 0}
   transitionTime: 0.25
   playerHurtEffect: {fileID: 0}
   hurtBox: {fileID: 0}
+  soundEffect: {fileID: 0}
   healParticle: {fileID: 5683534565272200010, guid: 392bc5362f54a59499281862d5009519,
     type: 3}
   DeathParticle: {fileID: 9028577697116380363, guid: 9ede6067c4c954a4ebd96938c5152000,
@@ -273,7 +279,8 @@ MonoBehaviour:
   startDashTime: 0.25
   dashAvailable: 0
   cooldownTimer: 1
-  direction: 0
+  Smoke: {fileID: 0}
+  SmokeSpawn: {fileID: 0}
 --- !u!114 &5544311317821875795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -881,4 +888,85 @@ SpriteMask:
   m_FrontSortingOrder: 0
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
+  m_SpriteSortPoint: 0
+--- !u!1 &7310120455680381083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1780606077597184789}
+  - component: {fileID: 6308355700412316660}
+  m_Layer: 0
+  m_Name: Anchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1780606077597184789
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310120455680381083}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 40, z: -100}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 610010691}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &6308355700412316660
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310120455680381083}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -1918790253
+  m_SortingLayer: 3
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 00ccece806f0ab5459c81ff4f6b4db05, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2, y: 37.5}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
