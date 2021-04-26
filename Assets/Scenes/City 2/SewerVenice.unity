@@ -480,15 +480,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1652336661, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
       propertyPath: debugDashUnlock
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1652336661, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
       propertyPath: debugCannonUnlock
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1652336661, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
       propertyPath: debugGrappleUnlock
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 364257686764149426, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
@@ -2555,7 +2555,7 @@ Transform:
   - {fileID: 9002991541373122909}
   - {fileID: 9002991540633780840}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9002991540633780840
 Transform:
