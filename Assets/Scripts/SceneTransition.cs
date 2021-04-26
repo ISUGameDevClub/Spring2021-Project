@@ -13,6 +13,7 @@ public class SceneTransition : MonoBehaviour
     public AudioClip newSong;
 
     private bool touchingPlayer;
+    private bool stillTouchingPlayer = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -34,6 +35,10 @@ public class SceneTransition : MonoBehaviour
 
     private void Update()
     {
+        if (touchingPlayer && !stillTouchingPlayer && interactable)
+        {
+            StartCoroutine(NotifyPlayer());
+        }
         if (touchingPlayer && Input.GetKeyDown(KeyCode.E))
         {
             StartCoroutine(LoadLevel());
@@ -70,5 +75,18 @@ public class SceneTransition : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Game is exiting");
+    }
+
+    public IEnumerator NotifyPlayer()
+    {
+        stillTouchingPlayer = true;
+        FindObjectOfType<NotificationController>().ShowNotification("Enter using E", 1);
+        yield return new WaitForSeconds(3);
+        while (touchingPlayer)
+        {
+            yield return new WaitForSeconds(1);
+        }
+        stillTouchingPlayer = false;
+
     }
 }
