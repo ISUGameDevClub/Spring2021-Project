@@ -75,7 +75,7 @@ public class Cannon : MonoBehaviour
        {
             isCannon = true;
             if (!PlayerData.unlockedCannon)
-                FindObjectOfType<NotificationController>().ShowNotification("I need to come back when I have something to light this with...", 3);
+                FindObjectOfType<NotificationController>().ShowNotification("I need something to light this with...", 3);
         }
     }
 

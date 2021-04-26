@@ -20,7 +20,7 @@ public class Fuel : MonoBehaviour
             {
                 FindObjectOfType<NotificationController>().ShowNotification("You have enough fuel to go to the next city!", 5);
             }
-            if (PlayerData.fuel == 6)
+            else if (PlayerData.fuel == 6)
             {
                 FindObjectOfType<NotificationController>().ShowNotification("You have enough fuel to go to the next city!", 5);
             }
