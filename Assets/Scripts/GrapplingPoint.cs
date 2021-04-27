@@ -34,7 +34,7 @@ public class GrapplingPoint : MonoBehaviour
             srPoint2.enabled = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && !swinging && PlayerData.unlockedGrapple)
+        if (Input.GetKeyDown(KeyCode.E) && !swinging && PlayerData.unlockedGrapple)
         {
             if(Vector2.Distance(point1.position,player.transform.position) < startDistance)
             {

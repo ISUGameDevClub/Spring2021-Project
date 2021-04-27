@@ -28,12 +28,12 @@ public class UnlockAbility : MonoBehaviour
             if (unlockedAbility == 1)
             {
                 PlayerData.unlockedGun = true;
-                FindObjectOfType<NotificationController>().ShowNotification("You can now shoot with right click", 3);
+                FindObjectOfType<NotificationController>().ShowNotification("You can now shoot with Right Click", 3);
             }
             else if (unlockedAbility == 2)
             {
                 PlayerData.unlockedDash = true;
-                FindObjectOfType<NotificationController>().ShowNotification("You can now dash with shift", 3);
+                FindObjectOfType<NotificationController>().ShowNotification("You can now dash with Shift", 3);
             }
             else if (unlockedAbility == 3)
             {
@@ -43,7 +43,7 @@ public class UnlockAbility : MonoBehaviour
             else if (unlockedAbility == 4)
             {
                 PlayerData.unlockedGrapple = true;
-                FindObjectOfType<NotificationController>().ShowNotification("You can now use grapples with Q", 3);
+                FindObjectOfType<NotificationController>().ShowNotification("You can now use grapples with E", 3);
             }
             else if (unlockedAbility == 5)
             {

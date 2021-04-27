@@ -21,7 +21,7 @@ public class Ladder : MonoBehaviour
     {
         if(touchingLadder && !isClimbing)
         {
-            if(Input.GetAxisRaw("Vertical") > 0)
+            if(Input.GetAxisRaw("Vertical") != 0)
             {
                 isClimbing = true;
                 pm.onLadder = true;
