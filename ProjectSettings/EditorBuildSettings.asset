@@ -51,6 +51,12 @@ EditorBuildSettings:
     path: Assets/Scenes/City 3/Streets 1.unity
     guid: 8ebad448f7c14014383a368f9126012c
   - enabled: 1
+    path: Assets/Scenes/Pirate Cove.unity
+    guid: d2a5154398b9ef640954e41b3faadb35
+  - enabled: 1
+    path: Assets/Scenes/Bonus World.unity
+    guid: aeb16cccb75991c40b9aea411fcb3e5f
+  - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 945d81565b3c56a419d705519d966fb5
   m_configObjects: {}

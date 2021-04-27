@@ -1626,6 +1626,8 @@ MonoBehaviour:
   transitionTime: 0.25
   transition: {fileID: 1824126383690397451}
   newSong: {fileID: 8300000, guid: 0e9620ba472c8cc4483af80d6b86f782, type: 3}
+  titleTheme: {fileID: 8300000, guid: e554a132159ff8641a272ae8b7a009a8, type: 3}
+  hubTheme: {fileID: 8300000, guid: 870464da740934648be7088541f43883, type: 3}
 --- !u!114 &7838820442768683774
 MonoBehaviour:
   m_ObjectHideFlags: 0

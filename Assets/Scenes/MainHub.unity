@@ -136,7 +136,7 @@ PrefabInstance:
     - target: {fileID: 5619382742493192961, guid: 4975bd51144191248bbec85fdf97f959,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5619382742493192961, guid: 4975bd51144191248bbec85fdf97f959,
         type: 3}
@@ -195,12 +195,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4975bd51144191248bbec85fdf97f959, type: 3}
---- !u!4 &107092609 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 49493031462829540, guid: 766d7084a51384543bd46d02688c4e38,
-    type: 3}
-  m_PrefabInstance: {fileID: 267574737}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &157233823
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -354,9 +348,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 49493031462829539, guid: 766d7084a51384543bd46d02688c4e38,
         type: 3}
+      propertyPath: ac.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 49493031462829539, guid: 766d7084a51384543bd46d02688c4e38,
+        type: 3}
       propertyPath: SceneTransition
       value: 
       objectReference: {fileID: 818564175}
+    - target: {fileID: 49493031462829539, guid: 766d7084a51384543bd46d02688c4e38,
+        type: 3}
+      propertyPath: ac.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 0e9620ba472c8cc4483af80d6b86f782, type: 3}
+    - target: {fileID: 49493031462829539, guid: 766d7084a51384543bd46d02688c4e38,
+        type: 3}
+      propertyPath: ac.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3e5131cf45123df4cbb7bb155488ff73, type: 3}
+    - target: {fileID: 49493031462829539, guid: 766d7084a51384543bd46d02688c4e38,
+        type: 3}
+      propertyPath: ac.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: febf998c5a23e6a4ab039848b81e1090, type: 3}
+    - target: {fileID: 49493031462829539, guid: 766d7084a51384543bd46d02688c4e38,
+        type: 3}
+      propertyPath: ac.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 90f06093d0ffd5f439f37195d9524cda, type: 3}
+    - target: {fileID: 49493031462829539, guid: 766d7084a51384543bd46d02688c4e38,
+        type: 3}
+      propertyPath: Scenes.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 49493031462829539, guid: 766d7084a51384543bd46d02688c4e38,
         type: 3}
       propertyPath: Scenes.Array.data[0]
@@ -372,10 +396,20 @@ PrefabInstance:
       propertyPath: Scenes.Array.data[2]
       value: Crayola City
       objectReference: {fileID: 0}
+    - target: {fileID: 49493031462829539, guid: 766d7084a51384543bd46d02688c4e38,
+        type: 3}
+      propertyPath: Scenes.Array.data[3]
+      value: Pirate Cove
+      objectReference: {fileID: 0}
+    - target: {fileID: 49493031462829539, guid: 766d7084a51384543bd46d02688c4e38,
+        type: 3}
+      propertyPath: Scenes.Array.data[4]
+      value: Bonus World
+      objectReference: {fileID: 0}
     - target: {fileID: 49493031462829540, guid: 766d7084a51384543bd46d02688c4e38,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 49493031462829540, guid: 766d7084a51384543bd46d02688c4e38,
         type: 3}
@@ -444,27 +478,49 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 107092609}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 143122854685947881, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 587049417394881607, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: ammoPouchUpgradeCost
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 587049417394881607, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: goldPouchUpgradeCost
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 587049417394881607, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: ExplosiveGunUpgradeCost
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 760544718712495041, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Larger Ammo Pouch
+
+        15G'
+      objectReference: {fileID: 0}
     - target: {fileID: 1824126384832432972, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1824126384832432972, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1824126384832432972, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1824126384832432972, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
@@ -571,6 +627,13 @@ PrefabInstance:
       propertyPath: m_Colors.m_DisabledColor.r
       value: 0.4528302
       objectReference: {fileID: 0}
+    - target: {fileID: 4100288364837760522, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Larger Gold Pouch
+
+        15G'
+      objectReference: {fileID: 0}
     - target: {fileID: 5707553547099583846, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: newSong
@@ -590,6 +653,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7674831156011016911, guid: 95cb44e9632a194408cb6390056ace25,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Explosive Gun
+
+        25G'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
@@ -895,7 +965,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &825867692
 MonoBehaviour:
@@ -1431,7 +1501,7 @@ PrefabInstance:
     - target: {fileID: 887570720443990360, guid: 47054d7ee01909c4b881bf7d3da5a272,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 887570720443990360, guid: 47054d7ee01909c4b881bf7d3da5a272,
         type: 3}

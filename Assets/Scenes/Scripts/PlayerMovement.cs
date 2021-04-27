@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
                 }
 
 
-                if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+                if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !onLadder)
                 {
                     Jump();
                 }

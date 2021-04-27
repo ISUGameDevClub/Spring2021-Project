@@ -20,7 +20,7 @@ public class PauseMenu : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && !cantPause)
+        if (Input.GetKeyDown(KeyCode.Escape) && !cantPause)
         {
             if (paused)
                 Unpause();
@@ -52,6 +52,7 @@ public class PauseMenu : MonoBehaviour
     {
         Unpause();
         cantPause = true;
+        GetComponent<SceneTransition>().newSong = GetComponent<SceneTransition>().titleTheme;
         GetComponent<SceneTransition>().newScene = "Title";
         GetComponent<SceneTransition>().StartGame();
     }
@@ -79,6 +80,7 @@ public class PauseMenu : MonoBehaviour
         pm.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         pm.myAnim.SetTrigger("Hub");
         yield return new WaitForSeconds(2f);
+        GetComponent<SceneTransition>().newSong = GetComponent<SceneTransition>().hubTheme;
         GetComponent<SceneTransition>().newScene = "MainHub";
         GetComponent<SceneTransition>().StartGame();
     }

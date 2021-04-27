@@ -11,6 +11,8 @@ public class SceneTransition : MonoBehaviour
     public float transitionTime = .25f;
     public Animator transition;
     public AudioClip newSong;
+    public AudioClip titleTheme;
+    public AudioClip hubTheme;
 
     private bool touchingPlayer;
     private bool stillTouchingPlayer = false;
@@ -68,6 +70,7 @@ public class SceneTransition : MonoBehaviour
     public void ReturnToTitle()
     {
         newScene = "Title";
+        newSong = titleTheme;
         StartCoroutine(LoadLevel());
     }
 

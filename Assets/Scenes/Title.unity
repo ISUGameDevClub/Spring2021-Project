@@ -2552,7 +2552,7 @@ MonoBehaviour:
   spawnPosition: 0
   transitionTime: 0.25
   transition: {fileID: 1705581426}
-  newSong: {fileID: 8300000, guid: 0e9620ba472c8cc4483af80d6b86f782, type: 3}
+  newSong: {fileID: 8300000, guid: 870464da740934648be7088541f43883, type: 3}
 --- !u!1 &2030537312
 GameObject:
   m_ObjectHideFlags: 0

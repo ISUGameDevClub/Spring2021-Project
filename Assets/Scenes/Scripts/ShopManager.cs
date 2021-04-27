@@ -26,9 +26,9 @@ public class ShopManager : MonoBehaviour
         }
         gameObject.SetActive(false);
 
-        if (gs.upgraded)
+        if (PlayerData.maxCoins == 50)
             LGP.GetComponent<Image>().color = new Vector4(.3f, .3f, .3f, 1);
-        if (ammoSys.upgraded)
+        if (PlayerData.maxAmmo == 15)
             LAP.GetComponent<Image>().color = new Vector4(.3f, .3f, .3f, 1);
     }
 
@@ -45,7 +45,7 @@ public class ShopManager : MonoBehaviour
 
     public void BuyAmmoPouchUpgrade()
     {
-        if(gs.totalGold >= ammoPouchUpgradeCost && ammoSys.upgraded == false)
+        if(gs.totalGold >= ammoPouchUpgradeCost && PlayerData.maxAmmo != 15)
         {
             gs.SubtractGold(ammoPouchUpgradeCost);
             ammoSys.setUpgradeAmmo();
@@ -56,7 +56,7 @@ public class ShopManager : MonoBehaviour
 
     public void BuyGoldPouchUpgrade()
     {
-        if (gs.totalGold >= goldPouchUpgradeCost && gs.upgraded == false)
+        if (gs.totalGold >= goldPouchUpgradeCost && PlayerData.maxCoins != 50)
         {
             gs.SubtractGold(goldPouchUpgradeCost);
             gs.setUpgradeGold();
@@ -83,9 +83,9 @@ public class ShopManager : MonoBehaviour
 
     public void ShopUsed()
     {
-        if (gs.upgraded)
+        if (PlayerData.maxCoins == 50)
             LGP.GetComponent<Image>().color = new Vector4(.3f, .3f, .3f, 1);
-        if (ammoSys.upgraded)
+        if (PlayerData.maxAmmo != 15)
             LAP.GetComponent<Image>().color = new Vector4(.3f, .3f, .3f, 1);
         if(PlayerData.unlockedBombShot)
             EGU.GetComponent<Image>().color = new Vector4(.3f, .3f, .3f, 1);

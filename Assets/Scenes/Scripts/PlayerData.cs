@@ -14,7 +14,7 @@ public class PlayerData : MonoBehaviour
     public bool debugBombShot;
     public Text fuelText;
     public static int playerSpawn;
-    public static int coins;
+    public static int coins = 20;
     public static int maxCoins = 20;
     public static int ammo;
     public static int maxAmmo = 10;
