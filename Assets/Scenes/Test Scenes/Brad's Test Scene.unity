@@ -12230,7 +12230,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1652336661, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
       propertyPath: debugGun
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1652336661, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
       propertyPath: debugBombShot
@@ -12250,7 +12250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1652336661, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
       propertyPath: debugStartWithAmmo
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1652336661, guid: 95cb44e9632a194408cb6390056ace25, type: 3}
       propertyPath: debugStartWithGold
@@ -12293,17 +12293,17 @@ PrefabInstance:
     - target: {fileID: 1824126384832432972, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1824126384832432972, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1824126384832432972, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1824126384832432972, guid: 95cb44e9632a194408cb6390056ace25,
         type: 3}
