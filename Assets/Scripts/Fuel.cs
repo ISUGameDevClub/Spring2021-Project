@@ -19,7 +19,7 @@ public class Fuel : MonoBehaviour
             FindObjectOfType<PlayerData>().CollectFuel();
             if (PlayerData.fuel == 3)
             {
-                FindObjectOfType<NotificationController>().ShowNotification("You have enough fuel to go to the next city!", 5);
+                FindObjectOfType<NotificationController>().ShowNotification("You have enough fuel to go to the next city! Press Escape to Return To Hub!", 10);
             }
             else if (PlayerData.fuel == 6)
             {
